@@ -1,0 +1,90 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from agent.router import classify_query
+from agent.actions import TOOL_MAP
+from agent.state import get_history, add_exchange
+from langchain_groq import ChatGroq
+from dotenv import load_dotenv
+
+load_dotenv()
+_llm = None
+
+def get_llm():
+    global _llm
+    if _llm is None:
+        _llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+    return _llm
+
+def generate_answer(question, tool_result, history):
+    history_text = "\n".join(f"Q: {h['question']}\nA: {h['answer']}" for h in history[-3:])
+
+    if tool_result["tool"] in ("search_manual", "check_schedule"):
+        context = "\n\n".join(
+            f"[Page {c['page_number']}]\n{c['text']}" for c in tool_result["chunks"]
+        )
+        prompt = f"""Previous conversation:
+{history_text}
+
+Manual context:
+{context}
+
+Question: {question}
+
+Answer strictly using only the context above. Cite the page number. 
+If the question asks about something outside this manual context, unrelated topics, general knowledge, or world affairs, you must state politely that you do not have that information in the manuals."""
+        llm = get_llm()
+        response = llm.invoke(prompt)
+
+        seen = set()
+        sources = []
+        for c in tool_result["chunks"]:
+            key = (c["page_number"], c["source"])
+            if key not in seen:
+                seen.add(key)
+                sources.append({"page": c["page_number"], "source": c["source"]})
+
+        return response.content, sources
+
+    elif tool_result["tool"] == "log_issue":
+        return tool_result["message"], []
+
+    else:  # escalate (handles out-of-bounds/general-knowledge queries cleanly)
+        return "I don't have that information in the manuals. The provided sources do not contain details regarding your request.", []
+
+def run_agent(question, session_id="default"):
+    history = get_history(session_id)
+    category = classify_query(question)
+    tool_result = TOOL_MAP[category](question)
+    
+    # 1. Look for an image in the retrieved database chunks
+    found_image_url = None
+    if "chunks" in tool_result:
+        for c in tool_result["chunks"]:
+            if c.get("image_url"):
+                found_image_url = c["image_url"]
+                break  
+                
+    answer, sources = generate_answer(question, tool_result, history)
+    add_exchange(session_id, question, answer)
+    
+    return {
+        "answer": answer, 
+        "sources": sources, 
+        "tool_used": category,
+        "image_url": found_image_url
+    }
+
+def print_chat_reply(question, result):
+    print(f"\nYou: {question}")
+    print(f"Bot: {result['answer']}")
+    if result["sources"]:
+        pages = ", ".join(f"p.{s['page']}" for s in result["sources"])
+        print(f"    (Source: {result['sources'][0]['source']} — {pages})")
+    if result.get("image_url"):
+        print(f"    (Image Attached: {result['image_url']})")
+
+if __name__ == "__main__":
+    q1 = "What causes E-322 and how do I fix it?"
+    r1 = run_agent(q1, session_id="test")
+    print_chat_reply(q1, r1)

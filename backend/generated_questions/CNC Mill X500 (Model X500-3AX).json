@@ -1,0 +1,374 @@
+[
+  {
+    "question": "What's the model number of our CNC mill?",
+    "expected_page": 1,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 0
+  },
+  {
+    "question": "Who made our X500 machine?",
+    "expected_page": 1,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 0
+  },
+  {
+    "question": "What sections are covered in this equipment manual?",
+    "expected_page": 2,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 1
+  },
+  {
+    "question": "Where can I find info on fixing common problems with this equipment?",
+    "expected_page": 2,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 1
+  },
+  {
+    "question": "What's the range of spindle speeds on the CNC Mill X500?",
+    "expected_page": 3,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 2
+  },
+  {
+    "question": "How accurate is the positioning on this machine?",
+    "expected_page": 3,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 2
+  },
+  {
+    "question": "What's the maximum weight this machine can handle for a workpiece?",
+    "expected_page": 3,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 3
+  },
+  {
+    "question": "What kind of power supply does this machine require?",
+    "expected_page": 3,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 3
+  },
+  {
+    "question": "What kind of safety gear do I need to wear when I'm working on this machine?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 4
+  },
+  {
+    "question": "Do I need to shut down power to the whole thing before I can start maintenance on the spindle?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 4
+  },
+  {
+    "question": "What's the recommended wait time before handling the spindle after it's been running at high speed?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 5
+  },
+  {
+    "question": "Do I need to wear any special protection when I'm refilling the coolant tank?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 5
+  },
+  {
+    "question": "What kind of foundation do I need to install this machine on?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 6
+  },
+  {
+    "question": "How do I know if the machine is level enough before I anchor it?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 6
+  },
+  {
+    "question": "What's the correct air pressure range I should see on the FRL gauge before I turn on the control cabinet?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 7
+  },
+  {
+    "question": "What's the acceptable pressure range for the pneumatic supply before startup?",
+    "expected_page": 4,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 7
+  },
+  {
+    "question": "What are the steps I need to follow to start up the machine every day?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 8
+  },
+  {
+    "question": "How do I know if the coolant level is okay before I turn on the machine?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 8
+  },
+  {
+    "question": "What's the recommended procedure for getting the spindle ready after the machine has been sitting idle for a while?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 9
+  },
+  {
+    "question": "What are the steps I need to follow to properly shut down the machine at the end of my shift?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 9
+  },
+  {
+    "question": "What tasks am I supposed to do every day to keep the machine running smoothly?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 10
+  },
+  {
+    "question": "Who is allowed to perform the tasks that are listed as requiring a qualified technician?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 10
+  },
+  {
+    "question": "How often am I supposed to grease the linear guideways on this machine?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 11
+  },
+  {
+    "question": "What maintenance tasks are supposed to be done every month by a maintenance tech?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 11
+  },
+  {
+    "question": "How often am I supposed to check and replace the way oil filter on this machine?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 12
+  },
+  {
+    "question": "What's the schedule for recalibrating the axis positioning system on our equipment?",
+    "expected_page": 5,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 12
+  },
+  {
+    "question": "What tasks are supposed to be done annually by a qualified technician on the electrical cabinet?",
+    "expected_page": 6,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 13
+  },
+  {
+    "question": "How often am I supposed to replace the coolant and clean the tank sump?",
+    "expected_page": 6,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 13
+  },
+  {
+    "question": "What should I check if the spindle won't start and there's no alarm displayed?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 14
+  },
+  {
+    "question": "Why won't the spindle rotate when I issue the start command and how can I fix it?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 14
+  },
+  {
+    "question": "What do I do if the spindle won't start after I've checked all the E-STOP buttons?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 15
+  },
+  {
+    "question": "How do I know if the problem with my mill is excessive vibration during cutting?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 15
+  },
+  {
+    "question": "What could be causing my machine to vibrate during operation?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 16
+  },
+  {
+    "question": "How can I troubleshoot if my spindle isn't running smoothly after startup on a cold morning?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 16
+  },
+  {
+    "question": "What should I do if the coolant pump is running but nothing's coming out at the spindle nozzle?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 17
+  },
+  {
+    "question": "How do I fix the issue when the feed rate is too high for the material I'm machining?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 17
+  },
+  {
+    "question": "What's the fix if the coolant flow is low and I've already cleaned the strainer?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 18
+  },
+  {
+    "question": "Why are parts being machined out of tolerance even though the program and offsets are correct?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 18
+  },
+  {
+    "question": "How do I troubleshoot ball screw issues on this machine?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 19
+  },
+  {
+    "question": "What's the first step to take if I think the linear encoder scale is loose?",
+    "expected_page": 7,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 19
+  },
+  {
+    "question": "What could be causing our spindle to drift over the course of a shift?",
+    "expected_page": 8,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 20
+  },
+  {
+    "question": "How often should we check the shop temperature to prevent issues with our equipment?",
+    "expected_page": 8,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 20
+  },
+  {
+    "question": "What should I do if the tool isn't seated right in its pocket and I'm getting an alarm message?",
+    "expected_page": 8,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 21
+  },
+  {
+    "question": "How can I tell if the gripper arm sensor is out of alignment and causing problems?",
+    "expected_page": 8,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 21
+  },
+  {
+    "question": "What should I do after clearing a fault to make sure everything is working right?",
+    "expected_page": 8,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 22
+  },
+  {
+    "question": "Do I need to do anything special after fixing a problem before I can go back to automatic cycles?",
+    "expected_page": 8,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 22
+  },
+  {
+    "question": "What's the fix for an E-101 error code on this machine?",
+    "expected_page": 9,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 23
+  },
+  {
+    "question": "How do I troubleshoot an E-203 error on the X-axis servo?",
+    "expected_page": 9,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 23
+  },
+  {
+    "question": "What should I do if the coolant low-level warning comes on?",
+    "expected_page": 9,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 24
+  },
+  {
+    "question": "How do I fix an ATC pocket position mismatch error?",
+    "expected_page": 9,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 24
+  },
+  {
+    "question": "What should I do if the error code E-501 shows up on the machine?",
+    "expected_page": 9,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 25
+  },
+  {
+    "question": "How do I troubleshoot an E-620 error on this equipment?",
+    "expected_page": 9,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 25
+  },
+  {
+    "question": "What was done to fix the thermal overload issue on Machine Asset #X500-07 back in January 2025?",
+    "expected_page": 10,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 26
+  },
+  {
+    "question": "How often is the strainer supposed to be cleaned on this machine to prevent chip sludge buildup?",
+    "expected_page": 10,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 26
+  },
+  {
+    "question": "What was done to fix the chatter marks on the aluminum housing parts?",
+    "expected_page": 10,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 27
+  },
+  {
+    "question": "How was the ATC fault E-410 on tool pocket 14 resolved?",
+    "expected_page": 10,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 27
+  },
+  {
+    "question": "When was the last time the axis on this machine was recalibrated?",
+    "expected_page": 10,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 28
+  },
+  {
+    "question": "What kind of hydraulic oil should I use to top off the reservoir on the X500-07?",
+    "expected_page": 10,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 28
+  },
+  {
+    "question": "How many hydraulic filter elements should we keep in stock?",
+    "expected_page": 11,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 29
+  },
+  {
+    "question": "What's the recommended stock level for the coolant pump assembly?",
+    "expected_page": 11,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 29
+  },
+  {
+    "question": "What's the phone number for technical support if I need help with something not covered in the manual?",
+    "expected_page": 11,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 30
+  },
+  {
+    "question": "How do I get in touch with someone for help with my X500-3AX equipment?",
+    "expected_page": 11,
+    "source": "055af868-0fa5-40f4-a540-959e939740e5_CNC Mill X500 (Model X500-3AX).pdf",
+    "chunk_id": 30
+  }
+]

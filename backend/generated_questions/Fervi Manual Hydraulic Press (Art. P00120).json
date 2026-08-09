@@ -1,0 +1,878 @@
+[
+  {
+    "question": "What kind of press is covered in this manual?",
+    "expected_page": 1,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 0
+  },
+  {
+    "question": "What's the model number of the hydraulic press I'm working with?",
+    "expected_page": 1,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 0
+  },
+  {
+    "question": "What's the first thing I should do before running this machine?",
+    "expected_page": 2,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 1
+  },
+  {
+    "question": "Do I need any special training to operate this equipment?",
+    "expected_page": 2,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 1
+  },
+  {
+    "question": "What kind of training should I get before using this equipment to make sure I'm safe?",
+    "expected_page": 2,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 2
+  },
+  {
+    "question": "Are there any special situations I should be prepared for when operating this machine?",
+    "expected_page": 2,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 2
+  },
+  {
+    "question": "When was this equipment manual last updated?",
+    "expected_page": 2,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 3
+  },
+  {
+    "question": "Who should I contact if I have questions about changes to the equipment?",
+    "expected_page": 2,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 3
+  },
+  {
+    "question": "Where can I find info on safety warnings and what they look like?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 4
+  },
+  {
+    "question": "What page does the introduction to general safety precautions start on?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 4
+  },
+  {
+    "question": "Where can I find the technical specs for this machine?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 5
+  },
+  {
+    "question": "What page has the machine description in this manual?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 5
+  },
+  {
+    "question": "Where can I find information about the main components of this press?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 6
+  },
+  {
+    "question": "What page has details about the identification label on our equipment?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 6
+  },
+  {
+    "question": "What page can I find information on how to assemble and commission this equipment?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 7
+  },
+  {
+    "question": "Where do I look for warnings about putting this equipment together?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 7
+  },
+  {
+    "question": "Where can I find the info on preliminary testing for this machine?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 8
+  },
+  {
+    "question": "What page is the press assembly instructions on?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 8
+  },
+  {
+    "question": "Where can I find the instructions for adjusting the table height in this machine?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 9
+  },
+  {
+    "question": "What page do I need to go to for information on doing maintenance tasks?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 9
+  },
+  {
+    "question": "What page can I find the routine maintenance schedule on?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 10
+  },
+  {
+    "question": "Where can I look for information on decommissioning this machine?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 10
+  },
+  {
+    "question": "Where can I find the list of spare parts for this equipment?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 11
+  },
+  {
+    "question": "What page has the information on replacement parts?",
+    "expected_page": 3,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 11
+  },
+  {
+    "question": "What's the main purpose of this manual for the hydraulic press?",
+    "expected_page": 4,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 12
+  },
+  {
+    "question": "What kind of knowledge is required to operate the MANUAL HYDRAULIC PRESS ART. P001/20 safely and effectively?",
+    "expected_page": 4,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 12
+  },
+  {
+    "question": "What kind of capabilities should our staff have to learn from training for this job?",
+    "expected_page": 4,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 13
+  },
+  {
+    "question": "How are we supposed to know what the safety warnings mean on this machine?",
+    "expected_page": 4,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 13
+  },
+  {
+    "question": "What kind of hazards should I be watching out for when operating this equipment?",
+    "expected_page": 4,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 14
+  },
+  {
+    "question": "Are there any specific risks I should be aware of to avoid getting hurt or damaging the machine?",
+    "expected_page": 4,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 14
+  },
+  {
+    "question": "What's the best way to make sure I'm using this machine correctly and safely?",
+    "expected_page": 5,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 15
+  },
+  {
+    "question": "Do I really need to read the whole manual, even if I've used this type of machine before?",
+    "expected_page": 5,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 15
+  },
+  {
+    "question": "Who is allowed to operate this machine?",
+    "expected_page": 5,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 16
+  },
+  {
+    "question": "What's the first step in using this machine safely?",
+    "expected_page": 5,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 16
+  },
+  {
+    "question": "What are some of the risks I should be aware of when I'm drilling or tapping?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 17
+  },
+  {
+    "question": "Are there any tools that are completely safe to use, or is that just not possible?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 17
+  },
+  {
+    "question": "What are the rules for operating this machine safely?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 18
+  },
+  {
+    "question": "Do I need to read the whole manual before I can start maintaining this equipment?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 18
+  },
+  {
+    "question": "What kind of protective gear am I supposed to wear when working on this machine?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 19
+  },
+  {
+    "question": "Are there any specific steps I need to take to ensure my safety before starting work on the equipment?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 19
+  },
+  {
+    "question": "What are some general safety rules I should follow when working with this machine?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 20
+  },
+  {
+    "question": "Do I need to wear any special protective gear when operating the equipment?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 20
+  },
+  {
+    "question": "What kind of precautions should I take when working with this machine to avoid inhaling dust?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 21
+  },
+  {
+    "question": "Do I need any special training or knowledge to perform repairs and maintenance on this equipment?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 21
+  },
+  {
+    "question": "Who is responsible for keeping track of the company's safety risks?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 22
+  },
+  {
+    "question": "What law or regulation does our company follow for monitoring risk status?",
+    "expected_page": 6,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 22
+  },
+  {
+    "question": "What should I do if I'm having some issues with my machine and need help?",
+    "expected_page": 7,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 23
+  },
+  {
+    "question": "Who can I contact if I need spare parts or have questions about my equipment?",
+    "expected_page": 7,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 23
+  },
+  {
+    "question": "What's the maximum weight this hydraulic press can handle?",
+    "expected_page": 7,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 24
+  },
+  {
+    "question": "How tall is the Manual Hydraulic Press, including its work area?",
+    "expected_page": 7,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 24
+  },
+  {
+    "question": "What kind of materials is the Manual Hydraulic Press designed to work with?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 25
+  },
+  {
+    "question": "Can I use the Manual Hydraulic Press for anything beyond what it was originally designed for?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 25
+  },
+  {
+    "question": "What are some of the hazards I should be aware of when I'm drilling or tapping with this equipment?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 26
+  },
+  {
+    "question": "Are there any guarantees that this tool is completely safe to use, or are there still risks involved?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 26
+  },
+  {
+    "question": "What are the main parts of the Hydraulic Presses?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 27
+  },
+  {
+    "question": "What kind of surface are the Hydraulic Presses supposed to be used on?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 27
+  },
+  {
+    "question": "What kind of surfaces are suitable for supporting heavy equipment?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 28
+  },
+  {
+    "question": "How should I protect equipment from environmental factors like weather and humidity?",
+    "expected_page": 8,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 28
+  },
+  {
+    "question": "What are the main parts that make up the press?",
+    "expected_page": 9,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 29
+  },
+  {
+    "question": "How do I identify the different components of the press, like the pump and the piston?",
+    "expected_page": 9,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 29
+  },
+  {
+    "question": "What's the maximum pressing force this machine is capable of?",
+    "expected_page": 10,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 30
+  },
+  {
+    "question": "How do I find the maximum capacity value for our press?",
+    "expected_page": 10,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 30
+  },
+  {
+    "question": "Where are the table and bed plate locking pins located on the press?",
+    "expected_page": 11,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 31
+  },
+  {
+    "question": "How do the locking pins secure the table after I've adjusted its height?",
+    "expected_page": 11,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 31
+  },
+  {
+    "question": "What kind of safety gear should I be wearing when working with this equipment?",
+    "expected_page": 11,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 32
+  },
+  {
+    "question": "How can I check the pressure in the hydraulic circuit while the press is operating?",
+    "expected_page": 11,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 32
+  },
+  {
+    "question": "What kind of personal protective equipment do I need to wear when working with this equipment?",
+    "expected_page": 11,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 33
+  },
+  {
+    "question": "Are there any specific safety gear recommendations for operating this machine?",
+    "expected_page": 11,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 33
+  },
+  {
+    "question": "What are some things I shouldn't do when using the machine to avoid damaging it or hurting myself?",
+    "expected_page": 12,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 34
+  },
+  {
+    "question": "Are there any specific objects that I'm not supposed to compress with this machine?",
+    "expected_page": 12,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 34
+  },
+  {
+    "question": "What are some things I should never do when operating the manual press?",
+    "expected_page": 12,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 35
+  },
+  {
+    "question": "Are there any specific safety precautions I need to take when the press is loaded?",
+    "expected_page": 12,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 35
+  },
+  {
+    "question": "What are some things I should never do when operating the manual press?",
+    "expected_page": 12,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 36
+  },
+  {
+    "question": "Are there any specific rules or precautions I need to follow when using the manual press?",
+    "expected_page": 12,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 36
+  },
+  {
+    "question": "What's the best way to move a MANUAL HYDRAULIC PRESS P001/20?",
+    "expected_page": 13,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 37
+  },
+  {
+    "question": "How much can the lifting equipment handle when moving one of these presses?",
+    "expected_page": 13,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 37
+  },
+  {
+    "question": "What's the procedure for moving the press after it's been assembled?",
+    "expected_page": 13,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 38
+  },
+  {
+    "question": "How do I safely lift the press without jolting it?",
+    "expected_page": 13,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 38
+  },
+  {
+    "question": "What's the most important thing to do before I start assembling and commissioning the Manual Hydraulic Press?",
+    "expected_page": 14,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 39
+  },
+  {
+    "question": "Where can I find the operating instructions for installing and maintaining this equipment?",
+    "expected_page": 14,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 39
+  },
+  {
+    "question": "What kind of lighting does the room need to have for the machine to be installed safely?",
+    "expected_page": 14,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 40
+  },
+  {
+    "question": "How do I properly dispose of the packaging after I receive the press?",
+    "expected_page": 14,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 40
+  },
+  {
+    "question": "What should I do with the packaging materials after I unpack the equipment?",
+    "expected_page": 14,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 41
+  },
+  {
+    "question": "Are the plastic bags and foam inserts from the packaging safe for kids to play with?",
+    "expected_page": 14,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 41
+  },
+  {
+    "question": "How do I assemble the press Art. P001/20?",
+    "expected_page": 15,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 42
+  },
+  {
+    "question": "What hardware do I need to fasten the frame base brackets to the lower frame supporting beam?",
+    "expected_page": 15,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 42
+  },
+  {
+    "question": "How do I properly attach the top frame beams to the frame posts?",
+    "expected_page": 15,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 43
+  },
+  {
+    "question": "What's the correct order for assembling the top frame beams and what hardware do I need?",
+    "expected_page": 15,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 43
+  },
+  {
+    "question": "How do I properly secure the plunger plate to the cylinder?",
+    "expected_page": 15,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 44
+  },
+  {
+    "question": "What's the correct order for assembling the plunger and piston?",
+    "expected_page": 15,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 44
+  },
+  {
+    "question": "How do I assemble the pressing table crossbeams to the posts?",
+    "expected_page": 16,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 45
+  },
+  {
+    "question": "What's the proper way to lift and secure the table after assembling the crossbeams?",
+    "expected_page": 16,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 45
+  },
+  {
+    "question": "How do I properly secure the hydraulic pump support to the machine?",
+    "expected_page": 17,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 47
+  },
+  {
+    "question": "What's the correct procedure for connecting the hose to the hydraulic cylinder?",
+    "expected_page": 17,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 47
+  },
+  {
+    "question": "What are the requirements for choosing a good location to set up the press assembly?",
+    "expected_page": 17,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 48
+  },
+  {
+    "question": "What kind of surface is needed to put the press assembly on to prevent accidents?",
+    "expected_page": 17,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 48
+  },
+  {
+    "question": "How do I properly secure the press to the floor?",
+    "expected_page": 17,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 49
+  },
+  {
+    "question": "What kind of fasteners should I use to attach the base support brackets?",
+    "expected_page": 17,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 49
+  },
+  {
+    "question": "What do I need to do before I start using the press for the first time?",
+    "expected_page": 18,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 50
+  },
+  {
+    "question": "How do I know if the press is ready to use after it's been installed?",
+    "expected_page": 18,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 50
+  },
+  {
+    "question": "What are the safety precautions I need to take when adjusting the table height on this machine?",
+    "expected_page": 18,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 51
+  },
+  {
+    "question": "Do I need to wear any special gear when moving the table up and down?",
+    "expected_page": 18,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 51
+  },
+  {
+    "question": "How do I properly remove the table support holding pin?",
+    "expected_page": 18,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 52
+  },
+  {
+    "question": "What's the correct step after I lift the table support beam?",
+    "expected_page": 18,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 52
+  },
+  {
+    "question": "How do I make sure the table is level after I've made some adjustments to it?",
+    "expected_page": 19,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 53
+  },
+  {
+    "question": "What kind of workpieces can I press with this machine, are there any specific requirements?",
+    "expected_page": 19,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 53
+  },
+  {
+    "question": "What kind of safety precautions should I take if I'm worried that pieces might fly off during a pressing operation?",
+    "expected_page": 19,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 54
+  },
+  {
+    "question": "How do I close the release valve on this press?",
+    "expected_page": 19,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 54
+  },
+  {
+    "question": "How do I operate the pump to get it working properly?",
+    "expected_page": 20,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 56
+  },
+  {
+    "question": "What's the right way to check the pressing force on this machine?",
+    "expected_page": 20,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 56
+  },
+  {
+    "question": "What units of measurement does the gauge display?",
+    "expected_page": 20,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 57
+  },
+  {
+    "question": "How do I release the pressure in the hydraulic circuit?",
+    "expected_page": 20,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 57
+  },
+  {
+    "question": "What's the procedure for the release valve after it's been opened?",
+    "expected_page": 20,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 58
+  },
+  {
+    "question": "Do I need to tighten the release valve knob after I've used it?",
+    "expected_page": 20,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 58
+  },
+  {
+    "question": "What's the first thing I should do before starting a new pressing operation on the hydraulic press?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 59
+  },
+  {
+    "question": "Do I need to be certified to perform maintenance on the MANUAL HYDRAULIC PRESS ART P001/20?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 59
+  },
+  {
+    "question": "What are the daily maintenance tasks I need to do on this machine?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 60
+  },
+  {
+    "question": "How often am I supposed to check the hydraulic circuit for leaks?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 60
+  },
+  {
+    "question": "What are the steps I need to take for a general visual inspection of this machine?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 61
+  },
+  {
+    "question": "How do I know if the labels on the equipment are up to standard?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 61
+  },
+  {
+    "question": "What should I do if I notice a loss in the hydraulic circuit?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 62
+  },
+  {
+    "question": "How do I know if the oil level is okay in this thing?",
+    "expected_page": 21,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 62
+  },
+  {
+    "question": "How do I check the oil level in the press?",
+    "expected_page": 22,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 63
+  },
+  {
+    "question": "What kind of oil should I use to fill up the pump?",
+    "expected_page": 22,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 63
+  },
+  {
+    "question": "What kind of oil should I use in this thing?",
+    "expected_page": 22,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 64
+  },
+  {
+    "question": "How do I clean this equipment to keep it running right?",
+    "expected_page": 22,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 64
+  },
+  {
+    "question": "What's the first thing I should do when inspecting the frame and supporting brackets?",
+    "expected_page": 22,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 65
+  },
+  {
+    "question": "How often should I check that the mounting screws are fully tightened?",
+    "expected_page": 22,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 65
+  },
+  {
+    "question": "What's the best way to store the Press when it's not going to be used for a while?",
+    "expected_page": 23,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 66
+  },
+  {
+    "question": "How do I prepare the Press for long-term storage to prevent damage?",
+    "expected_page": 23,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 66
+  },
+  {
+    "question": "What do I need to do with the metal parts when I'm scrapping this machine?",
+    "expected_page": 23,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 67
+  },
+  {
+    "question": "How am I supposed to dispose of the hydraulic oil in the pump?",
+    "expected_page": 23,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 67
+  },
+  {
+    "question": "What page am I on in the manual if I'm looking at the section on legal requirements?",
+    "expected_page": 23,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 68
+  },
+  {
+    "question": "How many pages are in this equipment manual after page 23?",
+    "expected_page": 23,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 68
+  },
+  {
+    "question": "What page can I find information on spare parts?",
+    "expected_page": 24,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 69
+  },
+  {
+    "question": "Where can I look for details on machine accessories in this manual?",
+    "expected_page": 24,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 69
+  },
+  {
+    "question": "What's the part number for the pressure gauge?",
+    "expected_page": 25,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 70
+  },
+  {
+    "question": "What type of washer is referenced by P001/20/22?",
+    "expected_page": 25,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 70
+  },
+  {
+    "question": "What kind of bolt is used in the assembly, and what's its length?",
+    "expected_page": 25,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 71
+  },
+  {
+    "question": "What are the different types of washers used in this equipment and what are their sizes?",
+    "expected_page": 25,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 71
+  },
+  {
+    "question": "What's the part number for the holding pin?",
+    "expected_page": 25,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 72
+  },
+  {
+    "question": "What's the identifier for the pressure gauge connector?",
+    "expected_page": 25,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 72
+  },
+  {
+    "question": "What's the part number for the lock ring on this machine?",
+    "expected_page": 26,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 73
+  },
+  {
+    "question": "What type of screw is used for the M6x6 reference in the parts list?",
+    "expected_page": 26,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 73
+  },
+  {
+    "question": "What kind of gasket is used in the P001/20 equipment?",
+    "expected_page": 26,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 74
+  },
+  {
+    "question": "What are the different parts that make up the P001/20 model?",
+    "expected_page": 26,
+    "source": "af8a7be4-2e54-4608-ae19-d10803bc4144_Fervi Manual Hydraulic Press (Art. P00120).pdf",
+    "chunk_id": 74
+  }
+]
