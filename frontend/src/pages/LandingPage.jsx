@@ -42,7 +42,6 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // This effect listens for scrolling and updates the state
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -54,7 +53,6 @@ export default function LandingPage() {
 
   return (
     <div className="landing">
-      {/* The header now adds a "scrolled" class when you scroll down */}
       <header className={`landing-header ${isScrolled ? "scrolled" : ""}`}>
         <div className="landing-brand">
           <img 
@@ -141,41 +139,44 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="landing-footer">
-        <div className="footer-content">
+      {/* --- DARK FOOTER (Matching Admin Panel) --- */}
+      <footer className="landing-footer" style={{ backgroundColor: "#1c1a17", color: "#ffffff", padding: "60px 40px 20px", marginTop: "40px" }}>
+        <div className="footer-content" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "40px", maxWidth: "1160px", margin: "0 auto", paddingBottom: "40px" }}>
+          
           <div className="footer-section brand-section">
-            <div className="footer-brand">
+            <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: "12px", fontFamily: "'Fraunces', serif", fontSize: "22px", fontWeight: "600", color: "#ffffff", marginBottom: "16px" }}>
               <img 
                 src="/images/company-logo.png" 
                 alt="NexaForge Logo" 
                 className="footer-logo" 
+                style={{ width: "32px", height: "32px", objectFit: "contain" }}
               />
               <span>NexaForge</span>
             </div>
-            <p>
+            <p style={{ color: "#a39f98", lineHeight: "1.6" }}>
               Precision manufacturing backed by instant digital maintenance insights. 
               Bridging the gap between traditional metalworking and smart floor technology.
             </p>
           </div>
           
           <div className="footer-section links-section">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><Link to="/login">Worker Login</Link></li>
-              <li><Link to="/admin/login">Admin Panel</Link></li>
-              <li><a href="#about" onClick={(e) => e.preventDefault()}>About Us</a></li>
+            <h4 style={{ color: "#ffffff", fontFamily: "'Fraunces', serif", fontSize: "16px", marginBottom: "16px" }}>Quick Links</h4>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <li style={{ marginBottom: "12px" }}><Link to="/login" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>Worker Login</Link></li>
+              <li style={{ marginBottom: "12px" }}><Link to="/admin/login" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>Admin Panel</Link></li>
+              <li style={{ marginBottom: "12px" }}><a href="#about" onClick={(e) => e.preventDefault()} style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>About Us</a></li>
             </ul>
           </div>
 
           <div className="footer-section contact-section">
-            <h4>Contact Us</h4>
-            <p>📍 123 Industrial Parkway</p>
-            <p>📞 (555) 019-2834</p>
-            <p>✉️ operations@nexaforge.com</p>
+            <h4 style={{ color: "#ffffff", fontFamily: "'Fraunces', serif", fontSize: "16px", marginBottom: "16px" }}>Contact Us</h4>
+            <p style={{ color: "#a39f98", marginBottom: "10px" }}>📍 123 Industrial Parkway</p>
+            <p style={{ color: "#a39f98", marginBottom: "10px" }}>📞 (555) 019-2834</p>
+            <p style={{ color: "#a39f98", marginBottom: "10px" }}>✉️ operations@nexaforge.com</p>
           </div>
         </div>
         
-        <div className="footer-bottom">
+        <div className="footer-bottom" style={{ textAlign: "center", paddingTop: "24px", borderTop: "1px solid #36322d", fontSize: "13px", maxWidth: "1160px", margin: "0 auto", color: "#9c9284" }}>
           © 2026 NexaForge · Internal Operations & Maintenance Intelligence Platform
         </div>
       </footer>
