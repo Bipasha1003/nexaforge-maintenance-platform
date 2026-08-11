@@ -91,29 +91,35 @@ export default function AdminDashboard() {
     <div className="site">
       {/* Sticky Header */}
       <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
-        <div className="site-brand" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+        <div className="site-brand" onClick={() => navigate("/")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "12px" }}>
           <img 
             src="/images/company-logo.png" 
             alt="NexaForge Logo" 
             style={{ width: "36px", height: "36px", objectFit: "contain", filter: "invert(32%) sepia(85%) saturate(1450%) hue-rotate(345deg) brightness(90%) contrast(95%)" }} 
           />
-          <div style={{ marginLeft: "12px" }}>
-            <div className="site-title">NexaForge</div>
-            <div className="site-subtitle">Admin Mode: {adminName}</div>
+          <div>
+            <div style={{ fontFamily: '"Fraunces", serif', fontSize: '25px', fontWeight: 600, color: '#1c1a17' }}>NexaForge</div>
+            <div style={{ fontFamily: '"Inter", sans-serif', fontSize: '12px', color: '#6b6459' }}>Admin Mode: {adminName}</div>
           </div>
         </div>
-        <nav className="site-nav">
-          <button className="hero-btn hero-btn-primary" onClick={() => setChatSignal((n) => n + 1)}>Open AI</button>
+        <nav className="site-nav" style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <button 
+            className="hero-btn hero-btn-primary" 
+            onClick={() => setChatSignal((n) => n + 1)}
+            style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600, padding: '8px 16px' }}
+          >
+            Open AI
+          </button>
           
-          <Link to="/admin/documents/new" className="site-nav-item site-nav-admin" style={{ marginLeft: 16 }}>+ Add Document</Link>
+          <Link to="/admin/documents/new" className="site-nav-item site-nav-admin" style={{ marginLeft: 16, fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600 }}>+ Add Document</Link>
           
-          <Link to="/admin/workers/new" className="site-nav-item site-nav-admin">+ Add Worker</Link>
+          <Link to="/admin/workers/new" className="site-nav-item site-nav-admin" style={{ fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600 }}>+ Add Worker</Link>
           
           <span className="site-nav-item" style={{ color: "var(--l-accent)", fontWeight: 600, marginLeft: "16px", marginRight: "8px", pointerEvents: "none" }}>
             {adminName}
           </span>
 
-          <span className="site-nav-item site-nav-admin" onClick={handleLogout} style={{ cursor: "pointer", marginLeft: 16 }}>Log out</span>
+          <span className="site-nav-item site-nav-admin" onClick={handleLogout} style={{ cursor: "pointer", marginLeft: 16, fontFamily: '"Inter", sans-serif', fontSize: '14px', fontWeight: 600 }}>Log out</span>
         </nav>
       </header>
 
@@ -214,8 +220,8 @@ export default function AdminDashboard() {
       <footer className="landing-footer" style={{ backgroundColor: "#1c1a17", color: "#e4dfd5", padding: "60px 40px 20px", marginTop: "60px" }}>
         <div className="footer-content" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "40px", maxWidth: "1200px", margin: "0 auto", paddingBottom: "40px" }}>
           <div className="footer-section">
-            <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "20px", fontWeight: 600, color: "#ffffff", marginBottom: "16px" }}>
-              <img src="/images/company-logo.png" alt="NexaForge Logo" style={{ width: "28px", height: "28px", objectFit: "contain", filter: "invert(32%) sepia(85%) saturate(1450%) hue-rotate(345deg) brightness(90%) contrast(95%)" }} />
+            <div className="footer-brand" style={{ display: "flex", alignItems: "center", gap: "12px", fontFamily: "'Fraunces', serif", fontSize: "22px", fontWeight: 600, color: "#ffffff", marginBottom: "16px" }}>
+              <img src="/images/company-logo.png" alt="NexaForge Logo" style={{ width: "32px", height: "32px", objectFit: "contain", filter: "invert(32%) sepia(85%) saturate(1450%) hue-rotate(345deg) brightness(90%) contrast(95%)" }} />
               <span>NexaForge</span>
             </div>
             <p style={{ lineHeight: 1.6, fontSize: 14 }}>
@@ -225,7 +231,7 @@ export default function AdminDashboard() {
           </div>
           
           <div className="footer-section">
-            <h4 style={{ color: "#ffffff", fontSize: "14px", marginBottom: "16px", fontFamily: "JetBrains Mono, monospace" }}>Quick Links</h4>
+            <h4 style={{ color: "#ffffff", fontFamily: "'Fraunces', serif", fontSize: "16px", marginBottom: "16px" }}>Quick Links</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <li style={{ marginBottom: "12px" }}><Link to="/admin" style={{ color: "#e4dfd5", textDecoration: "none" }}>Admin Console</Link></li>
               <li style={{ marginBottom: "12px" }}><Link to="/dashboard" style={{ color: "#e4dfd5", textDecoration: "none" }}>Worker Fleet Console</Link></li>
@@ -234,14 +240,14 @@ export default function AdminDashboard() {
           </div>
 
           <div className="footer-section">
-            <h4 style={{ color: "#ffffff", fontSize: "14px", marginBottom: "16px", fontFamily: "JetBrains Mono, monospace" }}>Contact Us</h4>
+            <h4 style={{ color: "#ffffff", fontFamily: "'Fraunces', serif", fontSize: "16px", marginBottom: "16px" }}>Contact Us</h4>
             <p style={{ marginBottom: "10px" }}>📍 123 Industrial Parkway</p>
             <p style={{ marginBottom: "10px" }}>📞 (555) 019-2834</p>
             <p style={{ marginBottom: "10px" }}>✉️ operations@nexaforge.com</p>
           </div>
         </div>
         
-        <div className="footer-bottom" style={{ textAlign: "center", paddingTop: "24px", borderTop: "1px solid #36322d", fontSize: "12px", maxWidth: "1200px", margin: "0 auto", color: "#9c9284" }}>
+        <div className="footer-bottom" style={{ textAlign: "center", paddingTop: "24px", borderTop: "1px solid #36322d", fontSize: "13px", maxWidth: "1200px", margin: "0 auto", color: "#9c9284" }}>
           © 2026 NexaForge · Internal Operations & Maintenance Intelligence Platform
         </div>
       </footer>

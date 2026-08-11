@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* Adds smooth scrolling when clicking navigation links */
 html {
@@ -50,7 +50,7 @@ html {
 .dashboard-brand {
   display: flex;
   align-items: center;
-  gap: 20px; /* Increased gap to push text away from logo */
+  gap: 12px;
 }
 
 .dashboard-logo {
@@ -61,11 +61,14 @@ html {
 }
 
 .dashboard-brand-title {
+  font-family: "Fraunces", serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 25px;
+  color: var(--d-ink);
 }
 
 .dashboard-brand-subtitle {
+  font-family: "Inter", sans-serif;
   font-size: 12px;
   color: var(--d-ink-muted);
 }
@@ -76,6 +79,7 @@ html {
 }
 
 .nav-link {
+  font-family: "Inter", sans-serif;
   text-decoration: none;
   color: var(--d-ink-muted);
   font-size: 14px;
@@ -91,16 +95,17 @@ html {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-size: 14px;
 }
 
 .dashboard-btn-accent {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   background-color: var(--d-accent);
   color: #fff;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -110,6 +115,9 @@ html {
 }
 
 .dashboard-btn-outline {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
   background-color: transparent;
   border: 1px solid var(--d-border);
   color: var(--d-ink);
@@ -125,6 +133,8 @@ html {
 }
 
 .profile-link {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   color: var(--d-ink-muted);
   cursor: pointer;
   font-weight: 500;
@@ -166,10 +176,9 @@ html {
 
 .dashboard-section {
   margin-bottom: 60px;
-  scroll-margin-top: 100px; /* Ensures the sticky header doesn't cover the title when scrolling to it */
+  scroll-margin-top: 100px;
 }
 
-/* Alternating Section Colors */
 .section-card {
   background-color: var(--d-card-bg);
   padding: 40px;
@@ -178,7 +187,6 @@ html {
   box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
-/* KPI Cards */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -216,7 +224,6 @@ html {
 
 .text-green { color: var(--d-green); }
 
-/* Equipment Fleet Grid */
 .equipment-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -322,7 +329,6 @@ html {
 .manual-ready { color: var(--d-green); background-color: #f6fdf7; border-radius: 0 0 8px 8px; }
 .manual-missing { color: var(--d-red); background-color: #fff8f8; border-radius: 0 0 8px 8px; }
 
-/* Assistant Capabilities */
 .assistant-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -349,7 +355,6 @@ html {
   margin: 0;
 }
 
-/* Documents Table */
 .docs-table-container {
   background: var(--d-card-bg);
   border: 1px solid var(--d-border);
@@ -417,7 +422,6 @@ html {
   background-color: #fff;
 }
 
-/* Maintenance Log Card */
 .log-card {
   background: var(--d-bg);
   border: 1px dashed var(--d-border);
@@ -428,7 +432,7 @@ html {
   color: var(--d-ink-muted);
 }
 
-/* --- FOOTER (Dark Theme applied) --- */
+/* --- FOOTER --- */
 .landing-footer {
   background-color: var(--d-ink);
   padding: 60px 40px 20px;
@@ -451,27 +455,26 @@ html {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
+  font-family: "Fraunces", serif;
+  font-size: 22px;
   font-weight: 600;
   color: var(--d-card-bg);
   margin-bottom: 16px;
 }
 
 .footer-logo {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   filter: invert(32%) sepia(85%) saturate(1450%) hue-rotate(345deg) brightness(90%) contrast(95%);
 }
 
 .footer-section h4 {
   color: var(--d-card-bg);
-  font-size: 14px;
+  font-family: "Fraunces", serif;
+  font-size: 16px;
   margin-bottom: 16px;
   margin-top: 0;
-  font-family: "JetBrains Mono", monospace;
-  text-transform: uppercase;
 }
 
 .footer-section p {
@@ -503,7 +506,7 @@ html {
   text-align: center;
   padding-top: 24px;
   border-top: 1px solid #36322d;
-  font-size: 12px;
+  font-size: 13px;
   max-width: 1200px;
   margin: 0 auto;
   color: #9c9284;
