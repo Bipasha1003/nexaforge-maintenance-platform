@@ -32,7 +32,7 @@ def query(req: QueryRequest):
     greetings = ["hi", "hii", "hiii", "hello", "hey", "good morning", "good evening", "sup"]
     if user_lower in greetings:
         greeting_answer = (
-    "Hello! I am your AI Maintenance Assistant for Meridian Manufacturing Co. 🛠️\n\n"
+    "Hello! I am your AI Maintenance Assistant for NexaForge. 🛠️\n\n"
     "I am connected directly to our equipment manuals database (including the CNC Mill X500, Cold Saw, Hydraulic Press, and factory floor flowcharts), "
     "as well as live maintenance schedules and active floor notices.\n\n"
     "How can I help you today? You can ask me about troubleshooting error codes, checking maintenance frequencies, "

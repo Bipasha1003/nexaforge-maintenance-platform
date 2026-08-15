@@ -11,7 +11,7 @@ _llm = None
 def get_llm():
     global _llm
     if _llm is None:
-        _llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+        _llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0)
     return _llm
 
 ROUTER_PROMPT = """You are a query classifier for a manufacturing equipment maintenance assistant.

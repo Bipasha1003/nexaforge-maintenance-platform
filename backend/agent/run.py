@@ -13,7 +13,7 @@ _llm = None
 def get_llm():
     global _llm
     if _llm is None:
-        _llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
+        _llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0)
     return _llm
 
 def generate_answer(question, tool_result, history):
