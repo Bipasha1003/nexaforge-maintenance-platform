@@ -164,7 +164,11 @@ export default function LandingPage() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <li style={{ marginBottom: "12px" }}><Link to="/login" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>Worker Login</Link></li>
               <li style={{ marginBottom: "12px" }}><Link to="/admin/login" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>Admin Panel</Link></li>
-              <li style={{ marginBottom: "12px" }}><a href="#about" onClick={(e) => e.preventDefault()} style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>About Us</a></li>
+              
+              {/* --- HERE IS THE FIX --- */}
+              <li style={{ marginBottom: "12px" }}><Link to="/about" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>About Us</Link></li>
+              {/* ------------------------- */}
+              
             </ul>
           </div>
 

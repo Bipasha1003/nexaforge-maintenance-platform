@@ -1,0 +1,120 @@
+/* About.css */
+.about-container {
+  min-height: 100vh;
+  background-color: #fcfbf9;
+  color: #2c2c2c;
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.about-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.about-logo-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #c05632;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.about-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.about-subtitle {
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+}
+
+.about-back-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #2c2c2c;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.about-back-link:hover {
+  color: #c05632;
+}
+
+.about-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  flex-grow: 1;
+}
+
+.about-page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  color: #1c1a17;
+  font-family: 'Fraunces', serif; /* Matching your landing page */
+}
+
+.about-content p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin-bottom: 1.25rem;
+}
+
+.about-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #c05632;
+  margin-bottom: 1rem;
+}
+
+.about-divider {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 3rem 0;
+}
+
+.about-footer {
+  background-color: #1c1a17;
+  color: #a39f98;
+  padding: 2.5rem 2rem;
+  margin-top: auto;
+}
+
+.about-footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.about-footer-content p {
+  margin: 0.5rem 0;
+}
+
+.about-developer-credit {
+  color: #ffffff;
+  font-weight: 500;
+}
