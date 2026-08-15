@@ -13,13 +13,6 @@
   justify-content: center;
 }
 
-/* Faded background images for login screens.
-   Applied on top of .admin-shell-center — max-width above still
-   constrains the CARD, this covers the full viewport behind it.
-   Two separate classes so admin/worker can use different photos.
-   Overlay lowered to 0.45 so the photo actually reads — raise it
-   back toward 0.7-0.8 if any text on the page (none currently) ever
-   sits directly on the image instead of on the white card. */
 .admin-shell-bg-admin,
 .admin-shell-bg-worker {
   max-width: 100%;
@@ -109,9 +102,7 @@
   box-shadow: 0 8px 24px rgba(28, 26, 23, 0.10);
 }
 
-/* Shared brand row (logo + name side by side) used on both login
-   screens — replaces the old text-mark divs ("MX" / "MM") so both
-   pages match the landing page header. */
+/* Shared brand row */
 .admin-login-brand {
   display: flex;
   align-items: center;
@@ -362,7 +353,7 @@
 
 .admin-header-right { display: flex; align-items: center; gap: 12px; }
 .admin-email { opacity: 0.7; font-size: 0.9rem; color: var(--text-muted); }
-.admin-view-public { display: block; font-size: 0.85rem; opacity: 0.7; text-decoration: none; margin-top: 4px; color: var(--text-muted); }
+.admin-view-public { display: block; font-size: 0.85rem; opacity: 0.7; text-decoration: underline; margin-top: 4px; color: var(--text-muted); }
 
 .site-bg-admin {
   background-image:
@@ -381,4 +372,105 @@
   place-items: center;
   z-index: 50;
   padding: 20px;
+}
+
+.site-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 860px) {
+  .site-grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.fleet-tile { display: flex; flex-direction: column; gap: 10px; }
+.fleet-tile-top { display: flex; align-items: flex-start; justify-content: space-between; }
+.fleet-type { font-size: 12px; color: var(--text-muted); }
+.fleet-status { display: flex; align-items: center; gap: 6px; }
+
+.status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.operational { background: var(--success, #4ade80); }
+.status-dot.warning { background: var(--warning, #f0b429); }
+.status-dot.critical { background: var(--danger, #f16a5c); }
+
+.status-text { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.03em; }
+.status-text.operational { color: var(--success, #4ade80); }
+.status-text.warning { color: var(--warning, #f0b429); }
+.status-text.critical { color: var(--danger, #f16a5c); }
+
+/* --- CLEAN HEADER BUTTON STYLES --- */
+
+/* --- CLEAN HEADER BUTTON STYLES (FIXED COLORS) --- */
+
+.admin-header-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Adds space between buttons */
+}
+
+/* --- SOLID ORANGE OPEN AI BUTTON --- */
+.admin-ai-btn {
+  background-color: #b5461f !important; /* NexaForge Orange */
+  color: #0a0a0a !important;            /* White text */
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 8px;                   /* Rounded box */
+  border: none;
+  transition: opacity 0.2s ease;
+}
+
+.admin-ai-btn:hover {
+  opacity: 0.85;
+}
+
+/* --- ORANGE TEXT BUTTONS (+ ADD) --- */
+.admin-text-btn {
+  background: transparent;
+  border: none;
+  color: #b5461f !important;            /* NexaForge Orange */
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 10px;
+  transition: opacity 0.2s ease;
+}
+
+.admin-text-btn:hover {
+  opacity: 0.7;
+}
+
+.admin-user-name {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0 10px;
+  color: #1c1a17;
+}
+
+/* --- BOXED LOGOUT BUTTON --- */
+.admin-logout-btn {
+  background: transparent;
+  border: 1.5px solid #d1ccc5;          /* Visible box outline */
+  color: #b5461f !important;            /* NexaForge Orange */
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 7px;
+  transition: all 0.2s ease;
+}
+
+.admin-logout-btn:hover {
+  border-color: #b5461f !important;     /* Outline turns orange on hover */
 }

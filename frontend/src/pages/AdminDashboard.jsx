@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ChatWidget from "../components/ChatWidget";
-import "./PublicSite.css";
+import "./LandingPage.css"; 
 import "./Admin.css";
 
 const DOCS_URL = "http://127.0.0.1:8000/admin/documents";
@@ -9,9 +9,6 @@ const DELETE_URL = "http://127.0.0.1:8000/admin/documents";
 const UPLOAD_URL = "http://127.0.0.1:8000/admin/upload";
 const WORKERS_URL = "http://127.0.0.1:8000/admin/workers";
 
-// Starting fleet. There's no /admin/machines endpoint yet, so machines
-// you add below live in this page's state and reset on refresh —
-// say the word and I'll wire up a real table + route for these.
 const SEED_FLEET = [
   { id: "mx500", name: "CNC Mill X500", type: "CNC Mill", status: "operational", lastCheckIn: "4 minutes ago", nextMaintenance: "Clean coolant tank strainer", nextMaintenanceDue: "Due in 12 days", openIssues: 0 },
   { id: "lathe-t999", name: "Fervi Gear Head Bench Lathe", type: "CNC Lathe", status: "warning", lastCheckIn: "22 minutes ago", nextMaintenance: "Adjust motor belt tension", nextMaintenanceDue: "Due in 4 days", openIssues: 1 },
@@ -34,21 +31,6 @@ function greetingForHour(hour) {
   if (hour < 17) return "Good afternoon";
   return "Good evening";
 }
-
-// Boxed nav button style, shared by the three "+ Add ___" actions so
-// they read as clear, clickable boxes against the background photo
-// instead of loose colored text.
-const navBoxBtn = {
-  background: "rgba(255, 255, 255, 0.9)",
-  border: "1.5px solid var(--border)",
-  borderRadius: 10,
-  cursor: "pointer",
-  fontFamily: '"Inter", sans-serif',
-  fontSize: "15px",
-  fontWeight: 700,
-  padding: "10px 18px",
-  color: "var(--l-accent)",
-};
 
 export default function AdminDashboard() {
   const [docs, setDocs] = useState([]);
@@ -139,47 +121,47 @@ export default function AdminDashboard() {
 
   return (
     <div className="site site-bg-admin">
-      {/* Sticky Header */}
-      <header className={`site-header ${isScrolled ? "scrolled" : ""}`}>
-        <div className="site-brand" onClick={() => navigate("/")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "12px" }}>
+      
+      {/* PERFECTLY MATCHING CLEAN HEADER */}
+      <header className={`landing-header ${isScrolled ? "scrolled" : ""}`} style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(8px)", borderBottom: "1px solid #eaeaea" }}>
+        <div className="landing-brand" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           <img 
             src="/images/company-logo.png" 
             alt="NexaForge Logo" 
-            style={{ width: "40px", height: "40px", objectFit: "contain", filter: "invert(32%) sepia(85%) saturate(1450%) hue-rotate(345deg) brightness(90%) contrast(95%)" }} 
+            style={{ width: "38px", height: "38px", objectFit: "contain", filter: "invert(32%) sepia(85%) saturate(1450%) hue-rotate(345deg) brightness(90%) contrast(95%)" }} 
           />
           <div>
-            <div style={{ fontFamily: '"Fraunces", serif', fontSize: '27px', fontWeight: 600, color: '#1c1a17' }}>NexaForge</div>
-            <div style={{ fontFamily: '"Inter", sans-serif', fontSize: '13px', color: '#6b6459' }}>Admin Mode: {adminName}</div>
+            <div className="landing-brand-title">NexaForge</div>
+            <div className="landing-brand-subtitle" style={{ color: "#6b6459" }}>Admin Mode: {adminName}</div>
           </div>
         </div>
-        <nav className="site-nav" style={{ fontFamily: '"Inter", sans-serif', fontSize: '15px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '14px', flexWrap: "wrap" }}>
-          <button 
-            onClick={() => setChatSignal((n) => n + 1)}
-            style={{ ...navBoxBtn, background: "var(--accent)", color: "var(--accent-ink)", border: "none" }}
-          >
+
+        {/* Using the new clean CSS classes instead of inline styles */}
+        <div className="landing-header-actions admin-header-actions-row">
+          <button className="admin-ai-btn" onClick={() => setChatSignal((n) => n + 1)}>
             Open AI
           </button>
-
-          <button type="button" onClick={() => setShowAddDocument(true)} style={navBoxBtn}>
+          
+          <button className="admin-text-btn" onClick={() => setShowAddDocument(true)}>
             + Add Document
           </button>
-
-          <button type="button" onClick={() => setShowAddMachine(true)} style={navBoxBtn}>
+          
+          <button className="admin-text-btn" onClick={() => setShowAddMachine(true)}>
             + Add Machine
           </button>
-
-          <button type="button" onClick={() => setShowAddWorker(true)} style={navBoxBtn}>
+          
+          <button className="admin-text-btn" onClick={() => setShowAddWorker(true)}>
             + Add Worker
           </button>
           
-          <span style={{ color: "var(--text)", fontWeight: 700, fontSize: 15, marginLeft: "6px", marginRight: "2px" }}>
+          <span className="admin-user-name">
             {adminName}
           </span>
 
-          <button type="button" onClick={handleLogout} style={{ ...navBoxBtn, color: "var(--text-muted)" }}>
+          <button className="admin-logout-btn" onClick={handleLogout}>
             Log out
           </button>
-        </nav>
+        </div>
       </header>
 
       <main className="site-main" style={{ marginTop: 36, maxWidth: 1240, marginInline: "auto", width: "100%", paddingInline: 24 }}>
@@ -244,7 +226,7 @@ export default function AdminDashboard() {
           <button
             type="button"
             onClick={() => setShowAddMachine(true)}
-            style={navBoxBtn}
+            className="admin-text-btn"
           >
             + Add machine
           </button>
@@ -308,7 +290,7 @@ export default function AdminDashboard() {
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16 }}>
           <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Manual Library</div>
-          <button type="button" onClick={() => setShowAddDocument(true)} style={navBoxBtn}>
+          <button type="button" onClick={() => setShowAddDocument(true)} className="admin-text-btn">
             + Add document
           </button>
         </div>
@@ -343,7 +325,7 @@ export default function AdminDashboard() {
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16 }}>
           <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Team Directory</div>
-          <button type="button" onClick={() => setShowAddWorker(true)} style={navBoxBtn}>
+          <button type="button" onClick={() => setShowAddWorker(true)} className="admin-text-btn">
             + Add worker
           </button>
         </div>
