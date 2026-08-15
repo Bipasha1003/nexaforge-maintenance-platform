@@ -56,3 +56,16 @@ def clear_history(user_id: str):
     conn.commit()
     cur.close()
     conn.close()
+
+# --- ADD THE NEW FIX FUNCTION RIGHT HERE AT THE BOTTOM ---
+def update_user_id(old_id: str, new_id: str):
+    """Migrates all chat history from an old user_id/username to a new one."""
+    conn = _get_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE chat_history SET user_id = %s WHERE user_id = %s;",
+        (new_id, old_id)
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
