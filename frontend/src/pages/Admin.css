@@ -13,6 +13,33 @@
   justify-content: center;
 }
 
+/* Faded background images for login screens.
+   Applied on top of .admin-shell-center — max-width above still
+   constrains the CARD, this covers the full viewport behind it.
+   Two separate classes so admin/worker can use different photos.
+   Overlay lowered to 0.45 so the photo actually reads — raise it
+   back toward 0.7-0.8 if any text on the page (none currently) ever
+   sits directly on the image instead of on the white card. */
+.admin-shell-bg-admin,
+.admin-shell-bg-worker {
+  max-width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.admin-shell-bg-admin {
+  background-image:
+    linear-gradient(rgba(250, 246, 240, 0.45), rgba(250, 246, 240, 0.45)),
+    url("/images/admin-login-bg.jpeg");
+}
+
+.admin-shell-bg-worker {
+  background-image:
+    linear-gradient(rgba(250, 246, 240, 0.45), rgba(250, 246, 240, 0.45)),
+    url("/images/worker-login-bg.jpg");
+}
+
 .admin-header {
   display: flex;
   align-items: center;
@@ -79,22 +106,30 @@
   gap: 12px;
   align-items: center;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(28, 26, 23, 0.05);
+  box-shadow: 0 8px 24px rgba(28, 26, 23, 0.10);
 }
 
-.admin-login-mark {
-  font-family: "Fraunces", serif;
-  font-weight: 600;
-  font-size: 14px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+/* Shared brand row (logo + name side by side) used on both login
+   screens — replaces the old text-mark divs ("MX" / "MM") so both
+   pages match the landing page header. */
+.admin-login-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.admin-login-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.admin-login-brand-name {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text);
 }
 
 .admin-login-title {
@@ -128,6 +163,19 @@
 
 .admin-input::placeholder {
   color: var(--text-muted);
+}
+
+.admin-pw-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-muted);
+  padding: 0;
 }
 
 /* Buttons */
@@ -167,6 +215,11 @@
 .admin-btn-ghost:hover {
   color: var(--text);
   border-color: var(--accent);
+}
+
+.admin-back-btn {
+  width: 100%;
+  margin-top: 4px;
 }
 
 .admin-btn-danger-ghost {

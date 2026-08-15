@@ -13,7 +13,7 @@ _llm = None
 def get_llm():
     global _llm
     if _llm is None:
-        _llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+        _llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
     return _llm
 
 def generate_answer(question, tool_result, history):
@@ -54,8 +54,21 @@ If the question asks about something outside this manual context, unrelated topi
 
 def run_agent(question, session_id="default"):
     history = get_history(session_id)
-    category = classify_query(question)
-    tool_result = TOOL_MAP[category](question)
+    
+    # --- SMARTER QUERY CONTEXTUALIZATION FIX ---
+    search_query = question
+    if history:
+        last_question = history[-1]['question']
+        # Only combine if the new question is a short follow-up or uses reference words
+        follow_up_keywords = ["it", "that", "this", "how", "what about", "why", "explain"]
+        is_short_or_followup = len(question.split()) <= 6 or any(kw in question.lower() for kw in follow_up_keywords)
+        
+        if is_short_or_followup:
+            search_query = f"{last_question} - {question}"
+    # ---------------------------------------------
+
+    category = classify_query(search_query)
+    tool_result = TOOL_MAP[category](search_query)
     
     # 1. Look for an image in the retrieved database chunks
     found_image_url = None

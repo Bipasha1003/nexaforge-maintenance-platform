@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 
 const LOGIN_URL = "http://127.0.0.1:8000/worker/login";
+const LAST_IDENTIFIER_KEY = "nexaforge_last_worker_identifier";
 
 export default function WorkerLogin() {
   const [identifier, setIdentifier] = useState("");
@@ -11,6 +12,12 @@ export default function WorkerLogin() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Prefill last-used Worker ID/email only — never the password.
+  useEffect(() => {
+    const saved = localStorage.getItem(LAST_IDENTIFIER_KEY);
+    if (saved) setIdentifier(saved);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,6 +39,7 @@ export default function WorkerLogin() {
       localStorage.setItem("worker_email", data.email);
       localStorage.setItem("worker_username", data.username);
       localStorage.setItem("worker_must_change_password", String(data.must_change_password));
+      localStorage.setItem(LAST_IDENTIFIER_KEY, identifier);
 
       navigate("/dashboard");
     } catch (err) {
@@ -42,12 +50,19 @@ export default function WorkerLogin() {
   }
 
   return (
-    <div className="admin-shell admin-shell-center">
-      <form className="admin-login-card" onSubmit={handleSubmit} autoComplete="off">
-        <div className="admin-login-mark">MM</div>
-        <div className="admin-login-title">Team sign-in</div>
+    <div className="admin-shell admin-shell-center admin-shell-bg-worker">
+      <form className="admin-login-card" onSubmit={handleSubmit}>
+        <div className="admin-login-brand">
+          <img
+            src="/images/company-logo.png"
+            alt="NexaForge"
+            className="admin-login-logo"
+          />
+          <span className="admin-login-brand-name">NexaForge</span>
+        </div>
+        <div className="admin-login-title">Worker sign-in</div>
         <div className="admin-login-subtitle">
-          Meridian Manufacturing — use the Worker ID or email and password your admin gave you
+          Use the Worker ID or email and password your admin gave you
         </div>
 
         <input
@@ -55,10 +70,10 @@ export default function WorkerLogin() {
           placeholder="Worker ID or Email"
           value={identifier}
           onChange={(e) => setIdentifier(e.target.value)}
-          autoComplete="off"
+          autoComplete="username"
           autoFocus
         />
-        
+
         <div style={{ position: "relative", width: "100%" }}>
           <input
             type={showPassword ? "text" : "password"}
@@ -66,24 +81,13 @@ export default function WorkerLogin() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            autoComplete="new-password"
+            autoComplete="current-password"
             style={{ width: "100%", paddingRight: "40px", boxSizing: "border-box" }}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              right: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "16px",
-              color: "#aaa",
-              padding: 0
-            }}
+            className="admin-pw-toggle"
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? "👁️‍🗨️" : "👁️"}
@@ -96,11 +100,10 @@ export default function WorkerLogin() {
           {loading ? "Checking…" : "Sign in"}
         </button>
 
-        <button 
-          type="button" 
-          className="admin-btn" 
+        <button
+          type="button"
+          className="admin-btn admin-btn-ghost admin-back-btn"
           onClick={() => navigate("/")}
-          style={{ marginTop: "12px", background: "transparent", border: "1px solid #444", color: "#ccc" }}
         >
           Back to dashboard
         </button>

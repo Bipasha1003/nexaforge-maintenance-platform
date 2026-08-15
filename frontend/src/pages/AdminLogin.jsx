@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 
 const LOGIN_URL = "http://127.0.0.1:8000/admin/login";
+const LAST_EMAIL_KEY = "nexaforge_last_admin_email";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,13 @@ export default function AdminLogin() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Prefill last-used email only. Never prefill password from app storage —
+  // let the browser's own password manager handle that (see autoComplete below).
+  useEffect(() => {
+    const savedEmail = localStorage.getItem(LAST_EMAIL_KEY);
+    if (savedEmail) setEmail(savedEmail);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -29,7 +37,8 @@ export default function AdminLogin() {
 
       localStorage.setItem("admin_token", data.token);
       localStorage.setItem("admin_email", data.email);
-      localStorage.setItem("admin_name", data.name); // Save the name from the backend
+      localStorage.setItem("admin_name", data.name);
+      localStorage.setItem(LAST_EMAIL_KEY, email);
 
       navigate("/admin");
     } catch (err) {
@@ -40,11 +49,18 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="admin-shell admin-shell-center">
-      <form className="admin-login-card" onSubmit={handleSubmit} autoComplete="off">
-        <div className="admin-login-mark">MX</div>
+    <div className="admin-shell admin-shell-center admin-shell-bg-admin">
+      <form className="admin-login-card" onSubmit={handleSubmit}>
+        <div className="admin-login-brand">
+          <img
+            src="/images/company-logo.png"
+            alt="NexaForge"
+            className="admin-login-logo"
+          />
+          <span className="admin-login-brand-name">NexaForge</span>
+        </div>
         <div className="admin-login-title">Admin access</div>
-        <div className="admin-login-subtitle">Mill X500 maintenance agent</div>
+        <div className="admin-login-subtitle">Fleet Console</div>
 
         <input
           type="email"
@@ -52,10 +68,10 @@ export default function AdminLogin() {
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          autoComplete="off"
+          autoComplete="username"
           autoFocus
         />
-        
+
         <div style={{ position: "relative", width: "100%" }}>
           <input
             type={showPassword ? "text" : "password"}
@@ -63,24 +79,13 @@ export default function AdminLogin() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            autoComplete="new-password"
+            autoComplete="current-password"
             style={{ width: "100%", paddingRight: "40px", boxSizing: "border-box" }}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              right: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "16px",
-              color: "#aaa",
-              padding: 0
-            }}
+            className="admin-pw-toggle"
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? "👁️‍🗨️" : "👁️"}
@@ -92,12 +97,11 @@ export default function AdminLogin() {
         <button className="admin-btn admin-btn-primary" type="submit" disabled={loading}>
           {loading ? "Checking…" : "Log in"}
         </button>
-        
-        <button 
-          type="button" 
-          className="admin-btn" 
+
+        <button
+          type="button"
+          className="admin-btn admin-btn-ghost admin-back-btn"
           onClick={() => navigate("/")}
-          style={{ marginTop: "12px", background: "transparent", border: "1px solid #444", color: "#ccc" }}
         >
           Back to dashboard
         </button>
