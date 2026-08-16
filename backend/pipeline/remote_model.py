@@ -1,25 +1,49 @@
 import os
-import requests
 import numpy as np
+from huggingface_hub import InferenceClient
 
-MODEL_SERVICE_URL = os.getenv("MODEL_SERVICE_URL", "http://127.0.0.1:7860")
+# Free — this is a personal access token, not a paid subscription.
+# Create one at huggingface.co -> profile picture -> Settings ->
+# Access Tokens -> New token -> role "Read" is enough.
+HF_TOKEN = os.getenv("HF_TOKEN")
+EMBED_MODEL = os.getenv("EMBED_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
+
+_client = None
+
+
+def _get_client():
+    global _client
+    if _client is None:
+        _client = InferenceClient(token=HF_TOKEN)
+    return _client
 
 
 class RemoteEmbeddingModel:
-    """Mimics the .encode(text) interface of a local SentenceTransformer,
-    but calls the Hugging Face Space over HTTP instead of loading the
-    model in this process. semantic.py calls `model.encode(query).tolist()`,
-    so .encode() has to return something with .tolist() — a numpy array,
-    same as the real SentenceTransformer would."""
+    """Same .encode() interface as your real SentenceTransformer, but
+    calls Hugging Face's free hosted Inference API over HTTP instead of
+    loading the model anywhere ourselves. Handles both call shapes your
+    code uses: a single string (semantic.py) and a list of strings
+    (vectorizer.py's batch embed_chunks)."""
 
-    def encode(self, text):
-        res = requests.post(
-            f"{MODEL_SERVICE_URL}/embed",
-            json={"text": text},
-            timeout=30,
-        )
-        res.raise_for_status()
-        return np.array(res.json()["embedding"])
+    def encode(self, text, **kwargs):
+        client = _get_client()
+        is_single = isinstance(text, str)
+        texts = [text] if is_single else list(text)
+
+        vectors = []
+        for t in texts:
+            result = client.feature_extraction(t, model=EMBED_MODEL)
+            arr = np.array(result)
+            # Some models return one vector per token (2D) instead of one
+            # pooled sentence vector (1D) — mean-pool if so, so this
+            # always returns a single fixed-size vector per text, same
+            # shape your pgvector column already expects.
+            if arr.ndim == 2:
+                arr = arr.mean(axis=0)
+            vectors.append(arr)
+
+        arr = np.array(vectors)
+        return arr[0] if is_single else arr
 
 
 _model = None
