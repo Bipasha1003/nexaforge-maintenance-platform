@@ -8,21 +8,14 @@ const DOCS_URL = "http://127.0.0.1:8000/admin/documents";
 const DELETE_URL = "http://127.0.0.1:8000/admin/documents";
 const UPLOAD_URL = "http://127.0.0.1:8000/admin/upload";
 const WORKERS_URL = "http://127.0.0.1:8000/admin/workers";
-
-const SEED_FLEET = [
-  { id: "mx500", name: "CNC Mill X500", type: "CNC Mill", status: "operational", lastCheckIn: "4 minutes ago", nextMaintenance: "Clean coolant tank strainer", nextMaintenanceDue: "Due in 12 days", openIssues: 0 },
-  { id: "lathe-t999", name: "Fervi Gear Head Bench Lathe", type: "CNC Lathe", status: "warning", lastCheckIn: "22 minutes ago", nextMaintenance: "Adjust motor belt tension", nextMaintenanceDue: "Due in 4 days", openIssues: 1 },
-  { id: "saw-cpo350", name: "Scotchman CPO-350 Cold Saw", type: "Cold Saw", status: "operational", lastCheckIn: "15 minutes ago", nextMaintenance: "Check regulator water-trap filter", nextMaintenanceDue: "Due in 30 days", openIssues: 0 },
-  { id: "grind-kgs", name: "Kent Precision Surface Grinder", type: "Surface Grinder", status: "operational", lastCheckIn: "1 hour ago", nextMaintenance: "Clean hydraulic tank & change oil", nextMaintenanceDue: "Due in 5 days", openIssues: 0 },
-  { id: "press-p001", name: "Fervi 20-Ton Hydraulic Press", type: "Hydraulic Press", status: "critical", lastCheckIn: "1 hour ago", nextMaintenance: "Check hydraulic oil level", nextMaintenanceDue: "Overdue by 2 days", openIssues: 2 },
-];
+const MACHINES_URL = "http://127.0.0.1:8000/machines";
 
 const STATUS_LABEL = { operational: "Operational", warning: "Needs attention", critical: "Critical" };
 
 function fleetSummary(fleet) {
   const operational = fleet.filter((m) => m.status === "operational").length;
   const needsAttention = fleet.filter((m) => m.status !== "operational").length;
-  const openIssues = fleet.reduce((sum, m) => sum + m.openIssues, 0);
+  const openIssues = fleet.reduce((sum, m) => sum + (m.open_issues ?? m.openIssues ?? 0), 0);
   return { total: fleet.length, operational, needsAttention, openIssues };
 }
 
@@ -35,7 +28,7 @@ function greetingForHour(hour) {
 export default function AdminDashboard() {
   const [docs, setDocs] = useState([]);
   const [workers, setWorkers] = useState([]);
-  const [fleet, setFleet] = useState(SEED_FLEET);
+  const [fleet, setFleet] = useState([]);
   const [chatSignal, setChatSignal] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAddMachine, setShowAddMachine] = useState(false);
@@ -60,12 +53,14 @@ export default function AdminDashboard() {
   const fetchData = useCallback(async () => {
     if (!token) return;
     try {
-      const [docsRes, workersRes] = await Promise.all([
+      const [docsRes, workersRes, machinesRes] = await Promise.all([
         fetch(DOCS_URL, { headers: { Authorization: `Bearer ${token}` } }),
-        fetch(WORKERS_URL, { headers: { Authorization: `Bearer ${token}` } })
+        fetch(WORKERS_URL, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(MACHINES_URL),
       ]);
       if (docsRes.ok) setDocs(await docsRes.json());
       if (workersRes.ok) setWorkers(await workersRes.json());
+      if (machinesRes.ok) setFleet(await machinesRes.json());
     } catch {
       // silent catch for interval polling
     }
@@ -88,16 +83,26 @@ export default function AdminDashboard() {
     fetchData();
   }
 
-  function handleAddMachine(machine) {
-    const id = `${machine.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`;
-    setFleet((prev) => [...prev, { ...machine, id, lastCheckIn: "Just added", openIssues: 0 }]);
-    setShowAddMachine(false);
-    setFleetNotice({ type: "success", text: `${machine.name} added to the fleet.` });
-    setTimeout(() => setFleetNotice(null), 4000);
+  async function handleAddMachine(machine) {
+    try {
+      const res = await fetch(MACHINES_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(machine),
+      });
+      if (!res.ok) throw new Error();
+      setShowAddMachine(false);
+      setFleetNotice({ type: "success", text: `${machine.name} added to the fleet.` });
+      setTimeout(() => setFleetNotice(null), 4000);
+      fetchData();
+    } catch {
+      setFleetNotice({ type: "error", text: "Couldn't add that machine — check the backend terminal." });
+    }
   }
 
-  function handleRemoveMachine(id) {
-    setFleet((prev) => prev.filter((m) => m.id !== id));
+  async function handleRemoveMachine(id) {
+    await fetch(`${MACHINES_URL}/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+    fetchData();
   }
 
   function handleLogout() {
@@ -107,12 +112,28 @@ export default function AdminDashboard() {
     navigate("/"); 
   }
 
-  const handleDownload = (e, docName) => {
-    e.preventDefault();
-    alert(`Downloading ${docName}... (Simulated download)`);
+  // --- REAL FILE DOWNLOAD LOGIC (FIXED IDENTIFIER) ---
+  const handleDownload = (docId, docName) => {
+    const identifier = docId || docName;
+    if (!identifier) {
+      alert("Error: Document identifier missing.");
+      return;
+    }
+    
+    const downloadUrl = `http://127.0.0.1:8000/documents/${encodeURIComponent(identifier)}/download`;
+    
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute("download", docName || "document.pdf");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const heroLine = useMemo(() => {
+    if (summary.total === 0) {
+      return "No machines on the floor yet — add your first one to get started.";
+    }
     if (summary.needsAttention === 0) {
       return `All ${summary.total} machines on the floor are running clean. Nothing waiting on you right now.`;
     }
@@ -122,7 +143,6 @@ export default function AdminDashboard() {
   return (
     <div className="site site-bg-admin">
       
-      {/* PERFECTLY MATCHING CLEAN HEADER */}
       <header className={`landing-header ${isScrolled ? "scrolled" : ""}`} style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(8px)", borderBottom: "1px solid #eaeaea" }}>
         <div className="landing-brand" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           <img 
@@ -136,7 +156,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Using the new clean CSS classes instead of inline styles */}
         <div className="landing-header-actions admin-header-actions-row">
           <button className="admin-ai-btn" onClick={() => setChatSignal((n) => n + 1)}>
             Open AI
@@ -166,7 +185,6 @@ export default function AdminDashboard() {
 
       <main className="site-main" style={{ marginTop: 36, maxWidth: 1240, marginInline: "auto", width: "100%", paddingInline: 24 }}>
 
-        {/* Hero */}
         <section
           style={{
             background: "rgba(255, 255, 255, 0.95)",
@@ -223,11 +241,7 @@ export default function AdminDashboard() {
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40, marginBottom: 16 }}>
           <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Equipment fleet</div>
-          <button
-            type="button"
-            onClick={() => setShowAddMachine(true)}
-            className="admin-text-btn"
-          >
+          <button type="button" onClick={() => setShowAddMachine(true)} className="admin-text-btn">
             + Add machine
           </button>
         </div>
@@ -252,8 +266,8 @@ export default function AdminDashboard() {
                 </div>
               </div>
               <div style={{ marginTop: 18, fontSize: 14, color: "var(--text-muted)", borderTop: "1px dashed var(--border)", paddingTop: 14 }}>
-                <div style={{ marginBottom: 4 }}>Next service: <b style={{ color: "var(--text)" }}>{m.nextMaintenance}</b></div>
-                <div style={{ color: m.status === 'critical' ? 'var(--danger)' : 'inherit', fontWeight: 600 }}>{m.nextMaintenanceDue}</div>
+                <div style={{ marginBottom: 4 }}>Next service: <b style={{ color: "var(--text)" }}>{m.next_maintenance}</b></div>
+                <div style={{ color: m.status === 'critical' ? 'var(--danger)' : 'inherit', fontWeight: 600 }}>{m.next_maintenance_due}</div>
               </div>
               <div style={{ marginTop: 16, textAlign: "right" }}>
                 <button className="admin-btn admin-btn-danger-ghost" style={{ fontSize: 13.5, padding: "7px 14px" }} onClick={() => handleRemoveMachine(m.id)}>Remove</button>
@@ -309,10 +323,10 @@ export default function AdminDashboard() {
               {docs.map((doc) => (
                 <tr key={doc.id} style={{ borderBottom: "1px solid var(--border)" }}>
                   <td style={{ padding: "18px 24px", fontWeight: 500 }}>{doc.name}</td>
-                  <td style={{ padding: "18px 24px" }}><span className={`status-pill status-${doc.status}`} style={{ fontSize: 12.5, padding: "4px 12px" }}>{doc.status}</span></td>
+                  <td style={{ padding: "18px 24px" }}><span className={`status-pill status-${doc.status?.toLowerCase() || 'processing'}`} style={{ fontSize: 12.5, padding: "4px 12px" }}>{doc.status}</span></td>
                   <td style={{ padding: "18px 24px" }}>{doc.pages ?? "—"}</td>
                   <td style={{ padding: "18px 24px" }}>
-                    <a href="#" onClick={(e) => handleDownload(e, doc.name)} style={{ fontSize: 14, textDecoration: "none", color: "var(--l-accent)", fontWeight: 600 }}>
+                    <a href="#" onClick={(e) => { e.preventDefault(); handleDownload(doc.id || doc.name, doc.name); }} style={{ fontSize: 14, textDecoration: "none", color: "var(--l-accent)", fontWeight: 600, cursor: "pointer" }}>
                       ⬇ Download
                     </a>
                   </td>
@@ -358,7 +372,6 @@ export default function AdminDashboard() {
         </div>
       </main>
       
-      {/* Dark Footer matching landing page */}
       <footer className="landing-footer" style={{ backgroundColor: "#1c1a17", color: "#e4dfd5", padding: "64px 40px 24px", marginTop: "72px" }}>
         <div className="footer-content" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "40px", maxWidth: "1200px", margin: "0 auto", paddingBottom: "40px" }}>
           <div className="footer-section">
@@ -424,7 +437,6 @@ export default function AdminDashboard() {
   );
 }
 
-/* ---------- Shared brand row used at the top of every "Add ___" modal ---------- */
 function ModalBrand() {
   return (
     <div className="admin-login-brand" style={{ justifyContent: "center" }}>
@@ -437,24 +449,26 @@ function ModalBrand() {
 const modalLabel = { fontSize: 14.5, fontWeight: 700, color: "var(--text)", display: "flex", flexDirection: "column", gap: 7 };
 const modalInput = { fontSize: 15, padding: "12px 14px" };
 
-/* ---------- Add Machine ---------- */
 function AddMachineModal({ onClose, onAdd }) {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("operational");
   const [nextMaintenance, setNextMaintenance] = useState("");
   const [nextMaintenanceDue, setNextMaintenanceDue] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!name.trim() || !type.trim()) return;
-    onAdd({
+    setSubmitting(true);
+    await onAdd({
       name: name.trim(),
       type: type.trim(),
       status,
-      nextMaintenance: nextMaintenance.trim() || "No task scheduled yet",
-      nextMaintenanceDue: nextMaintenanceDue.trim() || "No date set",
+      next_maintenance: nextMaintenance.trim() || "No task scheduled yet",
+      next_maintenance_due: nextMaintenanceDue.trim() || "No date set",
     });
+    setSubmitting(false);
   }
 
   return (
@@ -497,14 +511,15 @@ function AddMachineModal({ onClose, onAdd }) {
 
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 6 }}>
           <button type="button" className="admin-btn admin-btn-ghost" style={{ fontSize: 14.5, padding: "10px 20px" }} onClick={onClose}>Cancel</button>
-          <button type="submit" className="admin-btn admin-btn-primary" style={{ width: "auto", fontSize: 14.5, padding: "10px 22px" }}>Add to fleet</button>
+          <button type="submit" className="admin-btn admin-btn-primary" style={{ width: "auto", fontSize: 14.5, padding: "10px 22px" }} disabled={submitting}>
+            {submitting ? "Adding…" : "Add to fleet"}
+          </button>
         </div>
       </form>
     </div>
   );
 }
 
-/* ---------- Add Document ---------- */
 function AddDocumentModal({ token, onClose, onUploaded }) {
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -581,7 +596,6 @@ function AddDocumentModal({ token, onClose, onUploaded }) {
   );
 }
 
-/* ---------- Add Worker ---------- */
 function AddWorkerModal({ token, onClose, onCreated }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

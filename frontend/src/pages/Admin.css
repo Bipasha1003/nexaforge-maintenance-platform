@@ -474,3 +474,15 @@
 .admin-logout-btn:hover {
   border-color: #b5461f !important;     /* Outline turns orange on hover */
 }
+
+/* Worker dashboard faded background — same technique as .site-bg-admin,
+   reuses the worker-login-bg.jpg you already have for the worker login
+   screen, so no new image asset is needed. Append to Admin.css. */
+.site-bg-worker {
+  background-image:
+    linear-gradient(rgba(250, 246, 240, 0.52), rgba(250, 246, 240, 0.52)),
+    url("/images/worker-login-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}

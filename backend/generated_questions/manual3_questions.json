@@ -1,0 +1,74 @@
+[
+  {
+    "question": "What does Meridian Manufacturing specialize in producing?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 0
+  },
+  {
+    "question": "How many production facilities does the company operate?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 0
+  },
+  {
+    "question": "What types of components does Meridian manufacture for industrial equipment?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 1
+  },
+  {
+    "question": "Does Meridian sell any consumer-branded products, or only supply parts to other manufacturers?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 1
+  },
+  {
+    "question": "Which CNC machine is used to mill the raw material in the machining cell?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 2
+  },
+  {
+    "question": "How are the finished parts moved from the milling cell to the inspection station?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 2
+  },
+  {
+    "question": "What CNC mill is used on the shop floor?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 3
+  },
+  {
+    "question": "Which materials are processed on the conveyor system?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 3
+  },
+  {
+    "question": "How often do we need to do preventive maintenance on this equipment?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 4
+  },
+  {
+    "question": "Where can I find the troubleshooting steps and error code references for this machine?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 4
+  },
+  {
+    "question": "Where can I access the maintenance log history that the floor maintenance team uses?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 5
+  },
+  {
+    "question": "Is the maintenance log information I'm looking at real data or just sample data for testing?",
+    "expected_page": 1,
+    "source": "manual3.pdf",
+    "chunk_id": 5
+  }
+]
