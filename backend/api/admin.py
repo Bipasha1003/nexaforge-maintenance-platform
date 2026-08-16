@@ -2,6 +2,7 @@ import os
 import sys
 import uuid
 import shutil
+import psycopg2
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -72,26 +73,45 @@ def list_documents(token: str = Depends(require_admin)):
 
 
 def process_document(doc_id: str, file_path: str, source_name: str):
-    """Background task to ingest files and automatically generate test questions."""
+    """Background task to ingest files and automatically save generated test questions to Supabase."""
     try:
         print(f"Starting ingestion for {source_name}...")
         
-        # 1. Process the file, embed it, and save to Supabase
+        # 1. Process the file, embed it, and save to Supabase chunks
         page_count = ingest_file(file_path, source_name)
         
-        # 2. AUTOMATICALLY generate the questions JSON file
+        # 2. Generate the questions list
         print(f"Generating question set for {source_name}...")
         output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "generated_questions")
-        
-        # --- UPDATED: Pass the clean source_name to the generator ---
         json_path = generate_questions_for_file(file_path, source_name=source_name, output_dir=output_dir)
         
-        if json_path:
-            print(f"Successfully generated questions at: {json_path}")
-        else:
-            print(f"No questions generated for {source_name}.")
+        # 3. SAVE QUESTIONS TO SUPABASE DATABASE INSTEAD OF LOCAL DISK ONLY
+        if json_path and os.path.exists(json_path):
+            import json
+            with open(json_path, "r", encoding="utf-8") as f:
+                questions_data = json.load(f)
+                
+            database_url = os.getenv("DATABASE_URL")
+            conn = psycopg2.connect(database_url)
+            cur = conn.cursor()
             
-        # 3. Mark the document as ready in the admin dashboard
+            # Clear old questions for this source if re-uploading
+            cur.execute("DELETE FROM generated_questions WHERE source = %s;", (source_name,))
+            
+            for q_item in questions_data:
+                cur.execute(
+                    """
+                    INSERT INTO generated_questions (source, question, expected_page)
+                    VALUES (%s, %s, %s);
+                    """,
+                    (q_item["source"], q_item["question"], q_item["expected_page"])
+                )
+            conn.commit()
+            cur.close()
+            conn.close()
+            print(f"Successfully saved {len(questions_data)} questions to Supabase database!")
+
+        # 4. Mark the document as ready in the admin dashboard
         document_store.update_status(doc_id, "ready", pages=page_count)
         
     except Exception as e:
