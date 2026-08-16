@@ -24,19 +24,26 @@ def _get_client():
 def rerank(query, candidates, top_k=5):
     client = _get_client()
     texts = [c["text"] for c in candidates]
+    
+    try:
+        # Try to use Hugging Face to rerank the best answers
+        scores = client.sentence_similarity(query, texts, model=RERANK_MODEL)
+        for c, score in zip(candidates, scores):
+            c["rerank_score"] = float(score)
+            
+        ranked = sorted(candidates, key=lambda x: x["rerank_score"], reverse=True)
+        return ranked[:top_k]
+        
+    except Exception as e:
+        # SAFETY NET: If Hugging Face free API fails or refuses the model, 
+        # do NOT crash. Just use the original hybrid search scores!
+        print(f"[RERANK WARNING] Hugging Face API failed: {e}. Falling back to hybrid scores.")
+        for c in candidates:
+            # Copy the hybrid score so the rest of the app doesn't break
+            c["rerank_score"] = c.get("hybrid_score", 0.0) 
+            
+        return candidates[:top_k]
 
-    # sentence_similarity compares one query against many candidates and
-    # returns one score per candidate, in order — exactly the shape a
-    # cross-encoder reranker needs. This is my best mapping of your real
-    # rerank.py onto HF's hosted API; if this specific call errors on
-    # this model, send me the exact error and I'll adjust it.
-    scores = client.sentence_similarity(query, texts, model=RERANK_MODEL)
-
-    for c, score in zip(candidates, scores):
-        c["rerank_score"] = float(score)
-
-    ranked = sorted(candidates, key=lambda x: x["rerank_score"], reverse=True)
-    return ranked[:top_k]
 
 
 def search_with_rerank(query, final_k=5, candidate_pool=10):
