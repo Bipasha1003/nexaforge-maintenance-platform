@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from fastapi import APIRouter
@@ -32,22 +33,21 @@ def query(req: QueryRequest):
     greetings = ["hi", "hii", "hiii", "hello", "hey", "good morning", "good evening", "sup"]
     if user_lower in greetings:
         greeting_answer = (
-    "Hello! I am your AI Maintenance Assistant for NexaForge. 🛠️\n\n"
-    "I am connected directly to our equipment manuals database (including the CNC Mill X500, Cold Saw, Hydraulic Press, and factory floor flowcharts), "
-    "as well as live maintenance schedules and active floor notices.\n\n"
-    "How can I help you today? You can ask me about troubleshooting error codes, checking maintenance frequencies, "
-    "or reviewing standard operating procedures."
-)
+            "Hello! I am your AI Maintenance Assistant for NexaForge. 🛠️\n\n"
+            "I am connected directly to our equipment manuals database (including the CNC Mill X500, Cold Saw, Hydraulic Press, and factory floor flowcharts), "
+            "as well as live maintenance schedules and active floor notices.\n\n"
+            "How can I help you today? You can ask me about troubleshooting error codes, checking maintenance frequencies, "
+            "or reviewing standard operating procedures."
+        )
         actual_role = "admin" if req.is_admin else "user"
         
         chat_store.save_message(req.user_id, actual_role, req.question)
-        chat_store.save_message(req.user_id, "bot", greeting_answer, [], None)
+        chat_store.save_message(req.user_id, "bot", greeting_answer, [])
         
         return {
             "answer": greeting_answer,
             "sources": [],
-            "tool_used": None,
-            "image_url": None
+            "tool_used": None
         }
 
     # Standard role tracking

@@ -74,7 +74,10 @@ export default function AdminDashboard() {
   }, [token, navigate, fetchData]);
 
   async function handleDeleteDoc(docId) {
-    await fetch(`${DELETE_URL}/${docId}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+    await fetch(`${DELETE_URL}/${docId}`, { 
+      method: "DELETE", 
+      headers: { Authorization: `Bearer ${token}` } 
+    });
     fetchData();
   }
 
@@ -308,7 +311,6 @@ export default function AdminDashboard() {
           </button>
         </div>
         
-        {/* --- MOBILE TABLE SCROLL FIX ADDED HERE --- */}
         <div className="table-wrapper" style={{ background: "#ffffff", borderRadius: 14, border: "1px solid var(--border)", overflowX: "auto", boxShadow: "0 12px 28px rgba(28, 26, 23, 0.08)" }}>
           <table className="admin-table" style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
             <thead>
@@ -345,7 +347,6 @@ export default function AdminDashboard() {
           </button>
         </div>
 
-        {/* --- MOBILE TABLE SCROLL FIX ADDED HERE --- */}
         <div className="table-wrapper" style={{ background: "#ffffff", borderRadius: 14, border: "1px solid var(--border)", overflowX: "auto", boxShadow: "0 12px 28px rgba(28, 26, 23, 0.08)" }}>
           <table className="admin-table" style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
             <thead>

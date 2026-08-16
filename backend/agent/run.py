@@ -59,7 +59,6 @@ def run_agent(question, session_id="default"):
     search_query = question
     if history:
         last_question = history[-1]['question']
-        # Only combine if the new question is a short follow-up or uses reference words
         follow_up_keywords = ["it", "that", "this", "how", "what about", "why", "explain"]
         is_short_or_followup = len(question.split()) <= 6 or any(kw in question.lower() for kw in follow_up_keywords)
         
@@ -70,22 +69,13 @@ def run_agent(question, session_id="default"):
     category = classify_query(search_query)
     tool_result = TOOL_MAP[category](search_query)
     
-    # 1. Look for an image in the retrieved database chunks
-    found_image_url = None
-    if "chunks" in tool_result:
-        for c in tool_result["chunks"]:
-            if c.get("image_url"):
-                found_image_url = c["image_url"]
-                break  
-                
     answer, sources = generate_answer(question, tool_result, history)
     add_exchange(session_id, question, answer)
     
     return {
         "answer": answer, 
         "sources": sources, 
-        "tool_used": category,
-        "image_url": found_image_url
+        "tool_used": category
     }
 
 def print_chat_reply(question, result):
@@ -94,8 +84,6 @@ def print_chat_reply(question, result):
     if result["sources"]:
         pages = ", ".join(f"p.{s['page']}" for s in result["sources"])
         print(f"    (Source: {result['sources'][0]['source']} — {pages})")
-    if result.get("image_url"):
-        print(f"    (Image Attached: {result['image_url']})")
 
 if __name__ == "__main__":
     q1 = "What causes E-322 and how do I fix it?"

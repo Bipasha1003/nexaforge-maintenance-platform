@@ -14,7 +14,7 @@ def semantic_search(query, top_k=5):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT chunk_id, page_number, source, text, image_url,
+                SELECT chunk_id, page_number, source, text,
                        1 - (embedding <=> %s::vector) AS similarity
                 FROM chunks
                 ORDER BY embedding <=> %s::vector
@@ -33,8 +33,7 @@ def semantic_search(query, top_k=5):
             "page_number": row[1],
             "source": row[2],
             "text": row[3],
-            "image_url": row[4],  # Added image_url column
-            "similarity": row[5]
+            "similarity": row[4]
         })
     return results
 
@@ -45,5 +44,4 @@ if __name__ == "__main__":
     print(f"Top {len(results)} results:")
     for r in results:
         print(f"\n[Page {r['page_number']}] similarity={r['similarity']:.4f}")
-        print(f"Image URL: {r['image_url']}")
         print(r['text'][:200])

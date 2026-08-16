@@ -2,19 +2,14 @@ import os
 import sys
 import json
 import uuid
-import fitz
-from PIL import Image
-import pytesseract
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
-
-# Ensure pytesseract knows where Tesseract is (Windows)
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from splitter import chunk_document
+from image_extraction import extract_image_text
 
 load_dotenv()
 _llm = None
@@ -46,16 +41,18 @@ def generate_questions_for_chunk(chunk):
     try:
         questions = json.loads(raw)
     except json.JSONDecodeError:
-        # fallback if the model adds stray text around the JSON
         start = raw.find("[")
         end = raw.rfind("]") + 1
         questions = json.loads(raw[start:end]) if start != -1 and end != 0 else []
     return questions
 
 def get_chunks_for_file(file_path, source_name=None):
-    """Extracts and chunks text based on file extension (PDF, TXT, Images)."""
+    """Extracts and chunks text based on file extension (PDF, TXT, Images).
+    Images now go through the same shared vision+OCR pipeline as
+    ingest.py — previously this used plain pytesseract only, which
+    produced much weaker text than what actually gets stored for real
+    uploads, and caused image-based documents to generate 0 questions."""
     ext = os.path.splitext(file_path)[1].lower()
-    # Use clean source name if provided, else fallback to filename
     actual_source_name = source_name if source_name else os.path.basename(file_path)
 
     if ext == ".pdf":
@@ -74,10 +71,7 @@ def get_chunks_for_file(file_path, source_name=None):
         }]
 
     elif ext in [".png", ".jpg", ".jpeg"]:
-        image = Image.open(file_path)
-        text = pytesseract.image_to_string(image)
-        if not text.strip():
-            text = "[Image with no recognizable text]"
+        text = extract_image_text(file_path)
         return [{
             "chunk_id": str(uuid.uuid4()),
             "page_number": 1,
@@ -91,7 +85,7 @@ def get_chunks_for_file(file_path, source_name=None):
 
 def generate_questions_for_file(file_path, source_name=None, output_dir="generated_questions"):
     os.makedirs(output_dir, exist_ok=True)
-    
+
     print(f"Extracting text from: {file_path}...")
     chunks = get_chunks_for_file(file_path, source_name)
 
@@ -101,10 +95,10 @@ def generate_questions_for_file(file_path, source_name=None, output_dir="generat
 
     all_results = []
     for i, chunk in enumerate(chunks):
-        # Skip chunks that are too short to contain meaningful Q&A data
         if chunk["char_count"] < 50:
+            print(f"Skipping chunk {i + 1} — only {chunk['char_count']} chars, below the 50-char minimum.")
             continue
-            
+
         print(f"Generating questions for chunk {i + 1}/{len(chunks)} (page {chunk['page_number']})...")
         questions = generate_questions_for_chunk(chunk)
         for q in questions:
@@ -115,13 +109,11 @@ def generate_questions_for_file(file_path, source_name=None, output_dir="generat
                 "chunk_id": chunk["chunk_id"]
             })
 
-    # --- UPDATED NAMING LOGIC ---
-    # Use the clean source_name if provided, otherwise fallback to the file_path's base name
     name_to_use = source_name if source_name else os.path.basename(file_path)
     clean_name = os.path.splitext(name_to_use)[0]
-    
+
     output_path = os.path.join(output_dir, f"{clean_name}_questions.json")
-    
+
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2)
 
