@@ -2,7 +2,7 @@ import os
 import numpy as np
 from huggingface_hub import InferenceClient
 
-# Free — this is a personal access token, not a paid subscription.
+# Free -- this is a personal access token, not a paid subscription.
 # Create one at huggingface.co -> profile picture -> Settings ->
 # Access Tokens -> New token -> role "Read" is enough.
 HF_TOKEN = os.getenv("HF_TOKEN")
@@ -35,7 +35,7 @@ class RemoteEmbeddingModel:
             result = client.feature_extraction(t, model=EMBED_MODEL)
             arr = np.array(result)
             # Some models return one vector per token (2D) instead of one
-            # pooled sentence vector (1D) — mean-pool if so, so this
+            # pooled sentence vector (1D) -- mean-pool if so, so this
             # always returns a single fixed-size vector per text, same
             # shape your pgvector column already expects.
             if arr.ndim == 2:
