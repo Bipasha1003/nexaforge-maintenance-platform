@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
+import { API_BASE } from "../config";
 
-const LOGIN_URL = "http://127.0.0.1:8000/admin/login";
+const LOGIN_URL = `${API_BASE}/admin/login`;
 const LAST_EMAIL_KEY = "nexaforge_last_admin_email";
 
 export default function AdminLogin() {

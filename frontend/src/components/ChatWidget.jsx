@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import "./ChatWidget.css";
+import { API_BASE } from "../config";
 
-const API_URL = "http://127.0.0.1:8000/query";
-const HISTORY_URL = "http://127.0.0.1:8000/chat/history";
+const API_URL = `${API_BASE}/query`;
+const HISTORY_URL = `${API_BASE}/chat/history`;
 
 const DEFAULT_GREETING = {
   role: "bot",

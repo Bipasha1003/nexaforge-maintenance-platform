@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
+import { API_BASE } from "../config";
 
-const LOGIN_URL = "http://127.0.0.1:8000/worker/login";
+const LOGIN_URL = `${API_BASE}/worker/login`;
 const LAST_IDENTIFIER_KEY = "nexaforge_last_worker_identifier";
 
 export default function WorkerLogin() {

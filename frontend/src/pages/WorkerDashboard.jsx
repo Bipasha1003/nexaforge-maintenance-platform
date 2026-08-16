@@ -3,9 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import ChatWidget from "../components/ChatWidget";
 import "./LandingPage.css";
 import "./Admin.css";
+import { API_BASE } from "../config";
 
-const MACHINES_URL = "http://127.0.0.1:8000/machines";
-const DOCS_URL = "http://127.0.0.1:8000/documents";
+const MACHINES_URL = `${API_BASE}/machines`;
+const DOCS_URL = `${API_BASE}/documents`;
 
 const STATUS_LABEL = { operational: "Operational", warning: "Needs attention", critical: "Critical" };
 
@@ -108,7 +109,7 @@ export default function WorkerDashboard() {
       return;
     }
     
-    const downloadUrl = `http://127.0.0.1:8000/documents/${encodeURIComponent(identifier)}/download`;
+    const downloadUrl = `${API_BASE}/documents/${encodeURIComponent(identifier)}/download`;
     
     const link = document.createElement("a");
     link.href = downloadUrl;

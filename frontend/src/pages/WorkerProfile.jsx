@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Admin.css";
+import { API_BASE } from "../config";
 
-const ME_URL = "http://127.0.0.1:8000/worker/me";
-const PROFILE_URL = "http://127.0.0.1:8000/worker/profile";
-const PASSWORD_URL = "http://127.0.0.1:8000/worker/change-password";
+const ME_URL = `${API_BASE}/worker/me`;
+const PROFILE_URL = `${API_BASE}/worker/profile`;
+const PASSWORD_URL = `${API_BASE}/worker/change-password`;
 
 export default function WorkerProfile() {
   const [worker, setWorker] = useState(null);
