@@ -2,15 +2,10 @@ import os
 import sys
 sys.path.append(os.path.dirname(__file__))
 from splitter import chunk_document
-from sentence_transformers import SentenceTransformer
-
-_model = None
+from pipeline.remote_model import get_remote_model
 
 def get_model():
-    global _model
-    if _model is None:
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
-    return _model
+    return get_remote_model()
 
 def embed_chunks(chunks):
     model = get_model()
