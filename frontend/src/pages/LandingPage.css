@@ -282,3 +282,53 @@
   color: var(--l-ink-muted);
   margin-top: 4px;
 }
+
+/* =========================================
+   📱 MOBILE RESPONSIVENESS FIXES (PUBLIC SITE)
+   ========================================= */
+   
+@media (max-width: 860px) {
+  /* Stack Header */
+  .landing-header {
+    flex-direction: column !important;
+    padding: 16px !important;
+    height: auto !important;
+    gap: 16px !important;
+  }
+  .landing-header-actions {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* Stack Sections */
+  .landing-hero-grid,
+  .landing-strip-grid,
+  .landing-product-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    text-align: center;
+  }
+  
+  .landing-hero {
+    padding: 40px 20px !important;
+  }
+  .landing-hero-title {
+    font-size: clamp(32px, 8vw, 40px) !important;
+  }
+  .landing-hero-actions {
+    justify-content: center !important;
+  }
+  .landing-products, .landing-strip {
+    padding: 40px 20px !important;
+  }
+
+  /* Stack Footer */
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 32px !important;
+  }
+  .footer-brand {
+    justify-content: center !important;
+  }
+}

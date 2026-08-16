@@ -486,3 +486,54 @@
   background-position: center;
   background-attachment: fixed;
 }
+
+/* =========================================
+   📱 MOBILE RESPONSIVENESS FIXES (DASHBOARDS)
+   ========================================= */
+
+@media (max-width: 860px) {
+  /* 1. Fix the Header & Buttons */
+  .landing-header {
+    flex-direction: column !important;
+    padding: 16px !important;
+    height: auto !important;
+    gap: 16px !important;
+  }
+  .admin-header-actions-row {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  
+  /* 2. Fix the Dashboard Layout & Grids */
+  .site-main {
+    padding-inline: 16px !important;
+  }
+  .site-main > section, 
+  .card {
+    padding: 20px !important;
+  }
+  .site-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 3. Fix Login Cards & Modals */
+  .admin-login-card {
+    width: 100% !important;
+    max-width: 90vw !important;
+    padding: 24px !important;
+  }
+  .admin-modal-overlay {
+    padding: 16px !important;
+  }
+}
+
+/* 4. Fix Table Overflow (Allows swiping on mobile) */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+.admin-table {
+  min-width: 750px; /* Forces scrolling on small screens instead of breaking layout */
+}

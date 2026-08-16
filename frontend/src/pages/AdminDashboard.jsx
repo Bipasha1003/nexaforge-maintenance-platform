@@ -112,7 +112,6 @@ export default function AdminDashboard() {
     navigate("/"); 
   }
 
-  // --- REAL FILE DOWNLOAD LOGIC (FIXED IDENTIFIER) ---
   const handleDownload = (docId, docName) => {
     const identifier = docId || docName;
     if (!identifier) {
@@ -308,7 +307,9 @@ export default function AdminDashboard() {
             + Add document
           </button>
         </div>
-        <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid var(--border)", overflow: "hidden", boxShadow: "0 12px 28px rgba(28, 26, 23, 0.08)" }}>
+        
+        {/* --- MOBILE TABLE SCROLL FIX ADDED HERE --- */}
+        <div className="table-wrapper" style={{ background: "#ffffff", borderRadius: 14, border: "1px solid var(--border)", overflowX: "auto", boxShadow: "0 12px 28px rgba(28, 26, 23, 0.08)" }}>
           <table className="admin-table" style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
             <thead>
               <tr style={{ background: "#f5f3ef", textAlign: "left" }}>
@@ -343,7 +344,9 @@ export default function AdminDashboard() {
             + Add worker
           </button>
         </div>
-        <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid var(--border)", overflow: "hidden", boxShadow: "0 12px 28px rgba(28, 26, 23, 0.08)" }}>
+
+        {/* --- MOBILE TABLE SCROLL FIX ADDED HERE --- */}
+        <div className="table-wrapper" style={{ background: "#ffffff", borderRadius: 14, border: "1px solid var(--border)", overflowX: "auto", boxShadow: "0 12px 28px rgba(28, 26, 23, 0.08)" }}>
           <table className="admin-table" style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
             <thead>
               <tr style={{ background: "#f5f3ef", textAlign: "left" }}>
