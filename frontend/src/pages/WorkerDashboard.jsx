@@ -206,7 +206,7 @@ export default function WorkerDashboard() {
           >
             {greetingForHour(new Date().getHours())}, {firstName}.
           </h1>
-          <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 68, lineHeight: 1.6, color: "var(--text-muted)", margin: 0, maxWidth: 680 }}>
+          <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 16, lineHeight: 1.6, color: "var(--text-muted)", margin: 0, maxWidth: 680 }}>
             {heroLine}
           </p>
         </section>
