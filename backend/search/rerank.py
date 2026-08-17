@@ -1,49 +1,113 @@
 import os
 import sys
-from huggingface_hub import InferenceClient
+import json
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # backend/
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-# search/  <- ADD THIS LINE
+# search/
 
 from merge import hybrid_search
+from langchain_groq import ChatGroq
+from dotenv import load_dotenv
 
-HF_TOKEN = os.getenv("HF_TOKEN")
-RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+load_dotenv()
 
-_client = None
+# NOTE: Reranking previously called the Hugging Face free Serverless
+# Inference API (cross-encoder/ms-marco-MiniLM-L-6-v2). As of 2026, HF
+# routes many community models through third-party "Inference Providers"
+# that don't actually host that model, so the call failed 100% of the time
+# with an empty-body HTTP error and silently fell back to hybrid scores.
+#
+# This version reranks using the same Groq LLM already used elsewhere in
+# the app (agent/router.py, agent/run.py) — no new dependency, no local
+# model to load, safe on Render's free-tier RAM. It asks the LLM to read
+# the candidate chunks and return the most relevant ones in order.
+
+_llm = None
 
 
-def _get_client():
-    global _client
-    if _client is None:
-        _client = InferenceClient(token=HF_TOKEN)
-    return _client
+def get_llm():
+    global _llm
+    if _llm is None:
+        _llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0)
+    return _llm
+
+
+RERANK_PROMPT = """You are ranking search results for a manufacturing maintenance assistant.
+
+Question: {query}
+
+Below are {n} candidate passages, each with an ID. Read them and decide which
+are most directly relevant to answering the question.
+
+{passages}
+
+Return ONLY a JSON array of the passage IDs, ordered from MOST relevant to
+LEAST relevant. Include at most {top_k} IDs. Example: [3, 1, 5]
+Nothing else — no explanation, no markdown."""
+
+
+def _format_passages(candidates):
+    lines = []
+    for i, c in enumerate(candidates):
+        snippet = c["text"][:500]  # keep prompt size/cost bounded
+        lines.append(f"[ID {i}] (page {c['page_number']}, source: {c['source']})\n{snippet}")
+    return "\n\n".join(lines)
+
+
+def _fallback_to_hybrid(candidates, top_k):
+    for c in candidates:
+        c["rerank_score"] = c.get("hybrid_score", 0.0)
+    ranked = sorted(candidates, key=lambda x: x["rerank_score"], reverse=True)
+    return ranked[:top_k]
 
 
 def rerank(query, candidates, top_k=5):
-    client = _get_client()
-    texts = [c["text"] for c in candidates]
-    
-    try:
-        # Try to use Hugging Face to rerank the best answers
-        scores = client.sentence_similarity(query, texts, model=RERANK_MODEL)
-        for c, score in zip(candidates, scores):
-            c["rerank_score"] = float(score)
-            
-        ranked = sorted(candidates, key=lambda x: x["rerank_score"], reverse=True)
-        return ranked[:top_k]
-        
-    except Exception as e:
-        # SAFETY NET: If Hugging Face free API fails or refuses the model, 
-        # do NOT crash. Just use the original hybrid search scores!
-        print(f"[RERANK WARNING] Hugging Face API failed: {e}. Falling back to hybrid scores.")
-        for c in candidates:
-            # Copy the hybrid score so the rest of the app doesn't break
-            c["rerank_score"] = c.get("hybrid_score", 0.0) 
-            
-        return candidates[:top_k]
+    if not candidates:
+        return []
 
+    try:
+        llm = get_llm()
+        prompt = RERANK_PROMPT.format(
+            query=query,
+            n=len(candidates),
+            passages=_format_passages(candidates),
+            top_k=top_k,
+        )
+        response = llm.invoke(prompt)
+        raw = response.content.strip()
+
+        try:
+            order = json.loads(raw)
+        except json.JSONDecodeError:
+            start = raw.find("[")
+            end = raw.rfind("]") + 1
+            order = json.loads(raw[start:end]) if start != -1 and end != 0 else []
+
+        if not order:
+            raise ValueError("LLM returned no usable ranking")
+
+        ranked = []
+        seen = set()
+        for idx in order:
+            if isinstance(idx, int) and 0 <= idx < len(candidates) and idx not in seen:
+                c = candidates[idx]
+                # Score by position: first = highest, so downstream code that
+                # sorts by rerank_score still behaves correctly.
+                c["rerank_score"] = len(order) - len(ranked)
+                ranked.append(c)
+                seen.add(idx)
+            if len(ranked) >= top_k:
+                break
+
+        if not ranked:
+            raise ValueError("LLM ranking didn't match any valid candidate IDs")
+
+        return ranked
+
+    except Exception as e:
+        print(f"[RERANK WARNING] LLM rerank failed: {type(e).__name__}: {e!r}. Falling back to hybrid scores.")
+        return _fallback_to_hybrid(candidates, top_k)
 
 
 def search_with_rerank(query, final_k=5, candidate_pool=10):
@@ -56,8 +120,8 @@ if __name__ == "__main__":
     query = "What causes E-322 and how do I fix it?"
     results = search_with_rerank(query, final_k=3)
     print(f"Query: {query}")
-    print(f"Top {len(results)} reranked results:")
+    print(f"Top {len(results)} results:")
     for r in results:
-        print(f"\n[Page {r['page_number']}] rerank_score={r['rerank_score']:.4f} (hybrid={r['hybrid_score']:.4f})")
-        print(r['text'])  # full text, not [:200] — need to see the whole chunk
+        print(f"\n[Page {r['page_number']}] rerank_score={r['rerank_score']} (hybrid={r['hybrid_score']:.4f})")
+        print(r['text'])
         print("=" * 60)
