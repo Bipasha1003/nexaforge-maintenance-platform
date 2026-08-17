@@ -257,10 +257,10 @@ export default function AdminDashboard() {
 
         <div className="site-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: 20 }}>
           {fleet.map((m) => (
-            <section key={m.id} className="card fleet-tile" style={{ padding: 26, borderRadius: 14, minHeight: 190 }}>
+            <section key={m.id} className="card fleet-tile" style={{ padding: 26, borderRadius: 12, minHeight: 160 }}>
               <div className="fleet-tile-top" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
-                  <div className="card-label" style={{ marginBottom: 4, fontSize: 16, fontWeight: 700, color: "var(--text)" }}>{m.name}</div>
+                  <div className="card-label" style={{ marginBottom: 4, fontSize: 15, fontWeight: 700, color: "var(--text)" }}>{m.name}</div>
                   <div className="fleet-type" style={{ fontSize: 14, color: "var(--text-muted)" }}>{m.type}</div>
                 </div>
                 <div className="fleet-status" style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -268,7 +268,7 @@ export default function AdminDashboard() {
                   <span className={`status-text ${m.status}`} style={{ fontSize: 13, fontWeight: 600 }}>{STATUS_LABEL[m.status]}</span>
                 </div>
               </div>
-              <div style={{ marginTop: 18, fontSize: 14, color: "var(--text-muted)", borderTop: "1px dashed var(--border)", paddingTop: 14 }}>
+              <div style={{ marginTop: 18, fontSize: 13, color: "var(--text-muted)", borderTop: "1px dashed var(--border)", paddingTop: 14 }}>
                 <div style={{ marginBottom: 4 }}>Next service: <b style={{ color: "var(--text)" }}>{m.next_maintenance}</b></div>
                 <div style={{ color: m.status === 'critical' ? 'var(--danger)' : 'inherit', fontWeight: 600 }}>{m.next_maintenance_due}</div>
               </div>

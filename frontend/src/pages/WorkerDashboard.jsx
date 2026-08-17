@@ -242,13 +242,13 @@ export default function WorkerDashboard() {
             </div>
           )}
           {fleet.map((m) => (
-            <section key={m.id} className="card fleet-tile" style={{ padding: 26, borderRadius: 14, minHeight: 190 }}>
+            <section key={m.id} className="card fleet-tile" style={{ padding: 26, borderRadius: 12, minHeight: 160 }}>
               <div className="fleet-tile-top" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
                   <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11.5, color: "var(--text-muted)", letterSpacing: "0.04em" }}>
                     {m.id.split("-")[0].toUpperCase()}
                   </div>
-                  <div className="card-label" style={{ marginTop: 2, fontSize: 16, fontWeight: 700, color: "var(--text)" }}>{m.name}</div>
+                  <div className="card-label" style={{ marginTop: 2, fontSize: 15, fontWeight: 700, color: "var(--text)" }}>{m.name}</div>
                 </div>
                 <div className="fleet-status" style={{ display: "flex", alignItems: "center", gap: 6 }}>
                   <span className={`status-dot ${m.status}`} />
@@ -256,7 +256,7 @@ export default function WorkerDashboard() {
                 </div>
               </div>
 
-              <div style={{ marginTop: 16, fontSize: 14 }}>
+              <div style={{ marginTop: 16, fontSize: 13 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", color: "var(--text-muted)", marginBottom: 8 }}>
                   <span>Last check-in</span>
                   <span>{m.last_check_in}</span>
