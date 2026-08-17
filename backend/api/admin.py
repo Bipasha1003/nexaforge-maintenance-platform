@@ -14,7 +14,7 @@ from storage import document_store, worker_store
 from pipeline.ingest import ingest_file
 
 # Import your new question generation script
-from generate_questions import generate_questions_for_file
+from pipeline.generate_questions import generate_questions_for_file
 
 router = APIRouter(prefix="/admin")
 

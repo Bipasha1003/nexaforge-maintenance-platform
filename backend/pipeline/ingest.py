@@ -1,7 +1,7 @@
 import os
 import sys
 import psycopg2
-import fitz  # PyMuPDF for image extraction
+import pymupdf  # PyMuPDF for image extraction
 import io    # Needed to read image bytes into PIL
 from dotenv import load_dotenv
 from PIL import Image
@@ -60,7 +60,7 @@ def extract_diagram_text(file_path):
     since running it per-embedded-image on every PDF page would be
     slow and expensive. Revisit if PDF diagram quality becomes an issue.)"""
     page_ocr_map = {}
-    pdf_file = fitz.open(file_path)
+    pdf_file = pymupdf.open(file_path)
 
     for page_index in range(len(pdf_file)):
         page = pdf_file[page_index]
