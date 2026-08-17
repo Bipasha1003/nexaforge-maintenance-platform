@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import json
 
@@ -11,6 +12,16 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 
 load_dotenv()
+
+_THINK_BLOCK = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
+
+
+def _strip_thinking(text: str) -> str:
+    """openai/gpt-oss-120b is a reasoning model and can prepend
+    <think>...</think> scratch reasoning before its real answer, same
+    issue documented in pipeline/image_extraction.py for qwen3.6. Strip
+    it before trying to parse JSON."""
+    return _THINK_BLOCK.sub("", text).strip()
 
 # NOTE: Reranking previously called the Hugging Face free Serverless
 # Inference API (cross-encoder/ms-marco-MiniLM-L-6-v2). As of 2026, HF
@@ -75,17 +86,26 @@ def rerank(query, candidates, top_k=5):
             top_k=top_k,
         )
         response = llm.invoke(prompt)
-        raw = response.content.strip()
+        raw = _strip_thinking(response.content.strip())
 
         try:
             order = json.loads(raw)
         except json.JSONDecodeError:
             start = raw.find("[")
             end = raw.rfind("]") + 1
-            order = json.loads(raw[start:end]) if start != -1 and end != 0 else []
+            order = json.loads(raw[start:end]) if start != -1 and end != 0 else None
 
-        if not order:
-            raise ValueError("LLM returned no usable ranking")
+        if order is None:
+            # Couldn't find any JSON array at all — log what the model
+            # actually said so this is debuggable instead of a guess.
+            print(f"[RERANK DEBUG] Could not find a JSON array in LLM output: {raw!r}")
+            raise ValueError("LLM did not return a parseable ranking")
+
+        if order == []:
+            # Valid JSON, model just found nothing worth ranking — not an
+            # error, just fall back to hybrid order quietly.
+            print("[RERANK INFO] LLM returned an empty ranking; using hybrid order.")
+            return _fallback_to_hybrid(candidates, top_k)
 
         ranked = []
         seen = set()
@@ -106,7 +126,7 @@ def rerank(query, candidates, top_k=5):
         return ranked
 
     except Exception as e:
-        print(f"[RERANK WARNING] LLM rerank failed: {type(e).__name__}: {e!r}. Falling back to hybrid scores.")
+        print(f"[RERANK WARNING] LLM rerank failed: {type(e).__name__}: {e}. Falling back to hybrid scores.")
         return _fallback_to_hybrid(candidates, top_k)
 
 
