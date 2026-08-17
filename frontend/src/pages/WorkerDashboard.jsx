@@ -198,7 +198,7 @@ export default function WorkerDashboard() {
             style={{
               fontFamily: '"Fraunces", serif',
               fontWeight: 600,
-              fontSize: "clamp(32px, 4vw, 50px)",
+              fontSize: "clamp(28px, 3vw, 40px)",
               lineHeight: 1.1,
               margin: "0 0 16px",
               color: "var(--text)",
@@ -206,7 +206,7 @@ export default function WorkerDashboard() {
           >
             {greetingForHour(new Date().getHours())}, {firstName}.
           </h1>
-          <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 18, lineHeight: 1.6, color: "var(--text-muted)", margin: 0, maxWidth: 680 }}>
+          <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 68, lineHeight: 1.6, color: "var(--text-muted)", margin: 0, maxWidth: 680 }}>
             {heroLine}
           </p>
         </section>
@@ -214,17 +214,17 @@ export default function WorkerDashboard() {
         <div className="site-grid" style={{ gap: 20 }}>
           <section className="card" style={{ padding: 26, borderRadius: 14 }}>
             <div className="card-label" style={{ fontSize: 15 }}>Fleet status</div>
-            <div className="card-value ok" style={{ fontSize: 30, marginTop: 6 }}>{summary.operational}/{summary.total} operational</div>
+            <div className="card-value ok" style={{ fontSize: 24, marginTop: 6 }}>{summary.operational}/{summary.total} operational</div>
             <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>{summary.needsAttention} machine(s) need attention</div>
           </section>
           <section className="card" style={{ padding: 26, borderRadius: 14 }}>
             <div className="card-label" style={{ fontSize: 15 }}>Open issues (all machines)</div>
-            <div className="card-value" style={{ fontSize: 30, marginTop: 6 }}>{summary.openIssues}</div>
+            <div className="card-value" style={{ fontSize: 24, marginTop: 6 }}>{summary.openIssues}</div>
             <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>See maintenance log below</div>
           </section>
           <section className="card" style={{ padding: 26, borderRadius: 14 }}>
             <div className="card-label" style={{ fontSize: 15 }}>Manuals ingested</div>
-            <div className="card-value" style={{ fontSize: 30, marginTop: 6 }}>
+            <div className="card-value" style={{ fontSize: 24, marginTop: 6 }}>
               {docsError ? "—" : `${docs.filter((d) => d.status?.toLowerCase() === "ready").length}/${docs.length || 0}`}
             </div>
             <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>Assistant covers all ingested manuals</div>
@@ -232,7 +232,7 @@ export default function WorkerDashboard() {
         </div>
 
         <div id="equipment-fleet" style={{ marginTop: 40, marginBottom: 16 }}>
-          <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Equipment fleet</div>
+          <div className="card-label" style={{ fontSize: 18, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Equipment fleet</div>
         </div>
 
         <div className="site-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: 20 }}>
