@@ -59,8 +59,12 @@ def run_agent(question, session_id="default"):
     search_query = question
     if history:
         last_question = history[-1]['question']
-        follow_up_keywords = ["it", "that", "this", "how", "what about", "why", "explain"]
-        is_short_or_followup = len(question.split()) <= 6 or any(kw in question.lower() for kw in follow_up_keywords)
+        # Add spaces to prevent false positive matches inside other words
+        follow_up_keywords = [" it ", " that ", " this ", " how ", " what about ", " why ", " explain "]
+        
+        # Pad the question with spaces so first/last words match correctly
+        padded_q = f" {question.lower()} "
+        is_short_or_followup = len(question.split()) <= 6 or any(kw in padded_q for kw in follow_up_keywords)
         
         if is_short_or_followup:
             search_query = f"{last_question} - {question}"

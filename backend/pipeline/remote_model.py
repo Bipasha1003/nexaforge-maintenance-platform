@@ -1,4 +1,5 @@
 import os
+import time
 import numpy as np
 from huggingface_hub import InferenceClient
 
@@ -25,19 +26,25 @@ class RemoteEmbeddingModel:
     code uses: a single string (semantic.py) and a list of strings
     (vectorizer.py's batch embed_chunks)."""
 
-    def encode(self, text, **kwargs):
+def encode(self, text, **kwargs):
         client = _get_client()
         is_single = isinstance(text, str)
         texts = [text] if is_single else list(text)
 
         vectors = []
         for t in texts:
-            result = client.feature_extraction(t, model=EMBED_MODEL)
+            # Add a 3-attempt retry loop for cold starts
+            for attempt in range(3):
+                try:
+                    result = client.feature_extraction(t, model=EMBED_MODEL)
+                    break
+                except Exception as e:
+                    if attempt == 2:
+                        raise e # If it fails 3 times, crash normally
+                    print("Hugging Face model waking up... retrying in 5 seconds.")
+                    time.sleep(5)
+            
             arr = np.array(result)
-            # Some models return one vector per token (2D) instead of one
-            # pooled sentence vector (1D) -- mean-pool if so, so this
-            # always returns a single fixed-size vector per text, same
-            # shape your pgvector column already expects.
             if arr.ndim == 2:
                 arr = arr.mean(axis=0)
             vectors.append(arr)
@@ -45,9 +52,7 @@ class RemoteEmbeddingModel:
         arr = np.array(vectors)
         return arr[0] if is_single else arr
 
-
 _model = None
-
 
 def get_remote_model():
     global _model

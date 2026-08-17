@@ -5,17 +5,15 @@ from search.rerank import search_with_rerank
 
 def search_manual(question):
     """Retrieves the best matching manual/troubleshooting chunks for a question."""
-    results = search_with_rerank(question, final_k=3, candidate_pool=10)
+    results = search_with_rerank(question, final_k=3, candidate_pool=25)
     return {
         "tool": "search_manual",
         "chunks": results
     }
 
 def check_schedule(question):
-    """Looks up maintenance schedule/interval info. Currently reuses the same
-    search pipeline since there's no separate structured schedule table yet —
-    the manual itself contains a maintenance schedule section."""
-    results = search_with_rerank(question, final_k=3, candidate_pool=10)
+    """Looks up maintenance schedule/interval info."""
+    results = search_with_rerank(question, final_k=3, candidate_pool=25)
     return {
         "tool": "check_schedule",
         "chunks": results
