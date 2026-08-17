@@ -4,7 +4,7 @@ sys.path.append(os.path.dirname(__file__))
 from reader import extract_pages
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def chunk_document(filepath, source_name=None, chunk_size=500, chunk_overlap=50):
+def chunk_document(filepath, source_name=None, chunk_size=1200, chunk_overlap=200):
     pages = extract_pages(filepath)
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
