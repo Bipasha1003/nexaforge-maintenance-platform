@@ -1,0 +1,26 @@
+question,keyword_top_source,hybrid_top_source,hybrid_rerank_top_source,rerank_changed_top_result
+What is the spindle speed range for the CNC Mill X500?,CNC Mill X500 (Model X500-3AX).pdf p.3,NexaForge_Production_Flow.pdf p.2,CNC Mill X500 (Model X500-3AX).pdf p.7,True
+How often should the X/Y/Z linear guideways be lubricated?,CNC Mill X500 (Model X500-3AX).pdf p.5,CNC Mill X500 (Model X500-3AX).pdf p.5,CNC Mill X500 (Model X500-3AX).pdf p.5,False
+What does error code E-322 mean?,CNC Mill X500 (Model X500-3AX).pdf p.9,CNC Mill X500 (Model X500-3AX).pdf p.9,CNC Mill X500 (Model X500-3AX).pdf p.10,True
+What should I do if the spindle will not start on the CNC Mill X500?,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,False
+What causes excessive vibration during milling?,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,True
+Why might coolant not be flowing to the nozzle?,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.10,True
+What's the recommended action if backlash exceeds 0.02 mm?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,CNC Mill X500 (Model X500-3AX).pdf p.8,True
+What is the tool changer capacity on the CNC Mill X500?,CNC Mill X500 (Model X500-3AX).pdf p.3,CNC Mill X500 (Model X500-3AX).pdf p.8,CNC Mill X500 (Model X500-3AX).pdf p.8,False
+What pneumatic supply pressure is required?,CNC Mill X500 (Model X500-3AX).pdf p.4,CNC Mill X500 (Model X500-3AX).pdf p.11,CNC Mill X500 (Model X500-3AX).pdf p.4,True
+What is the coolant tank capacity?,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.11,True
+What is the spindle speed range of the T999 gear-head bench lathe?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,False
+How many main drive belts should we keep in stock for the T999 lathe?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,True
+What should I check before starting the T999 lathe for the day?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,False
+What causes poor surface finish or chatter on the lathe?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,False
+What is the thread cutting range of the T999 lathe?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,NexaForge_Production_Flow.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,True
+How often should the drive belt tension be checked on the T999?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,False
+What machine is used for cutting to length in the production flow?,NexaForge_Production_Flow.pdf p.2,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,CNC Mill X500 (Model X500-3AX).pdf p.1,True
+What happens after milling in the NexaForge production process?,NexaForge_Production_Flow.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,False
+Which machine performs deburring and finishing?,NexaForge_Production_Flow.pdf p.2,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,CNC Mill X500 (Model X500-3AX).pdf p.5,True
+Has Machine Asset #X500-07 had any coolant pump issues before?,CNC Mill X500 (Model X500-3AX).pdf p.4,CNC Mill X500 (Model X500-3AX).pdf p.10,CNC Mill X500 (Model X500-3AX).pdf p.10,False
+Which maintenance tasks require a Qualified Technician on the CNC Mill X500?,NexaForge_Production_Flow.pdf p.2,CNC Mill X500 (Model X500-3AX).pdf p.5,CNC Mill X500 (Model X500-3AX).pdf p.5,False
+What's the warranty period on the spindle bearings?,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,CNC Mill X500 (Model X500-3AX).pdf p.7,False
+Who is the current supplier for coolant concentrate?,CNC Mill X500 (Model X500-3AX).pdf p.4,CNC Mill X500 (Model X500-3AX).pdf p.4,CNC Mill X500 (Model X500-3AX).pdf p.11,True
+What's the current stock market price of NexaForge shares?,NexaForge_Production_Flow.pdf p.1,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,False
+Can you approve overtime for the night shift this week?,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,False
