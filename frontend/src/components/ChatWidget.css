@@ -9,6 +9,26 @@
   gap: 14px;
 }
 
+/* =========================================
+   🤖 CHATBOT ICON ANIMATIONS
+   ========================================= */
+
+/* 1. Continuous gentle float up and down */
+@keyframes float-bot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* 2. Friendly wiggle/wave when hovered or tapped */
+@keyframes wave-bot {
+  0% { transform: scale(1.08) rotate(0deg); }
+  20% { transform: scale(1.08) rotate(-15deg); }
+  40% { transform: scale(1.08) rotate(10deg); }
+  60% { transform: scale(1.08) rotate(-10deg); }
+  80% { transform: scale(1.08) rotate(5deg); }
+  100% { transform: scale(1.08) rotate(0deg); }
+}
+
 .widget-fab {
   width: 56px;
   height: 56px;
@@ -16,19 +36,28 @@
   border: none;
   background: var(--accent, #b5461f);
   color: var(--accent-ink, #ffffff);
-  font-size: 24px; /* Sized to fit the robot emoji nicely */
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(28, 26, 23, 0.2);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 6px 16px rgba(28, 26, 23, 0.25);
+  transition: all 0.2s ease;
+  
+  /* Applies the continuous floating effect */
+  animation: float-bot 3s ease-in-out infinite; 
 }
 
-.widget-fab:hover {
-  opacity: 0.92;
-  transform: scale(1.05);
+/* Triggers the wave when cursor hovers (PC) or button is tapped/held (Mobile) */
+.widget-fab:hover,
+.widget-fab:active,
+.widget-fab:focus {
+  opacity: 0.95;
+  box-shadow: 0 8px 20px rgba(181, 70, 31, 0.35); /* Glowing orange shadow on hover */
+  animation: wave-bot 0.8s ease-in-out infinite;
 }
+
+/* ========================================= */
 
 .widget-panel {
   width: 460px;
