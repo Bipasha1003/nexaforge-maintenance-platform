@@ -7,6 +7,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from agent.run import run_agent
 from storage import chat_store
+import difflib
 
 router = APIRouter()
 
@@ -24,26 +25,51 @@ def clear_chat_history(user_id: str):
     chat_store.clear_history(user_id)
     return {"cleared": True}
 
+
+# Known-good greeting spellings. This is just the seed list that fuzzy
+# matching below compares against - not meant to be exhaustive by itself.
+GREETINGS = [
+    "hi", "hii", "hiii", "hello", "hey", "heyy",
+    "good morning", "good evening", "good afternoon",
+    "sup", "yo", "gm",
+]
+
+
+def is_greeting(raw_text: str) -> bool:
+    """True if the message is an exact greeting OR close enough to one
+    to be a likely typo (e.g. 'helo', 'hie', 'hlelo'). Only applies
+    fuzzy matching to short messages (<= 2 words) so a real, longer
+    manual question that happens to start with a greeting-ish word
+    isn't accidentally swallowed by this shortcut."""
+    text = raw_text.strip().lower()
+
+    if text in GREETINGS:
+        return True
+
+    if len(text.split()) > 2:
+        return False  # only fuzzy-match short, greeting-shaped messages
+
+    close = difflib.get_close_matches(text, GREETINGS, n=1, cutoff=0.72)
+    return bool(close)
+
+
 @router.post("/query")
 def query(req: QueryRequest):
     question = req.question.strip()
-    user_lower = question.lower()
 
-    # Catch all variations of greetings instantly (case-insensitive)
-    greetings = ["hi", "hii", "hiii", "hello", "hey", "good morning", "good evening", "sup"]
-    if user_lower in greetings:
+    # Catch greetings AND common typo variants (e.g. "helo", "hie",
+    # "hiii") instantly, without spending a router/LLM call on them.
+    if is_greeting(question):
         greeting_answer = (
-            "Hello! I am your AI Maintenance Assistant for NexaForge. 🛠️\n\n"
-            "I am connected directly to our equipment manuals database (including the CNC Mill X500, Cold Saw, Hydraulic Press, and factory floor flowcharts), "
-            "as well as live maintenance schedules and active floor notices.\n\n"
-            "How can I help you today? You can ask me about troubleshooting error codes, checking maintenance frequencies, "
-            "or reviewing standard operating procedures."
+            "Hi! I'm the NexaForge Maintenance Assistant. 🛠️\n\n"
+            "I answer questions from your ingested equipment manuals — troubleshooting, "
+            "error codes, and maintenance schedules. What do you need?" 
         )
         actual_role = "admin" if req.is_admin else "user"
-        
+
         chat_store.save_message(req.user_id, actual_role, req.question)
         chat_store.save_message(req.user_id, "bot", greeting_answer, [])
-        
+
         return {
             "answer": greeting_answer,
             "sources": [],
@@ -55,17 +81,17 @@ def query(req: QueryRequest):
 
     # Save the human's question to the database
     chat_store.save_message(req.user_id, actual_role, req.question)
-    
+
     # Run the AI agent
     result = run_agent(req.question, session_id=req.user_id)
-    
+
     # Save the AI's response to the database
     chat_store.save_message(
-        req.user_id, 
-        "bot", 
-        result.get("answer", ""), 
-        result.get("sources", []), 
+        req.user_id,
+        "bot",
+        result.get("answer", ""),
+        result.get("sources", []),
         result.get("tool_used")
     )
-    
+
     return result
