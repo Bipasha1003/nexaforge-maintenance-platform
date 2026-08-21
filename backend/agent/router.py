@@ -18,10 +18,11 @@ def get_llm():
 ROUTER_PROMPT = """You are a query classifier for a manufacturing equipment maintenance assistant.
 Classify the user's question into exactly ONE of these categories:
 
-- search_manual: questions about troubleshooting, error codes, procedures, how something works, or how to fix something
-- check_schedule: questions about maintenance intervals, when to service/replace something, scheduled tasks
+- search_manual: troubleshooting, error codes, procedures, how something works/is fixed — from the manuals
+- check_schedule: generic maintenance interval questions ("how often should X be lubricated") — from the manuals
+- machine_info: questions about which machines exist on the floor, a specific machine's CURRENT status, its next scheduled maintenance date, open issues, or last check-in — this is live fleet data, not from a manual
 - log_issue: the user is reporting a new problem they just observed, not asking a question
-- escalate: the question is unclear, potentially unsafe, or you're not confident it fits the other categories
+- escalate: unclear, unsafe, or doesn't fit the other categories
 
 Respond with ONLY the category name, nothing else.
 
@@ -49,7 +50,7 @@ def classify_query(question):
 
     category = response.content.strip().lower()
 
-    valid_categories = {"search_manual", "check_schedule", "log_issue", "escalate"}
+    valid_categories = {"search_manual", "check_schedule", "log_issue", "escalate", "machine_info"}
     if category not in valid_categories:
         return "escalate"  # safe fallback if the LLM returns something unexpected
     return category

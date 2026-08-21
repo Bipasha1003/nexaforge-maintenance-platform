@@ -65,6 +65,52 @@ If the question asks about something outside this manual context, unrelated topi
 
         return response.content, sources
 
+    elif tool_result["tool"] == "machine_info":
+        machines = tool_result["machines"]
+
+        if not machines:
+            return "There are no machines currently registered in the fleet.", []
+
+        # This is LIVE data straight from the machines table (same
+        # source the admin/worker dashboards read), not from an
+        # ingested manual — so no page citations apply here.
+        fleet_context = "\n".join(
+            f"- {m['name']} ({m['type']}): status={m['status']}, "
+            f"next maintenance='{m['next_maintenance']}' ({m['next_maintenance_due']}), "
+            f"open issues={m.get('open_issues', 0)}, last check-in={m.get('last_check_in', '—')}"
+            for m in machines
+        )
+
+        prompt = f"""Previous conversation:
+{history_text}
+
+Current equipment fleet (live data, not from a manual):
+{fleet_context}
+
+Question: {question}
+
+Answer using ONLY the fleet data above. Be specific — name exact machines, statuses, and due dates.
+If asked to list machines, list all of them. If asked about a specific machine that isn't in the
+list above, say clearly that it isn't currently registered in the fleet."""
+        llm = get_llm()
+
+        try:
+            response = llm.invoke(prompt)
+        except RateLimitError as e:
+            print(f"[ANSWER WARNING] Groq rate limit hit: {e}. Returning fallback message.")
+            return (
+                "The AI service is temporarily at its usage limit — please try again in a few minutes.",
+                [],
+            )
+        except Exception as e:
+            print(f"[ANSWER WARNING] Unexpected error generating answer: {type(e).__name__}: {e}.")
+            return (
+                "Something went wrong generating an answer. Please try again.",
+                [],
+            )
+
+        return response.content, []
+
     elif tool_result["tool"] == "log_issue":
         return tool_result["message"], []
 
@@ -90,8 +136,16 @@ def run_agent(question, session_id="default"):
     # ---------------------------------------------
 
     category = classify_query(search_query)
-    tool_result = TOOL_MAP[category](search_query)
-    
+
+    # machine_info doesn't benefit from the manual-search query
+    # rewriting above (it ignores search_query entirely and just
+    # pulls the live fleet table), so pass the original question
+    # through for clarity/debuggability rather than the rewritten one.
+    if category == "machine_info":
+        tool_result = TOOL_MAP[category](question)
+    else:
+        tool_result = TOOL_MAP[category](search_query)
+
     answer, sources = generate_answer(question, tool_result, history)
     add_exchange(session_id, question, answer)
     
@@ -112,3 +166,7 @@ if __name__ == "__main__":
     q1 = "What causes E-322 and how do I fix it?"
     r1 = run_agent(q1, session_id="test")
     print_chat_reply(q1, r1)
+
+    q2 = "What machines do we have on the floor?"
+    r2 = run_agent(q2, session_id="test2")
+    print_chat_reply(q2, r2)

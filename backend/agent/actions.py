@@ -2,6 +2,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from search.rerank import search_with_rerank
+from storage import machine_store
 
 def search_manual(question):
     """Retrieves the best matching manual/troubleshooting chunks for a question."""
@@ -36,11 +37,23 @@ def escalate(question):
         "message": "This question needs review by a qualified technician. Please contact your maintenance supervisor."
     }
 
+def machine_info(question):
+    """Retrieves LIVE equipment fleet data (status, next maintenance,
+    open issues) from the machines table — not from ingested manuals.
+    Always reflects whatever the admin dashboard currently shows,
+    since list_machines() queries Postgres fresh every call."""
+    machines = machine_store.list_machines()
+    return {
+        "tool": "machine_info",
+        "machines": machines,
+    }
+
 TOOL_MAP = {
     "search_manual": search_manual,
     "check_schedule": check_schedule,
     "log_issue": log_issue,
-    "escalate": escalate
+    "escalate": escalate,
+    "machine_info": machine_info,
 }
 
 if __name__ == "__main__":
