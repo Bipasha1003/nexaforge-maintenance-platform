@@ -41,7 +41,25 @@ def run_full_eval():
     for i, q in enumerate(EVAL_QUESTIONS):
         # Unique session_id per question so agent/state.py's in-memory
         # history doesn't bleed between unrelated eval questions.
-        result = run_agent(q, session_id=f"eval_{i}")
+        try:
+            result = run_agent(q, session_id=f"eval_{i}")
+        except Exception as e:
+            # Don't let one bad question (e.g. a rate limit that
+            # somehow still slips through) kill the whole run and
+            # lose every result gathered so far. Record it as a
+            # failure and keep going.
+            print(f"[EVAL ERROR] \"{q[:60]}\" raised {type(e).__name__}: {e}")
+            rows.append({
+                "question": q,
+                "answer": f"[ERROR] {type(e).__name__}: {e}",
+                "sources_used": "",
+                "tool_used": "ERROR",
+                "actual_escalate": None,
+                "expected_escalate": EXPECTED_ESCALATE.get(q, False),
+                "escalate_correct": False,
+                "answer_correct": None,
+            })
+            continue
 
         actual_escalate = (result["tool_used"] == "escalate")
         expected_escalate = EXPECTED_ESCALATE.get(q, False)

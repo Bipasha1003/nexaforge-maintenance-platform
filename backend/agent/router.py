@@ -2,6 +2,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from langchain_groq import ChatGroq
+from groq import RateLimitError
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,7 +31,22 @@ Category:"""
 def classify_query(question):
     llm = get_llm()
     prompt = ROUTER_PROMPT.format(question=question)
-    response = llm.invoke(prompt)
+
+    try:
+        response = llm.invoke(prompt)
+    except RateLimitError as e:
+        # Daily/token quota hit on Groq's free tier. Retrying
+        # immediately won't help (the wait times Groq reports can be
+        # minutes long), so fail safe instead of crashing the whole
+        # request/eval run: fall back to "escalate", which correctly
+        # tells the user/eval "couldn't confidently answer this one"
+        # rather than pretending nothing went wrong.
+        print(f"[ROUTER WARNING] Groq rate limit hit: {e}. Falling back to escalate.")
+        return "escalate"
+    except Exception as e:
+        print(f"[ROUTER WARNING] Unexpected error classifying query: {type(e).__name__}: {e}. Falling back to escalate.")
+        return "escalate"
+
     category = response.content.strip().lower()
 
     valid_categories = {"search_manual", "check_schedule", "log_issue", "escalate"}

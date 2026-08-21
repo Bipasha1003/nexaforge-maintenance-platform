@@ -5,6 +5,7 @@ from agent.router import classify_query
 from agent.actions import TOOL_MAP
 from agent.state import get_history, add_exchange
 from langchain_groq import ChatGroq
+from groq import RateLimitError
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -34,7 +35,25 @@ Question: {question}
 Answer strictly using only the context above. Cite the page number. 
 If the question asks about something outside this manual context, unrelated topics, general knowledge, or world affairs, you must state politely that you do not have that information in the manuals."""
         llm = get_llm()
-        response = llm.invoke(prompt)
+
+        try:
+            response = llm.invoke(prompt)
+        except RateLimitError as e:
+            # Same Groq daily quota issue as router.py. Fail safe with
+            # a clear message instead of crashing the request/eval —
+            # the user (or eval script) gets an honest "try again
+            # shortly" instead of a stack trace.
+            print(f"[ANSWER WARNING] Groq rate limit hit: {e}. Returning fallback message.")
+            return (
+                "The AI service is temporarily at its usage limit — please try again in a few minutes.",
+                [],
+            )
+        except Exception as e:
+            print(f"[ANSWER WARNING] Unexpected error generating answer: {type(e).__name__}: {e}.")
+            return (
+                "Something went wrong generating an answer. Please try again.",
+                [],
+            )
 
         seen = set()
         sources = []
@@ -87,7 +106,7 @@ def print_chat_reply(question, result):
     print(f"Bot: {result['answer']}")
     if result["sources"]:
         pages = ", ".join(f"p.{s['page']}" for s in result["sources"])
-        print(f"    (Source: {result['sources'][0]['source']} — {pages})")
+        print(f"    (Source: {result['sources'][0]['source']} - {pages})")
 
 if __name__ == "__main__":
     q1 = "What causes E-322 and how do I fix it?"
