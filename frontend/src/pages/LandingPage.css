@@ -27,15 +27,12 @@
   padding: 20px 40px;
   border-bottom: 1px solid var(--l-border);
   background: var(--l-bg-raised);
-  
-  /* Make the header sticky */
   position: sticky;
   top: 0;
   z-index: 1000;
   transition: all 0.3s ease;
 }
 
-/* Styles applied when the user scrolls down */
 .landing-header.scrolled {
   padding: 12px 40px;
   box-shadow: 0 4px 20px rgba(28, 26, 23, 0.08);
@@ -231,7 +228,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Hover effect for the feature cards */
 .landing-product-card:hover {
   transform: translateY(-6px);
 }
@@ -283,6 +279,18 @@
   margin-top: 4px;
 }
 
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--l-border, #e4dfd5);
+  font-size: 22px;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--l-ink, #1c1a17);
+}
+
 /* =========================================
    📱 MOBILE RESPONSIVENESS FIXES (PUBLIC SITE)
    ========================================= */
@@ -290,14 +298,41 @@
 @media (max-width: 860px) {
   /* Stack Header */
   .landing-header {
-    flex-direction: column !important;
-    padding: 16px !important;
-    height: auto !important;
-    gap: 16px !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 14px 20px !important;
   }
+  
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
   .landing-header-actions {
-    flex-wrap: wrap !important;
-    justify-content: center !important;
+    display: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--l-border, #e4dfd5);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    gap: 12px !important;
+    z-index: 999;
+  }
+  
+  .landing-header-actions.open {
+    display: flex !important;
+  }
+  
+  .landing-header-actions .landing-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px !important;
   }
 
   /* Stack Sections */

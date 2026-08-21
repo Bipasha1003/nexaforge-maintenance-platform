@@ -41,6 +41,7 @@ const STATS = [
 export default function LandingPage() {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,11 +71,20 @@ export default function LandingPage() {
             <div className="landing-brand-subtitle">Precision components & contract manufacturing</div>
           </div>
         </div>
-        <div className="landing-header-actions">
-          <button className="landing-btn landing-btn-ghost" onClick={() => navigate("/admin/login")}>
+        
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Navigation Menu"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+
+        <div className={`landing-header-actions ${menuOpen ? "open" : ""}`}>
+          <button className="landing-btn landing-btn-ghost" onClick={() => { navigate("/admin/login"); setMenuOpen(false); }}>
             Admin Panel
           </button>
-          <button className="landing-btn landing-btn-primary" onClick={() => navigate("/login")}>
+          <button className="landing-btn landing-btn-primary" onClick={() => { navigate("/login"); setMenuOpen(false); }}>
             Worker Login
           </button>
         </div>
@@ -139,7 +149,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* --- DARK FOOTER (Matching Admin Panel) --- */}
       <footer className="landing-footer" style={{ backgroundColor: "#1c1a17", color: "#ffffff", padding: "60px 40px 20px", marginTop: "40px" }}>
         <div className="footer-content" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "40px", maxWidth: "1160px", margin: "0 auto", paddingBottom: "40px" }}>
           
@@ -164,11 +173,7 @@ export default function LandingPage() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <li style={{ marginBottom: "12px" }}><Link to="/login" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>Worker Login</Link></li>
               <li style={{ marginBottom: "12px" }}><Link to="/admin/login" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>Admin Panel</Link></li>
-              
-              {/* --- HERE IS THE FIX --- */}
               <li style={{ marginBottom: "12px" }}><Link to="/about" style={{ color: "#a39f98", textDecoration: "none", transition: "color 0.2s" }}>About Us</Link></li>
-              {/* ------------------------- */}
-              
             </ul>
           </div>
 

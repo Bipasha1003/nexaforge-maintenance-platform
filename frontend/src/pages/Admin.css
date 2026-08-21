@@ -406,25 +406,21 @@
 .status-text.critical { color: var(--danger, #f16a5c); }
 
 /* --- CLEAN HEADER BUTTON STYLES --- */
-
-/* --- CLEAN HEADER BUTTON STYLES (FIXED COLORS) --- */
-
 .admin-header-actions-row {
   display: flex;
   align-items: center;
-  gap: 15px; /* Adds space between buttons */
+  gap: 15px; 
 }
 
-/* --- SOLID ORANGE OPEN AI BUTTON --- */
 .admin-ai-btn {
-  background-color: #b5461f !important; /* NexaForge Orange */
-  color: #0a0a0a !important;            /* White text */
+  background-color: #b5461f !important; 
+  color: #ffffff !important;            
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
   padding: 8px 18px;
-  border-radius: 8px;                   /* Rounded box */
+  border-radius: 8px;                   
   border: none;
   transition: opacity 0.2s ease;
 }
@@ -433,11 +429,10 @@
   opacity: 0.85;
 }
 
-/* --- ORANGE TEXT BUTTONS (+ ADD) --- */
 .admin-text-btn {
   background: transparent;
   border: none;
-  color: #b5461f !important;            /* NexaForge Orange */
+  color: #b5461f !important;            
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 15px;
@@ -457,11 +452,10 @@
   color: #1c1a17;
 }
 
-/* --- BOXED LOGOUT BUTTON --- */
 .admin-logout-btn {
   background: transparent;
-  border: 1.5px solid #d1ccc5;          /* Visible box outline */
-  color: #b5461f !important;            /* NexaForge Orange */
+  border: 1.5px solid #d1ccc5;          
+  color: #b5461f !important;            
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 15px;
@@ -472,12 +466,9 @@
 }
 
 .admin-logout-btn:hover {
-  border-color: #b5461f !important;     /* Outline turns orange on hover */
+  border-color: #b5461f !important;     
 }
 
-/* Worker dashboard faded background — same technique as .site-bg-admin,
-   reuses the worker-login-bg.jpg you already have for the worker login
-   screen, so no new image asset is needed. Append to Admin.css. */
 .site-bg-worker {
   background-image:
     linear-gradient(rgba(250, 246, 240, 0.52), rgba(250, 246, 240, 0.52)),
@@ -487,6 +478,18 @@
   background-attachment: fixed;
 }
 
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border, #e4dfd5);
+  font-size: 22px;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text, #1c1a17);
+}
+
 /* =========================================
    📱 MOBILE RESPONSIVENESS FIXES (DASHBOARDS)
    ========================================= */
@@ -494,17 +497,54 @@
 @media (max-width: 860px) {
   /* 1. Fix the Header & Buttons */
   .landing-header {
-    flex-direction: column !important;
-    padding: 16px !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 14px 20px !important;
     height: auto !important;
-    gap: 16px !important;
-  }
-  .admin-header-actions-row {
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    width: 100% !important;
   }
   
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
+  .admin-header-actions-row {
+    display: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border, #e4dfd5);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    gap: 12px !important;
+    z-index: 999;
+  }
+  
+  .admin-header-actions-row.open {
+    display: flex !important;
+  }
+  
+  .admin-header-actions-row .admin-text-btn,
+  .admin-header-actions-row .admin-btn,
+  .admin-header-actions-row .admin-ai-btn,
+  .admin-header-actions-row .admin-logout-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px !important;
+  }
+  
+  .admin-user-name {
+    text-align: center;
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--text-muted, #6b6459);
+  }
+
   /* 2. Fix the Dashboard Layout & Grids */
   .site-main {
     padding-inline: 16px !important;

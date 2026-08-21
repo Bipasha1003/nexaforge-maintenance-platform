@@ -36,6 +36,7 @@ export default function AdminDashboard() {
   const [showAddDocument, setShowAddDocument] = useState(false);
   const [showAddWorker, setShowAddWorker] = useState(false);
   const [fleetNotice, setFleetNotice] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const summary = fleetSummary(fleet);
 
@@ -159,20 +160,28 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="landing-header-actions admin-header-actions-row">
-          <button className="admin-ai-btn" onClick={() => setChatSignal((n) => n + 1)}>
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Navigation Menu"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+
+        <div className={`landing-header-actions admin-header-actions-row ${menuOpen ? "open" : ""}`}>
+          <button className="admin-ai-btn" onClick={() => { setChatSignal((n) => n + 1); setMenuOpen(false); }}>
             Open AI
           </button>
           
-          <button className="admin-text-btn" onClick={() => setShowAddDocument(true)}>
+          <button className="admin-text-btn" onClick={() => { setShowAddDocument(true); setMenuOpen(false); }}>
             + Add Document
           </button>
           
-          <button className="admin-text-btn" onClick={() => setShowAddMachine(true)}>
+          <button className="admin-text-btn" onClick={() => { setShowAddMachine(true); setMenuOpen(false); }}>
             + Add Machine
           </button>
           
-          <button className="admin-text-btn" onClick={() => setShowAddWorker(true)}>
+          <button className="admin-text-btn" onClick={() => { setShowAddWorker(true); setMenuOpen(false); }}>
             + Add Worker
           </button>
           
