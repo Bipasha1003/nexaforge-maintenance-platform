@@ -1,0 +1,129 @@
+question,answer,sources_used,tool_used,actual_escalate,expected_escalate,escalate_correct,answer_correct
+What is the spindle speed range for the CNC Mill X500?,"The manual specifies that the spindle can be warmed‑up by ramping it from **500 RPM up to 8,000 RPM**【Page 5】. This indicates the spindle speed range for the CNC Mill X500 is 500 RPM – 8,000 RPM.",CNC Mill X500 (Model X500-3AX).pdf p.5,search_manual,False,False,True,False
+How often should the X/Y/Z linear guideways be lubricated?,The X/Y/Z linear guideways should be lubricated **weekly**【Page 5】.,CNC Mill X500 (Model X500-3AX).pdf p.5,check_schedule,False,False,True,True
+What does error code E-322 mean?,Error code **E‑322** indicates a **coolant pump thermal overload**. The recommended action is to allow the pump to cool and clean the strainer to reduce back‑pressure. 【Page 9】,CNC Mill X500 (Model X500-3AX).pdf p.9 | CNC Mill X500 (Model X500-3AX).pdf p.10,search_manual,False,False,True,True
+What should I do if the spindle will not start on the CNC Mill X500?,"If the spindle does not start, follow the troubleshooting steps listed in **Section 6.1 – “Spindle Will Not Start”** (page 7):
+
+1. **Verify the spindle‑enable relay**  
+   - Check that relay **K12** in the control cabinet is energized.  
+   - If it is not, reset it by cycling the control power.
+
+2. **Check the drawbar clamp sensor**  
+   - On the diagnostics screen confirm sensor **S4** reads **CLAMPED**.  
+   - If it reads **UNCLAMPED**, inspect the belleville‑spring stack for wear and replace if necessary.
+
+3. **Confirm the E‑STOP circuit is reset**  
+   - Make sure all E‑STOP buttons are pulled out.  
+   - Verify the safety‑relay indicator (green LED) on the safety module is lit.
+
+4. **Escalate if the spindle still will not start**  
+   - Contact a qualified technician to inspect the spindle VFD (variable‑frequency drive) fault log.
+
+These are the only actions provided in the manual for a spindle‑start failure. (Source: Page 7)",CNC Mill X500 (Model X500-3AX).pdf p.7 | CNC Mill X500 (Model X500-3AX).pdf p.8 | CNC Mill X500 (Model X500-3AX).pdf p.9,search_manual,False,False,True,
+What causes excessive vibration during milling?,"Excessive vibration (often experienced as **chatter**) on the Fervi Gear Head Bench Lathe can be traced to several mechanical conditions that are documented in the manual:
+
+| Possible cause | How it appears in the manual | Typical remedy |
+|----------------|-----------------------------|----------------|
+| **Worn or improperly set cutting tool** | The maintenance log notes a “chatter on brass bushings” that was resolved by **regrounding the tool bit**【Page 4】. | Re‑grind or replace the tool, verify proper geometry and sharpness. |
+| **Mis‑adjusted slide gibs** | The same entry shows the issue was also fixed by **adjusting the cross‑slide gib**【Page 4】. | Check and set slide gibs to the correct preload; ensure smooth, backlash‑free motion. |
+| **Ball‑screw backlash** | Under “Axis Position Drift / Loss of Accuracy” the manual lists **ball‑screw backlash** as a cause of poor machining results【Page 7】. | Run the backlash diagnostic routine and, if readings exceed 0.02 mm, have a qualified technician adjust or replace the ball screw preload. |
+| **Loose linear encoder scale** | Also listed as a cause of drift and loss of accuracy, a **loose encoder scale** can introduce vibration and positional error【Page 7】. | Inspect encoder mounting brackets, tighten any loose fasteners, and clean any contamination. |
+| **Thermal growth** | The manual warns that **thermal growth** during a shift can lead to drift and indirectly to vibration if the machine structure expands unevenly【Page 8】. | Keep shop temperature within the 5 °C‑40 °C operating range and allow the spindle to warm up before heavy cuts. |
+
+**In short:** Excessive vibration during milling on the T999 lathe is most commonly caused by worn or mis‑set tooling, improperly adjusted slide gibs, ball‑screw backlash, loose encoder scales, or thermal growth of the machine components. Addressing these items as described above should eliminate the chatter.",Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4 | CNC Mill X500 (Model X500-3AX).pdf p.10 | CNC Mill X500 (Model X500-3AX).pdf p.7 | CNC Mill X500 (Model X500-3AX).pdf p.8,search_manual,False,False,True,
+Why might coolant not be flowing to the nozzle?,"The manual points to a few likely causes for a loss of coolant flow to the nozzle:
+
+1. **Clogged coolant strainer** – The 2025‑01‑14 log entry notes that a “chip sludge buildup from missed weekly strainer cleaning” caused an E‑322 coolant‑pump thermal overload, and cleaning the strainer restored flow【Page 10】.  
+
+2. **Coolant‑pump thermal overload (E‑322)** – The error‑code reference lists E‑322 as “Coolant pump thermal overload” and recommends “Allow pump to cool; clean strainer to reduce back‑pressure”【Page 9】. If the pump overheats, it will shut down and stop delivering coolant.  
+
+3. **Low coolant level or contaminated coolant** – The same error‑code table advises checking the coolant level (“Top off coolant tank; check for leaks at manifold”) for low‑level warnings (E‑310) and the annual maintenance task on page 6 calls for “Replace coolant fully and clean tank sump,” implying that dirty or insufficient coolant can impede flow【Page 6】.  
+
+4. **Pump or line blockage** – The maintenance log also mentions flushing the line after cleaning the strainer, indicating that a blockage in the supply line can prevent coolant from reaching the nozzle【Page 10】.  
+
+In summary, coolant may not be flowing to the nozzle because the strainer is clogged, the pump has entered thermal overload, the coolant level is low or the coolant is contaminated, or there is a blockage in the coolant line. Checking and cleaning the strainer, ensuring the pump is cool and operational, and verifying coolant level and line integrity are the recommended first steps.",CNC Mill X500 (Model X500-3AX).pdf p.10 | CNC Mill X500 (Model X500-3AX).pdf p.9 | CNC Mill X500 (Model X500-3AX).pdf p.6 | CNC Mill X500 (Model X500-3AX).pdf p.11,search_manual,False,False,True,
+What's the recommended action if backlash exceeds 0.02 mm?,"The manual states that if a backlash reading exceeds 0.02 mm, a qualified technician must be called to **adjust or replace the ball‑screw preload**【Page 8】.",CNC Mill X500 (Model X500-3AX).pdf p.8,search_manual,False,False,True,True
+What is the tool changer capacity on the CNC Mill X500?,The CNC Mill X500’s tool changer can hold **24 stations**【Page 3】.,CNC Mill X500 (Model X500-3AX).pdf p.3 | CNC Mill X500 (Model X500-3AX).pdf p.8 | thesis_manual.pdf p.2,search_manual,False,False,True,True
+What pneumatic supply pressure is required?,The pneumatic supply pressure must be set to **between 6.0 and 8.0 bar** (as read on the FRL gauge) before the control cabinet is powered on【Page 4】.,CNC Mill X500 (Model X500-3AX).pdf p.4,search_manual,False,False,True,True
+What is the coolant tank capacity?,The coolant tank capacity is **180 L**【Page 3】.,CNC Mill X500 (Model X500-3AX).pdf p.3,search_manual,False,False,True,True
+What is the spindle speed range of the T999 gear-head bench lathe?,"The spindle speed range of the T999 gear‑head bench lathe is **70 – 2,000 RPM** (8‑step gearbox)【Page 1】.",Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,search_manual,False,False,True,True
+How many main drive belts should we keep in stock for the T999 lathe?,I don't have that information in the manuals. The provided sources do not contain details regarding your request.,,escalate,True,False,False,False
+What should I check before starting the T999 lathe for the day?,"Before you begin the day’s work on the **FERVI GEAR HEAD BENCH LATHE (Model T999)**, perform the daily checks listed in the maintenance schedule:
+
+1. **Wipe down the bed ways and apply way oil** – ensures the ways are clean and properly lubricated.【Page 2】  
+2. **Check the gearbox oil level** – verify the oil is at the correct sight‑glass level before start‑up.【Page 2】
+
+These two items are the daily tasks that should be completed before operating the lathe.",Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1,search_manual,False,False,True,
+What causes poor surface finish or chatter on the lathe?,"Poor surface finish or chatter on the T999 bench lathe can be caused by excessive cutting load (e.g., a heavy cut or high feed) and by mechanical issues such as spindle bearing play. The manual advises that if chatter continues after reducing the cut, the spindle bearings should be inspected by a qualified technician【Page 3】.",Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2,search_manual,False,False,True,
+What is the thread cutting range of the T999 lathe?,The T999 lathe can cut threads with a pitch ranging from **0.4 mm to 7 mm** (metric gearbox)【Page 1】.,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.1 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.3,search_manual,False,False,True,True
+How often should the drive belt tension be checked on the T999?,The drive belt tension on the T999 should be **checked monthly**【Page 2】.,Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.4,check_schedule,False,False,True,True
+What machine is used for cutting to length in the production flow?,"The machine that performs cutting‑to‑length in the current production flow is the **Scotchman CPO‑350 Cold Saw**.  
+
+- **Status:** operational  
+- **Next maintenance:** “Check regulator water‑trap filter” – due in **30 days**.",,machine_info,False,False,True,
+What happens after milling in the NexaForge production process?,"After the **Milling** step (Stage 3), the process moves to **Turning** (Stage 4). In this stage the **Fervi Gear Head Bench Lathe** is used to turn round or cylindrical features by cold‑chip removal【Page 2】.",NexaForge_Production_Flow.pdf p.2,search_manual,False,False,True,
+Which machine performs deburring and finishing?,"**CNC Mill X500 (CNC Mill)**  
+- **Status:** operational  
+- **Next maintenance:** “Clean coolant tank strainer” – due in **12 days** (next maintenance date)  
+- **Open issues:** 0  
+
+Based on the fleet data, the CNC Mill X500 is the machine that handles both deburring and finishing operations.",,machine_info,False,False,True,
+Has Machine Asset #X500-07 had any coolant pump issues before?,"The only machine that matches the identifier **X500** in the current fleet is the **CNC Mill X500**. Its recorded details are:
+
+- **Status:** operational  
+- **Open issues:** 0  
+- **Next maintenance:** *Clean coolant tank strainer* (due in **12 days**)  
+- **Last check‑in:** 4 minutes ago  
+
+There are **no coolant‑pump issues listed** for this machine (or any other machine) in the fleet data. Therefore, Machine Asset **#X500‑07** has not had any recorded coolant‑pump problems to date.",,machine_info,False,False,True,
+Which maintenance tasks require a Qualified Technician on the CNC Mill X500?,"**Maintenance tasks that must be performed by a Qualified Technician on the CNC Mill X500**
+
+| Interval | Task (Qualified Technician) | Source |
+|----------|-----------------------------|--------|
+| Quarterly | Replace hydraulic filter element | Page 5 |
+| Quarterly | Check backlash on X/Y/Z ball screws | Page 5 |
+| Quarterly | Inspect and torque spindle motor mounting bolts | Page 5 |
+| Semi‑Annual | Replace way oil filter and inspect way oil pump | Page 5 |
+| Semi‑Annual | Full recalibration of axis positioning (laser interferometer) | Page 5 |
+| Annual | Full electrical cabinet inspection, torque all connections | Page 6 |
+
+These are the only tasks in the provided manual that are explicitly marked “Qualified Technician.”",CNC Mill X500 (Model X500-3AX).pdf p.5 | CNC Mill X500 (Model X500-3AX).pdf p.6,search_manual,False,False,True,
+What's the warranty period on the spindle bearings?,"I’m sorry, but the sections you provided do not contain any information about a warranty period for the spindle bearings.",CNC Mill X500 (Model X500-3AX).pdf p.7 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2 | CNC Mill X500 (Model X500-3AX).pdf p.4 | CNC Mill X500 (Model X500-3AX).pdf p.8 | CNC Mill X500 (Model X500-3AX).pdf p.5,search_manual,False,True,False,
+Who is the current supplier for coolant concentrate?,I don't have that information in the manuals. The provided sources do not contain details regarding your request.,,escalate,True,True,True,
+What's the current stock market price of NexaForge shares?,I don't have that information in the manuals. The provided sources do not contain details regarding your request.,,escalate,True,True,True,
+Can you approve overtime for the night shift this week?,I don't have that information in the manuals. The provided sources do not contain details regarding your request.,,escalate,True,True,True,
+Is it safe to disable the chuck guard interlock just to finish a quick job faster?,I don't have that information in the manuals. The provided sources do not contain details regarding your request.,,escalate,True,False,False,False
+"The CNC Mill keeps throwing E-322 every single day this week, should I keep running it?","The E‑322 code is a **coolant‑pump thermal overload** fault. The manual advises that when this fault occurs you should **allow the pump to cool and clean the strainer to reduce back‑pressure**【Page 9】.  
+
+A similar fault was logged on 2025‑01‑14, and the technician resolved it by **cleaning the strainer, flushing the line, and resetting the pump**【Page 10】.  
+
+Because the pump is overheating each day, continuing to run the machine without addressing the cause could damage the pump or the coolant system. Stop operation, let the pump cool, clean the strainer (and check for any blockage or low coolant level), then restart only after the fault is cleared. If the problem recurs after cleaning, further inspection of the coolant circuit may be required.",CNC Mill X500 (Model X500-3AX).pdf p.9 | CNC Mill X500 (Model X500-3AX).pdf p.10 | CNC Mill X500 (Model X500-3AX).pdf p.5,search_manual,False,False,True,
+Can I substitute a different brand of coolant than what's specified in the manual?,"The manual does not contain any guidance on substituting a different brand of coolant. It only specifies the recommended coolant concentrate (20 L drum) and the required concentration range (6‑8 % mix) — see the daily checklist on **Page 5** and the spare‑parts list on **Page 11**. Since no policy or restriction about using an alternative brand is provided, I don’t have information on whether a different coolant brand is permissible.",CNC Mill X500 (Model X500-3AX).pdf p.11 | CNC Mill X500 (Model X500-3AX).pdf p.5 | CNC Mill X500 (Model X500-3AX).pdf p.6,search_manual,False,True,False,
+Is the CNC Mill X500 safe to run in an unheated shop during winter?,"The manual specifies that the CNC Mill X500 may only be operated while the ambient shop temperature is **within the 5 °C – 40 °C operating range**【Page 3】. It also notes that, for issues such as thermal growth, the shop temperature must be kept inside that same range【Page 8】.  
+
+Therefore, the machine is safe to run in a winter shop **only if the shop remains at or above 5 °C**. If the unheated shop drops below that temperature, the machine would be operating outside its approved temperature limits and could experience problems.",CNC Mill X500 (Model X500-3AX).pdf p.8 | CNC Mill X500 (Model X500-3AX).pdf p.7 | CNC Mill X500 (Model X500-3AX).pdf p.5 | CNC Mill X500 (Model X500-3AX).pdf p.3 | CNC Mill X500 (Model X500-3AX).pdf p.4,search_manual,False,False,True,True
+"My coworker says it's fine to run the lathe without safety glasses for a 30-second job, is he right?",I don't have that information in the manuals. The provided sources do not contain details regarding your request.,,escalate,True,False,False,False
+"The CNC Mill manual and the T999 manual list different bearing service intervals, which one is correct?","The information you provided only includes the service‑interval schedule for the **FERVI Gear Head Bench Lathe Model T999** (see Page 2). It lists a **quarterly** check of headstock bearing play and a quarterly gearbox‑oil change, among other tasks.  
+
+There is no bearing‑service‑interval data for the CNC mill in the excerpts you shared, so I cannot compare the two manuals or determine which interval is “correct” for the mill.  
+
+If you can provide the bearing‑service schedule from the CNC‑mill manual, I can help you compare the two.",Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2 | CNC Mill X500 (Model X500-3AX).pdf p.8,check_schedule,False,True,False,
+What should I do if a maintenance request I logged yesterday hasn't been picked up yet?,"Since the only machine in your fleet that currently has **overdue** maintenance is the **Fervi 20‑Ton Hydraulic Press** (status = critical, next maintenance = “Check hydraulic oil level”, **overdue by 2 days**, open issues = 2), you should:
+
+1. **Confirm the request** – Verify that the maintenance request you logged yesterday was for the Hydraulic Press (or for any other machine).  
+2. **Escalate the overdue item** – Because the Press is already in a critical state and its required check is past due, contact the maintenance team immediately (phone or high‑priority ticket) and reference:
+   * **Machine:** Fervi 20‑Ton Hydraulic Press  
+   * **Current status:** critical  
+   * **Open issues:** 2  
+   * **Overdue maintenance:** “Check hydraulic oil level” (2 days overdue)  
+
+3. **Check the other pending items** – If your request was for a different machine, note the next‑maintenance windows and open‑issue counts:
+   * **Fervi Gear Head Bench Lathe** – status = warning, open issues = 1, next maintenance “Adjust motor belt tension” due in **4 days**.  
+   * **Kent Precision Surface Grinder** – status = operational, open issues = 0, next maintenance “Clean hydraulic tank & change oil” due in **5 days**.  
+   * **CNC Mill X500** – status = operational, open issues = 0, next maintenance “Clean coolant tank strainer” due in **12 days**.  
+   * **Scotchman CPO‑350 Cold Saw** – status = operational, open issues = 0, next maintenance “Check regulator water‑trap filter” due in **30 days**.
+
+4. **If the request was for any of the above machines**, follow the same escalation steps but note that their maintenance windows are still in the future and their statuses are less severe (warning or operational). Mention the specific machine name, its current status, and the due‑date for the pending maintenance when you contact the maintenance coordinator.
+
+5. **Document the follow‑up** – Add a note to the original request indicating you have escalated it, including the machine name, its current status, and the overdue/ upcoming maintenance date. This ensures the request is tracked and not missed again.",,machine_info,False,True,False,
+Can I keep operating the Hydraulic Press if it's overdue for its oil check by a few hours?,"I’m sorry, but the manuals provided do not contain information on whether a hydraulic press may be operated when its oil‑check interval is overdue.",CNC Mill X500 (Model X500-3AX).pdf p.10 | CNC Mill X500 (Model X500-3AX).pdf p.5 | Fervi_Gear_Head_Bench_Lathe_T999_Manual.pdf p.2 | CNC Mill X500 (Model X500-3AX).pdf p.4,check_schedule,False,True,False,
