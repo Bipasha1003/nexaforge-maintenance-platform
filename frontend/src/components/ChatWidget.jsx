@@ -23,6 +23,16 @@ const TOOL_LABELS = {
   out_of_scope: "OUT_OF_SCOPE",
 };
 
+// Maps each tool to a bubble/badge color variant. Anything not
+// listed here (search_manual, check_schedule, machine_info) falls
+// back to the default neutral bubble style.
+const TOOL_COLOR_CLASS = {
+  escalate: "red",
+  out_of_scope: "orange",
+  log_issue: "green",
+  company_info: "blue",
+};
+
 export default function ChatWidget({ openSignal }) {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -34,8 +44,8 @@ export default function ChatWidget({ openSignal }) {
   const sendingRef = useRef(false);
 
   const isAdminPage = window.location.pathname.startsWith("/admin");
-  
-  const displayName = isAdminPage 
+
+  const displayName = isAdminPage
     ? (localStorage.getItem("admin_name") || "Admin")
     : (localStorage.getItem("worker_username") || "worker-guest");
 
@@ -85,12 +95,12 @@ export default function ChatWidget({ openSignal }) {
 
       setMessages((prev) => [
         ...prev,
-        { 
-          role: "bot", 
-          text: data.answer, 
-          sources: data.sources || [], 
+        {
+          role: "bot",
+          text: data.answer,
+          sources: data.sources || [],
           tool: data.tool_used || null,
-          image_url: data.image_url || null  
+          image_url: data.image_url || null
         },
       ]);
     } catch (err) {
@@ -112,7 +122,6 @@ export default function ChatWidget({ openSignal }) {
         <div className={`widget-panel ${expanded ? "widget-panel-expanded" : ""}`}>
           <div className="widget-header">
             <div>
-              {/* Updated Title */}
               <div className="widget-title">🤖 AI Assistant</div>
               <div className="widget-subtitle">
                 User: {displayName} · <span className="widget-clear-link" onClick={clearChat}>Clear chat</span>
@@ -128,35 +137,41 @@ export default function ChatWidget({ openSignal }) {
           </div>
 
           <div className="widget-scroll" ref={scrollRef}>
-            {messages.map((m, i) => (
-              <div key={i} className={`msg-row msg-row-${m.role}`}>
-                {m.role === "bot" && m.tool && (
-                  <div className="tool-badge">{TOOL_LABELS[m.tool] || m.tool}</div>
-                )}
-                
-                <div className={`bubble bubble-${m.role} ${m.role === "bot" && m.tool === "escalate" ? "bubble-red-alert" : ""}`}>
-                  {m.text}
+            {messages.map((m, i) => {
+              const colorVariant = m.role === "bot" ? TOOL_COLOR_CLASS[m.tool] : null;
+
+              return (
+                <div key={i} className={`msg-row msg-row-${m.role}`}>
+                  {m.role === "bot" && m.tool && (
+                    <div className={`tool-badge ${colorVariant ? `tool-badge-${colorVariant}` : ""}`}>
+                      {TOOL_LABELS[m.tool] || m.tool}
+                    </div>
+                  )}
+
+                  <div className={`bubble bubble-${m.role} ${colorVariant ? `bubble-${colorVariant}-alert` : ""}`}>
+                    {m.text}
+                  </div>
+
+                  {m.role === "bot" && m.image_url && (
+                    <div className="attached-image-wrapper">
+                      <img
+                        src={m.image_url}
+                        alt="Manual Diagram"
+                        className="attached-manual-img"
+                      />
+                    </div>
+                  )}
+
+                  {m.role === "bot" && m.sources && m.sources.length > 0 && (
+                    <div className="tabs">
+                      {m.sources.map((s, j) => (
+                        <span className="tab" key={j}>{s.source} <b>p.{s.page}</b></span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-
-                {m.role === "bot" && m.image_url && (
-                  <div className="attached-image-wrapper">
-                    <img 
-                      src={m.image_url} 
-                      alt="Manual Diagram" 
-                      className="attached-manual-img" 
-                    />
-                  </div>
-                )}
-
-                {m.role === "bot" && m.sources && m.sources.length > 0 && (
-                  <div className="tabs">
-                    {m.sources.map((s, j) => (
-                      <span className="tab" key={j}>{s.source} <b>p.{s.page}</b></span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              );
+            })}
 
             {loading && (
               <div className="msg-row msg-row-bot">
@@ -177,7 +192,6 @@ export default function ChatWidget({ openSignal }) {
         </div>
       )}
 
-      {/* Replaced 'MX' text with Robot Emoji */}
       <button className="widget-fab" onClick={() => setOpen((v) => !v)} aria-label={open ? "Close chat" : "Open chat"}>
         {open ? "×" : "🤖"}
       </button>
