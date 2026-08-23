@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ChatWidget from "../components/ChatWidget";
 import "./LandingPage.css"; 
 import "./Admin.css";
@@ -115,6 +115,11 @@ export default function AdminDashboard() {
     localStorage.removeItem("admin_email");
     localStorage.removeItem("admin_name");
     navigate("/"); 
+  }
+
+  function scrollToTop(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const handleDownload = (docId, docName) => {
@@ -251,7 +256,7 @@ export default function AdminDashboard() {
           </section>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40, marginBottom: 16 }}>
+        <div id="equipment-fleet" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40, marginBottom: 16, scrollMarginTop: 100 }}>
           <div className="card-label" style={{ fontSize: 18, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Equipment fleet</div>
           <button type="button" onClick={() => setShowAddMachine(true)} className="admin-text-btn">
             + Add machine
@@ -314,7 +319,7 @@ export default function AdminDashboard() {
           </button>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16 }}>
+        <div id="manual-library" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16, scrollMarginTop: 100 }}>
           <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Manual Library</div>
           <button type="button" onClick={() => setShowAddDocument(true)} className="admin-text-btn">
             + Add document
@@ -350,7 +355,7 @@ export default function AdminDashboard() {
           </table>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16 }}>
+        <div id="team-directory" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16, scrollMarginTop: 100 }}>
           <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Team Directory</div>
           <button type="button" onClick={() => setShowAddWorker(true)} className="admin-text-btn">
             + Add worker
@@ -377,7 +382,15 @@ export default function AdminDashboard() {
                     <div style={{ fontSize: 13, color: "var(--text-muted)" }}>{w.email}</div>
                   </td>
                   <td style={{ padding: "18px 24px" }}>{w.department || "—"}</td>
-                  <td style={{ padding: "18px 24px" }}><span className={`status-pill ${w.must_change_password ? "status-processing" : "status-ready"}`} style={{ fontSize: 12.5, padding: "4px 12px" }}>{w.must_change_password ? "Pending Login" : "Active"}</span></td>
+                  <td style={{ padding: "18px 24px" }}>
+                    <span
+                      className={`status-pill ${w.must_change_password ? "status-processing" : "status-ready"}`}
+                      style={{ fontSize: 12.5, padding: "4px 12px" }}
+                      title={w.must_change_password ? "Worker is still using their temporary password" : "Worker has set their own password"}
+                    >
+                      {w.must_change_password ? "New" : "Active"}
+                    </span>
+                  </td>
                   <td style={{ padding: "18px 24px", textAlign: "right" }}><button className="admin-btn admin-btn-danger-ghost" style={{ fontSize: 13.5, padding: "7px 14px" }} onClick={() => handleDeleteWorker(w.id)}>Remove</button></td>
                 </tr>
               ))}
@@ -402,9 +415,10 @@ export default function AdminDashboard() {
           <div className="footer-section">
             <h4 style={{ color: "#ffffff", fontFamily: "'Fraunces', serif", fontSize: "17px", marginBottom: "18px" }}>Quick Links</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 15 }}>
-              <li style={{ marginBottom: "14px" }}><Link to="/admin" style={{ color: "#e4dfd5", textDecoration: "none" }}>Admin Console</Link></li>
-              <li style={{ marginBottom: "14px" }}><Link to="/dashboard" style={{ color: "#e4dfd5", textDecoration: "none" }}>Worker Fleet Console</Link></li>
-              <li style={{ marginBottom: "14px" }}><Link to="/" style={{ color: "#e4dfd5", textDecoration: "none" }}>Main Website</Link></li>
+              <li style={{ marginBottom: "14px" }}><a href="#top" onClick={scrollToTop} style={{ color: "#e4dfd5", textDecoration: "none", cursor: "pointer" }}>Back to top</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#equipment-fleet" style={{ color: "#e4dfd5", textDecoration: "none" }}>Equipment Fleet</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#manual-library" style={{ color: "#e4dfd5", textDecoration: "none" }}>Manual Library</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#team-directory" style={{ color: "#e4dfd5", textDecoration: "none" }}>Team Directory</a></li>
             </ul>
           </div>
 

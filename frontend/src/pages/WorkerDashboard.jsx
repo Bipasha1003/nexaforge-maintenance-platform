@@ -103,6 +103,11 @@ export default function WorkerDashboard() {
     navigate("/");
   }
 
+  function scrollToTop(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   const handleDownload = (docId, docName) => {
     const identifier = docId || docName;
     if (!identifier) {
@@ -407,9 +412,11 @@ export default function WorkerDashboard() {
           <div className="footer-section">
             <h4 style={{ color: "#ffffff", fontFamily: "'Fraunces', serif", fontSize: "17px", marginBottom: "18px" }}>Quick Links</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 15 }}>
-              <li style={{ marginBottom: "14px" }}><Link to="/dashboard" style={{ color: "#e4dfd5", textDecoration: "none" }}>Fleet Console</Link></li>
-              <li style={{ marginBottom: "14px" }}><Link to="/admin" style={{ color: "#e4dfd5", textDecoration: "none" }}>Admin Panel</Link></li>
-              <li style={{ marginBottom: "14px" }}><Link to="/" style={{ color: "#e4dfd5", textDecoration: "none" }}>Main Website</Link></li>
+              <li style={{ marginBottom: "14px" }}><a href="#top" onClick={scrollToTop} style={{ color: "#e4dfd5", textDecoration: "none", cursor: "pointer" }}>Back to top</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#equipment-fleet" style={{ color: "#e4dfd5", textDecoration: "none" }}>Equipment Fleet</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#capabilities" style={{ color: "#e4dfd5", textDecoration: "none" }}>Capabilities</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#documents" style={{ color: "#e4dfd5", textDecoration: "none" }}>Documents</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#maintenance-log" style={{ color: "#e4dfd5", textDecoration: "none" }}>Maintenance Log</a></li>
             </ul>
           </div>
 
