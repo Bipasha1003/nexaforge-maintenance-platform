@@ -45,6 +45,19 @@ EVAL_QUESTIONS = [
     "Who is the current supplier for coolant concentrate?",
     "What's the current stock market price of NexaForge shares?",
     "Can you approve overtime for the night shift this week?",
+
+    # --- HARD / AMBIGUOUS: genuinely tricky, could go either way ---
+    # These are deliberately borderline so escalation accuracy isn't
+    # artificially perfect — a reasonable router could plausibly get
+    # these wrong, unlike the obviously off-topic questions above.
+    "Is it safe to disable the chuck guard interlock just to finish a quick job faster?",
+    "The CNC Mill keeps throwing E-322 every single day this week, should I keep running it?",
+    "Can I substitute a different brand of coolant than what's specified in the manual?",
+    "Is the CNC Mill X500 safe to run in an unheated shop during winter?",
+    "My coworker says it's fine to run the lathe without safety glasses for a 30-second job, is he right?",
+    "The CNC Mill manual and the T999 manual list different bearing service intervals, which one is correct?",
+    "What should I do if a maintenance request I logged yesterday hasn't been picked up yet?",
+    "Can I keep operating the Hydraulic Press if it's overdue for its oil check by a few hours?",
 ]
 
 # Ground truth for whether the agent SHOULD classify the question as
@@ -55,6 +68,43 @@ EXPECTED_ESCALATE = {
     "Who is the current supplier for coolant concentrate?": True,
     "What's the current stock market price of NexaForge shares?": True,
     "Can you approve overtime for the night shift this week?": True,
+
+    # Hard/ambiguous ones — labeled False where the manual actually
+    # DOES contain a direct answer (even though the question SOUNDS
+    # like it needs human judgment), and True where it genuinely
+    # doesn't, regardless of how "answerable" it sounds on the surface.
+    "Is it safe to disable the chuck guard interlock just to finish a quick job faster?": False,
+    # False: the lathe manual explicitly says never disable guards/interlocks —
+    # this is a direct quote from Section 2, not a judgment call.
+
+    "The CNC Mill keeps throwing E-322 every single day this week, should I keep running it?": False,
+    # False: E-322 has a documented troubleshooting entry (clean strainer, cool
+    # pump). The "keep running" framing sounds like a decision, but the manual
+    # answer (clean the strainer) is directly retrievable.
+
+    "Can I substitute a different brand of coolant than what's specified in the manual?": True,
+    # True: no manual specifies an approved coolant brand or discusses
+    # substitution — genuinely not covered.
+
+    "Is the CNC Mill X500 safe to run in an unheated shop during winter?": False,
+    # False: the manual states an explicit operating temperature range
+    # (5°C-40°C) — directly answerable from the spec table.
+
+    "My coworker says it's fine to run the lathe without safety glasses for a 30-second job, is he right?": False,
+    # False: the lathe manual's safety section explicitly requires ANSI
+    # safety glasses at all times — directly answerable, no judgment needed.
+
+    "The CNC Mill manual and the T999 manual list different bearing service intervals, which one is correct?": True,
+    # True: comparing/reconciling two separate documents' schedules isn't
+    # something either manual addresses on its own — needs a human call.
+
+    "What should I do if a maintenance request I logged yesterday hasn't been picked up yet?": True,
+    # True: no manual covers ticket/request follow-up procedures — that's
+    # an operational/process question, not equipment content.
+
+    "Can I keep operating the Hydraulic Press if it's overdue for its oil check by a few hours?": True,
+    # True: no manual was ingested for the Hydraulic Press yet, so there's
+    # nothing to retrieve this from regardless of how the question is framed.
 }
 
 # Ground truth: for answerable questions, a few keywords/phrases that
@@ -75,4 +125,11 @@ EXPECTED_KEYWORDS = {
     "How many main drive belts should we keep in stock for the T999 lathe?": ["2"],
     "What is the thread cutting range of the T999 lathe?": ["0.4", "7"],
     "How often should the drive belt tension be checked on the T999?": ["monthly"],
+
+    # Hard/ambiguous questions expected to be answered (not escalated) —
+    # keywords proving the answer actually came from the right manual
+    # content, not a vague/generic-sounding non-answer.
+    "Is it safe to disable the chuck guard interlock just to finish a quick job faster?": ["not", "disable"],
+    "Is the CNC Mill X500 safe to run in an unheated shop during winter?": ["5", "40"],
+    "My coworker says it's fine to run the lathe without safety glasses for a 30-second job, is he right?": ["safety glasses"],
 }
