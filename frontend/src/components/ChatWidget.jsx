@@ -19,6 +19,8 @@ const TOOL_LABELS = {
   log_issue: "LOG_ISSUE",
   escalate: "ESCALATE",
   machine_info: "FLEET_STATUS",
+  company_info: "COMPANY_INFO",
+  out_of_scope: "OUT_OF_SCOPE",
 };
 
 export default function ChatWidget({ openSignal }) {

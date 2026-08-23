@@ -15,34 +15,31 @@ def get_llm():
         _llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0)
     return _llm
 
-# Rewritten after evaluation/run_eval.py surfaced two consistent biases:
-#   1. Over-escalating anything with safety-adjacent WORDS ("disable",
-#      "safety glasses"), even when the manual has a direct, explicit
-#      rule about it — the old prompt's "unsafe" wording in the
-#      escalate definition was training this reflex.
-#   2. Under-escalating questions that mention manual-adjacent NOUNS
-#      (bearings, coolant) but ask about something manuals don't
-#      actually cover (warranty, brand substitution).
-# Fixed by being explicit about the DISTINCTION in each case, plus a
-# few worked examples pulled directly from the failing eval questions.
-ROUTER_PROMPT = """You are a query classifier for a manufacturing equipment maintenance assistant.
+ROUTER_PROMPT = """You are a query classifier for a manufacturing equipment maintenance assistant
+built for a company called NexaForge.
 Classify the user's question into exactly ONE of these categories:
 
 - search_manual: troubleshooting, error codes, procedures, specifications, safety precautions/rules, and spare-parts stock questions that a technical equipment manual would directly cover. This INCLUDES "is it safe to..." or "is it okay to..." questions, as long as the manual would state a direct rule about it (guards, interlocks, PPE, operating limits, spare parts stock). Do not escalate just because a question mentions safety, disabling something, or PPE — if a manual would have an explicit rule, classify as search_manual.
 - check_schedule: maintenance interval questions for a SINGLE machine ("how often should X be done", "is Y overdue") — from the manuals.
-- machine_info: questions about a machine's CURRENT live status, next scheduled maintenance date, open issue count, or last check-in, pulled from the live fleet dashboard. This does NOT include questions about the status of a issue/request the USER previously reported (that is escalate, not machine_info) — machine_info is about the equipment's state, not a person's support ticket.
+- machine_info: questions about a machine's CURRENT live status, next scheduled maintenance date, open issue count, or last check-in, pulled from the live fleet dashboard. This does NOT include questions about the status of an issue/request the USER previously reported (that is escalate, not machine_info).
+- company_info: questions about NexaForge the COMPANY or this PLATFORM itself — what NexaForge does, its history, what the assistant/dashboard is, who built it, contact information. NOT about a specific machine or manual.
 - log_issue: the user is reporting a NEW problem they just observed right now, not asking a question.
-- escalate: use this whenever the question cannot be answered from a single equipment manual or the live fleet dashboard. This includes: warranty terms, suppliers/vendors/brand recommendations, business/HR/scheduling decisions, external or real-time information (stock prices, news), questions that require comparing or reconciling two different manuals against each other, and questions about the status of a previously logged issue/request.
+- escalate: use this for questions that ARE related to NexaForge's equipment/operations, but genuinely require a human's judgment or action, and are NOT simple general-knowledge gaps. This includes: warranty terms, suppliers/vendors/brand recommendations, business/HR/scheduling decisions, comparing or reconciling two different manuals against each other, and questions about the status of a previously logged issue/request.
+- out_of_scope: use this for questions that have NO relation to NexaForge, its equipment, its manuals, or this platform at all. This includes general knowledge, world affairs, public figures, celebrities, politicians, unrelated trivia, math problems, or personal-identity questions ("who am I"). These should NOT be escalated to a technician — a technician can't answer them either, they're just outside what this assistant does.
 
 Worked examples (these are the exact kind of edge cases to get right):
 Q: "Is it safe to disable the chuck guard interlock to finish a job faster?" -> search_manual (the manual has a direct rule against this)
-Q: "Is it okay to run without safety glasses for a quick job?" -> search_manual (the manual has a direct PPE rule)
 Q: "How many drive belts should we keep in stock for the lathe?" -> search_manual (spare parts stock is manual content)
-Q: "What's the warranty period on the spindle bearings?" -> escalate (manuals don't cover warranty terms)
-Q: "Can I substitute a different coolant brand than specified?" -> escalate (manuals don't cover brand substitution policy)
-Q: "The two manuals list different bearing intervals, which is correct?" -> escalate (comparing across documents, neither resolves it alone)
-Q: "Has my maintenance request from yesterday been picked up yet?" -> escalate (ticket/request status, not machine status)
+Q: "What's the warranty period on the spindle bearings?" -> escalate (needs a human, but it's about NexaForge's equipment)
+Q: "Can I substitute a different coolant brand than specified?" -> escalate (policy question about NexaForge's equipment)
+Q: "The two manuals list different bearing intervals, which is correct?" -> escalate (comparing across documents)
+Q: "Has my maintenance request from yesterday been picked up yet?" -> escalate (ticket/request status)
 Q: "What's the current status of the CNC Mill X500?" -> machine_info (live equipment status)
+Q: "What is NexaForge?" / "What does this company do?" -> company_info
+Q: "Who is Narendra Modi?" -> out_of_scope (no relation to NexaForge at all)
+Q: "Who is the president of the United States?" -> out_of_scope (world affairs, unrelated)
+Q: "Who am I?" -> out_of_scope (personal identity, not company/equipment related)
+Q: "What's 2+2?" -> out_of_scope (unrelated general question)
 
 Respond with ONLY the category name, nothing else.
 
@@ -70,7 +67,10 @@ def classify_query(question):
 
     category = response.content.strip().lower()
 
-    valid_categories = {"search_manual", "check_schedule", "log_issue", "escalate", "machine_info"}
+    valid_categories = {
+        "search_manual", "check_schedule", "log_issue",
+        "escalate", "out_of_scope", "company_info", "machine_info",
+    }
     if category not in valid_categories:
         return "escalate"  # safe fallback if the LLM returns something unexpected
     return category
@@ -80,10 +80,11 @@ if __name__ == "__main__":
         "What causes E-322 and how do I fix it?",
         "When should I replace the coolant filter?",
         "The spindle just made a loud grinding noise and stopped",
-        "asdkjaskjd random gibberish",
-        "Is it safe to disable the chuck guard interlock to finish a job faster?",
         "What's the warranty period on the spindle bearings?",
         "Has my maintenance request from yesterday been picked up yet?",
+        "What is NexaForge?",
+        "Who is Narendra Modi?",
+        "Who am I?",
     ]
     for q in test_questions:
         category = classify_query(q)

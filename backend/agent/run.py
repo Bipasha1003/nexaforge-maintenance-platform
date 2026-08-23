@@ -39,10 +39,6 @@ If the question asks about something outside this manual context, unrelated topi
         try:
             response = llm.invoke(prompt)
         except RateLimitError as e:
-            # Same Groq daily quota issue as router.py. Fail safe with
-            # a clear message instead of crashing the request/eval —
-            # the user (or eval script) gets an honest "try again
-            # shortly" instead of a stack trace.
             print(f"[ANSWER WARNING] Groq rate limit hit: {e}. Returning fallback message.")
             return (
                 "The AI service is temporarily at its usage limit — please try again in a few minutes.",
@@ -71,22 +67,13 @@ If the question asks about something outside this manual context, unrelated topi
         if not machines:
             return "There are no machines currently registered in the fleet.", []
 
-        # This is LIVE data straight from the machines table (same
-        # source the admin/worker dashboards read), not from an
-        # ingested manual — so no page citations apply here.
-        #
-        # IMPORTANT: no conversation history is injected into this
-        # prompt on purpose. Fleet lookups are stateless — every call
-        # rebuilds the FULL current fleet state fresh from Postgres,
-        # so follow-ups like "what about its next service" still work
-        # fine without needing history. Including history_text here
-        # previously caused a real bug: if an earlier question in the
-        # same chat session got escalated, the exact phrase "This
-        # question needs review by a qualified technician" sat in
-        # history_text, and the LLM would echo that phrasing for
-        # completely unrelated, perfectly valid fleet questions
-        # afterward — even for machines that were clearly in the
-        # fleet data it was just given.
+        # LIVE data from the machines table, no manual citations, and
+        # NO conversation history injected — every call rebuilds the
+        # full current fleet state fresh, so follow-ups still work
+        # without needing history. Including history here previously
+        # caused escalate()'s message to bleed into unrelated fleet
+        # answers when an earlier question in the same session had
+        # escalated.
         fleet_context = "\n".join(
             f"- {m['name']} ({m['type']}): status={m['status']}, "
             f"next maintenance='{m['next_maintenance']}' ({m['next_maintenance_due']}), "
@@ -127,13 +114,18 @@ for a different feature and must never appear in your answer here."""
     elif tool_result["tool"] == "log_issue":
         return tool_result["message"], []
 
-    else:  # escalate (handles out-of-bounds/general-knowledge queries cleanly)
-        # Use the actual message actions.py's escalate() function
-        # returns, instead of a different hardcoded string. This
-        # branch must NEVER be reached by a "machine_info" tool
-        # result — machine_info has its own dedicated elif above, so
-        # it will never fall through to here and pick up this
-        # fallback message by accident.
+    elif tool_result["tool"] == "company_info":
+        # Static, hardcoded text from actions.py — no LLM call needed,
+        # so there's zero risk of the model inventing company facts.
+        return tool_result["message"], []
+
+    elif tool_result["tool"] == "out_of_scope":
+        # General-knowledge/world-affairs/unrelated questions. NOT the
+        # same message as escalate() — this doesn't need a human, it's
+        # just outside what this assistant covers.
+        return tool_result["message"], []
+
+    else:  # escalate — genuinely needs a technician/human's judgment
         return tool_result.get("message", "This question needs review by a qualified technician."), []
 
 def run_agent(question, session_id="default"):
@@ -143,10 +135,7 @@ def run_agent(question, session_id="default"):
     search_query = question
     if history:
         last_question = history[-1]['question']
-        # Add spaces to prevent false positive matches inside other words
         follow_up_keywords = [" it ", " that ", " this ", " how ", " what about ", " why ", " explain "]
-        
-        # Pad the question with spaces so first/last words match correctly
         padded_q = f" {question.lower()} "
         is_short_or_followup = len(question.split()) <= 6 or any(kw in padded_q for kw in follow_up_keywords)
         
@@ -156,14 +145,14 @@ def run_agent(question, session_id="default"):
 
     category = classify_query(search_query)
 
-    # machine_info doesn't benefit from the manual-search query
-    # rewriting above (it ignores search_query entirely and just
-    # pulls the live fleet table), so pass the original question
-    # through for clarity/debuggability rather than the rewritten one.
-    if category == "machine_info":
-        tool_result = TOOL_MAP[category](question)
-    else:
+    # machine_info, company_info, log_issue, escalate, and out_of_scope
+    # all ignore search_query's rewritten form and just need the
+    # original question — only manual retrieval benefits from the
+    # follow-up rewrite.
+    if category in ("search_manual", "check_schedule"):
         tool_result = TOOL_MAP[category](search_query)
+    else:
+        tool_result = TOOL_MAP[category](question)
 
     answer, sources = generate_answer(question, tool_result, history)
     add_exchange(session_id, question, answer)
@@ -182,18 +171,10 @@ def print_chat_reply(question, result):
         print(f"    (Source: {result['sources'][0]['source']} - {pages})")
 
 if __name__ == "__main__":
-    q1 = "What causes E-322 and how do I fix it?"
-    r1 = run_agent(q1, session_id="test")
-    print_chat_reply(q1, r1)
-
-    q2 = "What machines do we have on the floor?"
-    r2 = run_agent(q2, session_id="test2")
-    print_chat_reply(q2, r2)
-
-    q3 = "What is the condition of the Scotchman CPO-350?"
-    r3 = run_agent(q3, session_id="test3")
-    print_chat_reply(q3, r3)
-
-    q4 = "What is the condition of the Fervi 20-Ton Hydraulic Press?"
-    r4 = run_agent(q4, session_id="test4")
-    print_chat_reply(q4, r4)
+    for q in [
+        "What causes E-322 and how do I fix it?",
+        "What is NexaForge?",
+        "Who is Narendra Modi?",
+    ]:
+        r = run_agent(q, session_id=f"test_{hash(q)}")
+        print_chat_reply(q, r)

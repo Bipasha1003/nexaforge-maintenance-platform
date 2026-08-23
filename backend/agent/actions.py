@@ -31,10 +31,46 @@ def log_issue(question):
     }
 
 def escalate(question):
-    """Returns a clear hand-off message instead of attempting an uncertain answer."""
+    """For maintenance-ADJACENT questions the manuals/dashboard genuinely
+    can't resolve, but that a real person still needs to act on — ticket
+    status, warranty, business/HR decisions, brand-substitution policy,
+    comparing conflicting manuals, safety judgment calls not covered by
+    any manual. This is distinct from out_of_scope() below."""
     return {
         "tool": "escalate",
         "message": "This question needs review by a qualified technician. Please contact your maintenance supervisor."
+    }
+
+def out_of_scope(question):
+    """For questions with NO relation to NexaForge, its equipment, or
+    its manuals at all — general knowledge, world affairs, public
+    figures, unrelated trivia, or personal-identity questions. These
+    don't need a technician; they just aren't something this assistant
+    was built to answer, so the response should say so plainly instead
+    of implying a human needs to step in."""
+    return {
+        "tool": "out_of_scope",
+        "message": "I don't have that information in the manuals. The provided sources do not contain details regarding your request."
+    }
+
+# Static facts about NexaForge itself — hardcoded rather than LLM-
+# generated, since this is the one place where making something up
+# would be worse than sounding slightly canned. Keep this in sync with
+# frontend/src/pages/About.jsx and LandingPage.jsx if those change.
+COMPANY_INFO = """NexaForge is a precision components and contract manufacturer, operating since 1998, specializing in high-tolerance components (±0.005mm precision), custom fabrication, and reliable industrial solutions for automotive and heavy-industrial clients.
+
+NexaForge also runs a Fleet Console and Operations Dashboard that digitizes technical equipment manuals into a searchable knowledge base, powered by a hybrid Retrieval-Augmented Generation (RAG) pipeline. This AI assistant is part of that system — it helps factory floor workers and maintenance teams get instant, cited answers from ingested manuals, live equipment status, and maintenance schedules.
+
+Contact: 123 Industrial Parkway | (555) 019-2834 | operations@nexaforge.com"""
+
+def company_info(question):
+    """Returns static info about NexaForge the company/platform itself
+    — not a specific machine. Handles questions like 'what is
+    NexaForge', 'what does this company do', 'who is this platform
+    for', etc."""
+    return {
+        "tool": "company_info",
+        "message": COMPANY_INFO,
     }
 
 def machine_info(question):
@@ -53,6 +89,8 @@ TOOL_MAP = {
     "check_schedule": check_schedule,
     "log_issue": log_issue,
     "escalate": escalate,
+    "out_of_scope": out_of_scope,
+    "company_info": company_info,
     "machine_info": machine_info,
 }
 
@@ -61,7 +99,9 @@ if __name__ == "__main__":
         ("search_manual", "What causes E-322 and how do I fix it?"),
         ("check_schedule", "When should I replace the coolant filter?"),
         ("log_issue", "The spindle just made a loud grinding noise and stopped"),
-        ("escalate", "asdkjaskjd random gibberish")
+        ("escalate", "Has my maintenance request from yesterday been picked up yet?"),
+        ("out_of_scope", "Who is Narendra Modi?"),
+        ("company_info", "What is NexaForge?"),
     ]
     for tool_name, question in test_cases:
         print(f"=== Tool: {tool_name} ===")
