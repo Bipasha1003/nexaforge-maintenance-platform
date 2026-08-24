@@ -67,13 +67,6 @@ If the question asks about something outside this manual context, unrelated topi
         if not machines:
             return "There are no machines currently registered in the fleet.", []
 
-        # LIVE data from the machines table, no manual citations, and
-        # NO conversation history injected — every call rebuilds the
-        # full current fleet state fresh, so follow-ups still work
-        # without needing history. Including history here previously
-        # caused escalate()'s message to bleed into unrelated fleet
-        # answers when an earlier question in the same session had
-        # escalated.
         fleet_context = "\n".join(
             f"- {m['name']} ({m['type']}): status={m['status']}, "
             f"next maintenance='{m['next_maintenance']}' ({m['next_maintenance_due']}), "
@@ -115,14 +108,9 @@ for a different feature and must never appear in your answer here."""
         return tool_result["message"], []
 
     elif tool_result["tool"] == "company_info":
-        # Static, hardcoded text from actions.py — no LLM call needed,
-        # so there's zero risk of the model inventing company facts.
         return tool_result["message"], []
 
     elif tool_result["tool"] == "out_of_scope":
-        # General-knowledge/world-affairs/unrelated questions. NOT the
-        # same message as escalate() — this doesn't need a human, it's
-        # just outside what this assistant covers.
         return tool_result["message"], []
 
     else:  # escalate — genuinely needs a technician/human's judgment
@@ -145,12 +133,17 @@ def run_agent(question, session_id="default"):
 
     category = classify_query(search_query)
 
-    # machine_info, company_info, log_issue, escalate, and out_of_scope
-    # all ignore search_query's rewritten form and just need the
-    # original question — only manual retrieval benefits from the
-    # follow-up rewrite.
+    # machine_info, company_info, escalate, and out_of_scope all
+    # ignore search_query's rewritten form and just need the original
+    # question — only manual retrieval benefits from the follow-up
+    # rewrite. log_issue additionally needs to know WHO is reporting,
+    # so its logged entry can actually be attributed on the
+    # Maintenance Log instead of being anonymous — session_id is the
+    # user's display name, set by api/query.py from req.user_id.
     if category in ("search_manual", "check_schedule"):
         tool_result = TOOL_MAP[category](search_query)
+    elif category == "log_issue":
+        tool_result = TOOL_MAP[category](question, user_id=session_id)
     else:
         tool_result = TOOL_MAP[category](question)
 

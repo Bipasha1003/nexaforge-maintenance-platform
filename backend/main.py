@@ -7,6 +7,7 @@ from api.public import router as public_router
 from api.worker import router as worker_router
 from api.machines import router as machines_router
 from api.documents import router as documents_router
+from api.issues import router as issues_router
 
 app = FastAPI()
 
@@ -25,3 +26,4 @@ app.include_router(public_router)
 app.include_router(worker_router)
 app.include_router(machines_router)
 app.include_router(documents_router)
+app.include_router(issues_router)

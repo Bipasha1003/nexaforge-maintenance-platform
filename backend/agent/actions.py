@@ -3,6 +3,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from search.rerank import search_with_rerank
 from storage import machine_store
+from storage import issue_store
 
 def search_manual(question):
     """Retrieves the best matching manual/troubleshooting chunks for a question."""
@@ -20,10 +21,19 @@ def check_schedule(question):
         "chunks": results
     }
 
-def log_issue(question):
-    """Records a newly reported problem. Minimal version: logs to console.
-    Could be extended to write into a dedicated issues table in Supabase."""
-    print(f"[ISSUE LOGGED] {question}")
+def log_issue(question, user_id=None):
+    """Records a newly reported problem into the issues table so it
+    actually shows up on the Worker Dashboard's Maintenance Log and
+    can be reviewed by the maintenance team. Previously this only
+    printed to the server console and the entry was lost forever."""
+    try:
+        issue_store.create_issue(user_id=user_id or "unknown", issue_text=question)
+    except Exception as e:
+        # Don't let a DB hiccup break the chat response itself — the
+        # user still gets confirmation, we just log the save failure
+        # server-side for debugging.
+        print(f"[LOG_ISSUE WARNING] Failed to save issue to database: {type(e).__name__}: {e}")
+
     return {
         "tool": "log_issue",
         "message": "Your issue has been logged for the maintenance team to review.",

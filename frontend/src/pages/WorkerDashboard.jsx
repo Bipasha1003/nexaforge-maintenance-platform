@@ -7,6 +7,7 @@ import { API_BASE } from "../config";
 
 const MACHINES_URL = `${API_BASE}/machines`;
 const DOCS_URL = `${API_BASE}/documents`;
+const ISSUES_URL = `${API_BASE}/issues`;
 
 const STATUS_LABEL = { operational: "Operational", warning: "Needs attention", critical: "Critical" };
 
@@ -46,6 +47,8 @@ export default function WorkerDashboard() {
   const [fleet, setFleet] = useState([]);
   const [docs, setDocs] = useState([]);
   const [docsError, setDocsError] = useState(false);
+  const [issues, setIssues] = useState([]);
+  const [issuesError, setIssuesError] = useState(false);
   const [chatSignal, setChatSignal] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -85,16 +88,32 @@ export default function WorkerDashboard() {
     }
   }, []);
 
+  const fetchIssues = useCallback(async () => {
+    try {
+      const res = await fetch(ISSUES_URL);
+      if (res.ok) {
+        setIssues(await res.json());
+        setIssuesError(false);
+      } else {
+        setIssuesError(true);
+      }
+    } catch {
+      setIssuesError(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (!token) { navigate("/login"); return; }
     fetchMachines();
     fetchDocs();
+    fetchIssues();
     const interval = setInterval(() => {
       fetchMachines();
       fetchDocs();
+      fetchIssues();
     }, 5000);
     return () => clearInterval(interval);
-  }, [token, navigate, fetchMachines, fetchDocs]);
+  }, [token, navigate, fetchMachines, fetchDocs, fetchIssues]);
 
   function handleLogout() {
     localStorage.removeItem("worker_token");
@@ -380,19 +399,46 @@ export default function WorkerDashboard() {
               marginBottom: 14,
             }}
           >
-            Maintenance log — sample entry
+            {issuesError
+              ? "Maintenance log"
+              : `Maintenance log — ${issues.length} entr${issues.length === 1 ? "y" : "ies"} logged`}
           </div>
-          <div className="card" style={{ padding: 20, borderRadius: 10 }}>
-            <p style={{ fontSize: 14.5, lineHeight: 1.7, color: "var(--text-muted)", margin: 0 }}>
-              Example incident pulled from the ingested manual: technician R. Alvarez logged E-322 caused by chip
-              sludge buildup from a missed weekly strainer cleaning; resolved by cleaning the strainer, flushing
-              the line, and a pump reset. Ask the assistant for any other logged incident by error code or date.
+
+          {issuesError && (
+            <p style={{ fontSize: 14, color: "var(--danger)", margin: 0 }}>
+              Couldn't load the maintenance log. Check the backend connection.
             </p>
-          </div>
-          <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginTop: 14, marginBottom: 0, fontStyle: "italic" }}>
-            This section is a placeholder — log_issue() in agent/actions.py currently only prints to console, so
-            real entries aren't stored anywhere yet.
-          </p>
+          )}
+
+          {!issuesError && issues.length === 0 && (
+            <div className="card" style={{ padding: 20, borderRadius: 10 }}>
+              <p style={{ fontSize: 14.5, lineHeight: 1.7, color: "var(--text-muted)", margin: 0 }}>
+                No issues logged yet. Tell the assistant about anything you notice on the floor — e.g.
+                "the spindle just made a loud grinding noise" — and it'll show up here automatically.
+              </p>
+            </div>
+          )}
+
+          {!issuesError && issues.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {issues.map((issue) => (
+                <div key={issue.id} className="card" style={{ padding: "16px 20px", borderRadius: 10, display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontSize: 14.5, lineHeight: 1.6, color: "var(--text)", margin: 0 }}>{issue.issue_text}</p>
+                    <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 6, fontFamily: '"JetBrains Mono", monospace' }}>
+                      Reported by {issue.user_id} · {issue.created_at}
+                    </div>
+                  </div>
+                  <span
+                    className={`status-pill ${issue.status === "resolved" ? "status-ready" : "status-processing"}`}
+                    style={{ fontSize: 11, padding: "3px 10px", flexShrink: 0 }}
+                  >
+                    {issue.status === "resolved" ? "Resolved" : "Open"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
 
