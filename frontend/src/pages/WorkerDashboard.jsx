@@ -258,7 +258,7 @@ export default function WorkerDashboard() {
             <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>See maintenance log below</div>
           </section>
           <section className="card" style={{ padding: 26, borderRadius: 14 }}>
-            <div className="card-label" style={{ fontSize: 15 }}>Manuals ingested</div>
+            <div className="card-label" style={{ fontSize: 15 }}>Manuals available</div>
             <div className="card-value" style={{ fontSize: 24, marginTop: 6 }}>
               {docsError ? "—" : readyDocs.length}
             </div>
