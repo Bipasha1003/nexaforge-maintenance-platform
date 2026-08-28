@@ -266,6 +266,13 @@ export default function AdminDashboard() {
             <div className="card-value" style={{ fontSize: 24, marginTop: 6 }}>{summary.openIssues}</div>
             <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>Across all fleet units</div>
           </section>
+                    <section className="card" style={{ padding: 26, borderRadius: 14 }}>
+            <div className="card-label" style={{ fontSize: 15 }}>Manuals ingested</div>
+            <div className="card-value" style={{ fontSize: 24, marginTop: 6 }}>
+              {docsError ? "—" : readyDocs.length}
+            </div>
+            <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>Assistant covers all ingested manuals</div>
+          </section>
         </div>
 
         <div id="equipment-fleet" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40, marginBottom: 16, scrollMarginTop: 100 }}>
