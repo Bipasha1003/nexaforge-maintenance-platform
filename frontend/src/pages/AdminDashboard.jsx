@@ -10,6 +10,7 @@ const DELETE_URL = `${API_BASE}/admin/documents`;
 const UPLOAD_URL = `${API_BASE}/admin/upload`;
 const WORKERS_URL = `${API_BASE}/admin/workers`;
 const MACHINES_URL = `${API_BASE}/machines`;
+const ISSUES_URL = `${API_BASE}/issues`;
 
 const STATUS_LABEL = { operational: "Operational", warning: "Needs attention", critical: "Critical" };
 
@@ -30,6 +31,7 @@ export default function AdminDashboard() {
   const [docs, setDocs] = useState([]);
   const [workers, setWorkers] = useState([]);
   const [fleet, setFleet] = useState([]);
+  const [issues, setIssues] = useState([]);
   const [chatSignal, setChatSignal] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAddMachine, setShowAddMachine] = useState(false);
@@ -55,14 +57,16 @@ export default function AdminDashboard() {
   const fetchData = useCallback(async () => {
     if (!token) return;
     try {
-      const [docsRes, workersRes, machinesRes] = await Promise.all([
+      const [docsRes, workersRes, machinesRes, issuesRes] = await Promise.all([
         fetch(DOCS_URL, { headers: { Authorization: `Bearer ${token}` } }),
         fetch(WORKERS_URL, { headers: { Authorization: `Bearer ${token}` } }),
         fetch(MACHINES_URL),
+        fetch(ISSUES_URL),
       ]);
       if (docsRes.ok) setDocs(await docsRes.json());
       if (workersRes.ok) setWorkers(await workersRes.json());
       if (machinesRes.ok) setFleet(await machinesRes.json());
+      if (issuesRes.ok) setIssues(await issuesRes.json());
     } catch {
       // silent catch for interval polling
     }
@@ -107,6 +111,14 @@ export default function AdminDashboard() {
 
   async function handleRemoveMachine(id) {
     await fetch(`${MACHINES_URL}/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+    fetchData();
+  }
+
+  async function handleResolveIssue(issueId) {
+    await fetch(`${ISSUES_URL}/${issueId}/resolve`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     fetchData();
   }
 
@@ -355,6 +367,34 @@ export default function AdminDashboard() {
           </table>
         </div>
 
+        <div id="maintenance-log" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16 }}>
+          <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600 }}>Maintenance Log</div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {issues.length === 0 && (
+            <div className="card" style={{ padding: 20, borderRadius: 10, color: "var(--text-muted)" }}>
+              No issues logged.
+            </div>
+          )}
+          {issues.map((issue) => (
+            <div key={issue.id} className="card" style={{ padding: "16px 20px", borderRadius: 10, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: 0, fontSize: 14.5 }}>{issue.issue_text}</p>
+                <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 6 }}>
+                  Reported by {issue.user_id} · {issue.created_at}
+                </div>
+              </div>
+              {issue.status === "resolved" ? (
+                <span className="status-pill status-ready" style={{ fontSize: 11, padding: "3px 10px" }}>Resolved</span>
+              ) : (
+                <button className="admin-btn admin-btn-primary" style={{ width: "auto", padding: "7px 16px" }} onClick={() => handleResolveIssue(issue.id)}>
+                  Mark resolved
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+
         <div id="team-directory" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 56, marginBottom: 16, scrollMarginTop: 100 }}>
           <div className="card-label" style={{ fontSize: 20, fontFamily: '"Fraunces", serif', fontWeight: 600, color: "var(--text)" }}>Team Directory</div>
           <button type="button" onClick={() => setShowAddWorker(true)} className="admin-text-btn">
@@ -418,6 +458,7 @@ export default function AdminDashboard() {
               <li style={{ marginBottom: "14px" }}><a href="#top" onClick={scrollToTop} style={{ color: "#e4dfd5", textDecoration: "none", cursor: "pointer" }}>Back to top</a></li>
               <li style={{ marginBottom: "14px" }}><a href="#equipment-fleet" style={{ color: "#e4dfd5", textDecoration: "none" }}>Equipment Fleet</a></li>
               <li style={{ marginBottom: "14px" }}><a href="#manual-library" style={{ color: "#e4dfd5", textDecoration: "none" }}>Manual Library</a></li>
+              <li style={{ marginBottom: "14px" }}><a href="#maintenance-log" style={{ color: "#e4dfd5", textDecoration: "none" }}>Maintenance Log</a></li>
               <li style={{ marginBottom: "14px" }}><a href="#team-directory" style={{ color: "#e4dfd5", textDecoration: "none" }}>Team Directory</a></li>
             </ul>
           </div>

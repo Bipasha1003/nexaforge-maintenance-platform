@@ -154,6 +154,8 @@ export default function WorkerDashboard() {
     return `${summary.operational} of ${summary.total} machines are running clean. ${summary.openIssues === 1 ? "One open issue is" : `${summary.openIssues} open issues are`} logged on the floor.`;
   }, [summary]);
 
+  const readyDocs = docs.filter((d) => d.status?.toLowerCase() === "ready");
+
   return (
     <div className="site site-bg-worker">
       <header className={`landing-header ${isScrolled ? "scrolled" : ""}`} style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(8px)", borderBottom: "1px solid #eaeaea" }}>
@@ -258,7 +260,7 @@ export default function WorkerDashboard() {
           <section className="card" style={{ padding: 26, borderRadius: 14 }}>
             <div className="card-label" style={{ fontSize: 15 }}>Manuals ingested</div>
             <div className="card-value" style={{ fontSize: 24, marginTop: 6 }}>
-              {docsError ? "—" : `${docs.filter((d) => d.status?.toLowerCase() === "ready").length}/${docs.length || 0}`}
+              {docsError ? "—" : readyDocs.length}
             </div>
             <div className="kpi-sub" style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>Assistant covers all ingested manuals</div>
           </section>
@@ -349,32 +351,22 @@ export default function WorkerDashboard() {
             <thead>
               <tr style={{ background: "#f5f3ef", textAlign: "left" }}>
                 <th style={{ padding: "16px 24px", fontSize: 13 }}>Document</th>
-                <th style={{ padding: "16px 24px", fontSize: 13 }}>Status</th>
                 <th style={{ padding: "16px 24px", fontSize: 13 }}>Pages</th>
                 <th style={{ padding: "16px 24px", fontSize: 13 }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {docsError ? (
-                <tr>
-                  <td colSpan={4} style={{ padding: "20px 24px", color: "var(--danger)", fontStyle: "italic", textAlign: "center" }}>
-                    Failed to load documents. Check backend connection.
-                  </td>
-                </tr>
-              ) : docs.length === 0 ? (
-                <tr>
-                  <td colSpan={4} style={{ padding: "20px 24px", color: "var(--text-muted)", fontStyle: "italic", textAlign: "center" }}>
-                    No documents have been ingested yet.
-                  </td>
-                </tr>
+                <tr><td colSpan={3} style={{ padding: "20px 24px", color: "var(--danger)", textAlign: "center" }}>Failed to load documents.</td></tr>
+              ) : readyDocs.length === 0 ? (
+                <tr><td colSpan={3} style={{ padding: "20px 24px", color: "var(--text-muted)", textAlign: "center" }}>No documents ready yet.</td></tr>
               ) : (
-                docs.map((doc) => (
+                readyDocs.map((doc) => (
                   <tr key={doc.id} style={{ borderBottom: "1px solid var(--border)" }}>
                     <td style={{ padding: "18px 24px", fontWeight: 500 }}>{doc.name}</td>
-                    <td style={{ padding: "18px 24px" }}><span className={`status-pill status-${doc.status?.toLowerCase() || 'processing'}`} style={{ fontSize: 12.5, padding: "4px 12px" }}>{doc.status}</span></td>
                     <td style={{ padding: "18px 24px" }}>{doc.pages ?? "—"}</td>
                     <td style={{ padding: "18px 24px" }}>
-                      <a href="#" onClick={(e) => { e.preventDefault(); handleDownload(doc.id || doc.name, doc.name); }} style={{ fontSize: 14, textDecoration: "none", color: "var(--l-accent)", fontWeight: 600, cursor: "pointer" }}>
+                      <a href="#" onClick={(e) => { e.preventDefault(); handleDownload(doc.id || doc.name, doc.name); }} style={{ fontSize: 14, textDecoration: "none", color: "var(--l-accent)", fontWeight: 600 }}>
                         ⬇ Download
                       </a>
                     </td>

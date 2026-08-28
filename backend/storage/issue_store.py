@@ -42,13 +42,28 @@ def list_issues():
         """
         SELECT id::text, user_id, issue_text, status,
                TO_CHAR(created_at, 'YYYY-MM-DD HH24:MI') as created_at
-        FROM issues ORDER BY created_at DESC;
+        FROM issues
+        WHERE status = 'open'
+           OR (status = 'resolved' AND resolved_at > NOW() - INTERVAL '24 hours')
+        ORDER BY created_at DESC;
         """
     )
     rows = cur.fetchall()
     cur.close()
     conn.close()
     return [dict(r) for r in rows]
+
+
+def resolve_issue(issue_id: str):
+    conn = _get_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE issues SET status = 'resolved', resolved_at = NOW() WHERE id = %s;",
+        (issue_id,),
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 def resolve_issue(issue_id: str):
