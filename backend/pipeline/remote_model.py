@@ -1,47 +1,35 @@
 import os
-import time
 import numpy as np
-from huggingface_hub import InferenceClient
-
-HF_TOKEN = os.getenv("HF_TOKEN")
+from fastembed import TextEmbedding
+ 
+# Same model as before, so existing Supabase vectors stay compatible.
 EMBED_MODEL = os.getenv("EMBED_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
-
-_client = None
-
-def _get_client():
-    global _client
-    if _client is None:
-        _client = InferenceClient(token=HF_TOKEN)
-    return _client
-
+ 
+_embedder = None
+ 
+ 
+def _get_embedder():
+    global _embedder
+    if _embedder is None:
+        # Downloads the small ONNX model on first use, then runs locally.
+        _embedder = TextEmbedding(model_name=EMBED_MODEL)
+    return _embedder
+ 
+ 
 class RemoteEmbeddingModel:
+    """Kept under the old name so vectorizer.py and the rest of the code
+    keep working unchanged. It no longer calls any remote API."""
+ 
     def encode(self, text, **kwargs):
-        client = _get_client()
         is_single = isinstance(text, str)
         texts = [text] if is_single else list(text)
-
-        vectors = []
-        for t in texts:
-            for attempt in range(3):
-                try:
-                    result = client.feature_extraction(t, model=EMBED_MODEL)
-                    break
-                except Exception as e:
-                    if attempt == 2:
-                        raise e
-                    print("Hugging Face model waking up... retrying in 5 seconds.")
-                    time.sleep(5)
-            
-            arr = np.array(result)
-            if arr.ndim == 2:
-                arr = arr.mean(axis=0)
-            vectors.append(arr)
-
-        arr = np.array(vectors)
-        return arr[0] if is_single else arr
-
+        vectors = np.array(list(_get_embedder().embed(texts)))
+        return vectors[0] if is_single else vectors
+ 
+ 
 _model = None
-
+ 
+ 
 def get_remote_model():
     global _model
     if _model is None:
