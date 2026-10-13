@@ -35,3 +35,4 @@ def get_remote_model():
     if _model is None:
         _model = RemoteEmbeddingModel()
     return _model
+ 
